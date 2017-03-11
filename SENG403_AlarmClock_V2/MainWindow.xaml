@@ -18,7 +18,9 @@
         <Button x:Name="alarmSideBarButton" Background="Black" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="50" Height="50" FontSize="22">
             <Image Source="pack://application:,,,/Images/menu-icon.png" RenderOptions.BitmapScalingMode="Fant"></Image>
         </Button>
-        <StackPanel HorizontalAlignment="Left" Height="597" Margin="0,62,0,0" VerticalAlignment="Top" Width="252"/>
+        <StackPanel x:Name="AlarmList_Panel" Background="Black" HorizontalAlignment="Left" Height="597" Margin="0,62,0,0" VerticalAlignment="Top" Width="252">
+            
+        </StackPanel>
         <Button x:Name="AddAlarmButton" Background="Black" HorizontalAlignment="Left" Margin="55,10,0,0" VerticalAlignment="Top" Width="50" Height="50" BorderThickness="0" Click="AddAlarmButton_Click">
             <Image Source="pack://application:,,,/Images/plus-button-green.png" Width="50"></Image>
         </Button>

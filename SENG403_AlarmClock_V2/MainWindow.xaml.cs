@@ -28,6 +28,8 @@ namespace SENG403_AlarmClock_V2
         private void AddAlarmButton_Click(object sender, RoutedEventArgs e)
         {
             new NewAlarmWindow().ShowDialog();
+            AlarmList_Panel.Children.Add(new AlarmUserControl(AlarmList_Panel));
+
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

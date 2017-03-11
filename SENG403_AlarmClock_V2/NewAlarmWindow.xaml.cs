@@ -29,6 +29,7 @@ namespace SENG403_AlarmClock_V2
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
+            
             this.Close();
         }
 
