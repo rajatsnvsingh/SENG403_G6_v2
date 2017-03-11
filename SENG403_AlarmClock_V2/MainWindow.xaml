@@ -1,0 +1,31 @@
+﻿<Window x:Class="SENG403_AlarmClock_V2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SENG403_AlarmClock_V2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1210" Background="Black">
+    <Grid>
+        <Image x:Name="clockBackground"  Source="pack://application:,,,/Images/background.jpg" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-56,0" Width="1278" />
+
+        <Label x:Name="hourLabel" Foreground="White" Content="04 : 20 " HorizontalAlignment="Left" VerticalAlignment="Top" Height="128" Width="368" FontSize="100" FontFamily="Franklin Gothic Book" Margin="334,237,0,0"/>
+        <Label x:Name="minuteLabel" Foreground="White" Content=": 00" HorizontalAlignment="Left" Margin="647,274,0,0" VerticalAlignment="Top" Height="84" Width="120" FontFamily="Comic Sans MS" FontSize="50"/>
+        <Label x:Name="AMPM_thing" Content="AM"  Foreground="White" HorizontalAlignment="Left" Margin="767,284,0,0" VerticalAlignment="Top" FontSize="48" FontFamily="Matura MT Script Capitals"/>
+
+
+        <Label x:Name="label" Foreground="White"  Content="The Dining Philosophers" HorizontalAlignment="Left" Margin="938,620,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Vladimir Script"/>
+        <Button x:Name="alarmSideBarButton" Background="Black" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="50" Height="50" FontSize="22">
+            <Image Source="pack://application:,,,/Images/menu-icon.png" RenderOptions.BitmapScalingMode="Fant"></Image>
+        </Button>
+        <StackPanel HorizontalAlignment="Left" Height="597" Margin="0,62,0,0" VerticalAlignment="Top" Width="252"/>
+        <Button x:Name="AddAlarmButton" Background="Black" HorizontalAlignment="Left" Margin="55,10,0,0" VerticalAlignment="Top" Width="50" Height="50" BorderThickness="0" Click="AddAlarmButton_Click">
+            <Image Source="pack://application:,,,/Images/plus-button-green.png" Width="50"></Image>
+        </Button>
+        <Label x:Name="DayDate" Foreground="White" Content="Munday, March 66, 2917" HorizontalAlignment="Left" Margin="663,365,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Button x:Name="SettingsButton" Background="Black"  BorderThickness="0" HorizontalAlignment="Left" Margin="110,10,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="Settings_Click">
+            <Image x:Name="GlobalSettings_Button" Source="pack://application:,,,/Images/TurnMyWrenchBabay.png" ></Image>
+        </Button>
+
+    </Grid>
+</Window>
