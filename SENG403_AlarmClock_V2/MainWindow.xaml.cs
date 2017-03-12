@@ -25,6 +25,11 @@ namespace SENG403_AlarmClock_V2
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Opens Window for New Alarm settings, and adds new alarm UserControl to StackPanel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddAlarmButton_Click(object sender, RoutedEventArgs e)
         {
             new NewAlarmWindow().ShowDialog();
