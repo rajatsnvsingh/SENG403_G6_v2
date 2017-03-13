@@ -20,9 +20,36 @@ namespace SENG403_AlarmClock_V2
     /// </summary>
     public partial class MainWindow : Window
     {
+        double snoozeTime = 5;
+        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        
+        
         public MainWindow()
         {
             InitializeComponent();
+            hourLabel.Content = DateTime.Now.ToString("hh : mm");
+            minuteLabel.Content = DateTime.Now.ToString(": ss");
+            AMPM_thing.Content = DateTime.Now.ToString("tt");
+            DayDate.Content = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            hourLabel.Content = DateTime.Now.ToString("hh : mm");
+            minuteLabel.Content = DateTime.Now.ToString(": ss");
+            AMPM_thing.Content = DateTime.Now.ToString("tt");
+            DayDate.Content = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
+            foreach (AlarmUserControl u in AlarmList_Panel.Children)
+            {
+                if (DateTime.Now.CompareTo(u.alarm.GetTime()) > 0)
+                {
+                    u.alarm.play();
+                }
+            }
+           
         }
 
         /// <summary>
@@ -32,8 +59,8 @@ namespace SENG403_AlarmClock_V2
         /// <param name="e"></param>
         private void AddAlarmButton_Click(object sender, RoutedEventArgs e)
         {
-            new NewAlarmWindow().ShowDialog();
-            AlarmList_Panel.Children.Add(new AlarmUserControl(AlarmList_Panel));
+            Alarm newAlarm = new Alarm("...\\Sounds\\missileAlert.wav",snoozeTime);
+            AlarmList_Panel.Children.Add(new AlarmUserControl(AlarmList_Panel, newAlarm));
 
         }
 
@@ -45,7 +72,18 @@ namespace SENG403_AlarmClock_V2
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
 
-            new GlobalSettings().ShowDialog();
+            new GlobalSettings((int)snoozeTime).ShowDialog();
+        }
+
+        private void AlarmSideBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlarmList_Panel.Visibility == Visibility.Visible) {
+                AlarmList_Panel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                AlarmList_Panel.Visibility = Visibility.Visible;
+            }
         }
     }
 }

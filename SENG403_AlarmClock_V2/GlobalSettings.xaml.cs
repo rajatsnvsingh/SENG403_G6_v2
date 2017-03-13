@@ -19,9 +19,10 @@ namespace SENG403_AlarmClock_V2
     /// </summary>
     public partial class GlobalSettings : Window
     {
-        public GlobalSettings()
+        public GlobalSettings(int currentSnooze)
         {
             InitializeComponent();
+            Snooze_Selector.DefaultValue = currentSnooze;
         }
 
         private void Done_Click(object sender, RoutedEventArgs e)

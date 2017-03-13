@@ -16,13 +16,13 @@
 
         <Label x:Name="label" Foreground="White"  Content="The Dining Philosophers" HorizontalAlignment="Left" Margin="938,620,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Vladimir Script"/>
        
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Background="Black" Width="252" Margin="0,60,0,16" HorizontalAlignment="Left">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Background="Transparent" Width="252" Margin="0,60,0,16" HorizontalAlignment="Left">
             
             <StackPanel x:Name="AlarmList_Panel"  HorizontalAlignment="Left"  Margin="0,62,0,0" VerticalAlignment="Top" Width="252" Height="Auto">
                
             </StackPanel>
         </ScrollViewer>
-        <Button x:Name="alarmSideBarButton" Background="Black" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="50" Height="50" FontSize="22">
+        <Button x:Name="alarmSideBarButton" Background="Black" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="50" Height="50" FontSize="22" Click="AlarmSideBarButton_Click">
             <Image Source="pack://application:,,,/Images/menu-icon.png" RenderOptions.BitmapScalingMode="Fant"></Image>
         </Button>
 

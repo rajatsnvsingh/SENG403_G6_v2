@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Quad\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V2\obj\Debug\
+C:\Users\alexander.thompson\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V2\obj\Debug\
 SENG403_AlarmClock_V2
 none
 false
 DEBUG;TRACE
-C:\Users\Quad\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V2\App.xaml
+C:\Users\alexander.thompson\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V2\App.xaml
 4-277012493
-
-12-1986166271
-16341900772
+1-129429737
+13-1756271371
+16177709314
 AlarmUserControl.xaml;GlobalSettings.xaml;MainWindow.xaml;NewAlarmWindow.xaml;
 
-True
+False
 

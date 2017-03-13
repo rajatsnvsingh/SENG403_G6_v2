@@ -19,17 +19,28 @@ namespace SENG403_AlarmClock_V2
     /// </summary>
     public partial class NewAlarmWindow : Window
     {
-        public NewAlarmWindow()
+        private Alarm alarm;
+        private List<String> alarmSounds = new List<string>();
+        AlarmUserControl alarmControl;
+        public NewAlarmWindow(AlarmUserControl alarmControl, Alarm alarm)
         {
             InitializeComponent();
             RadioGrid.Visibility = Visibility.Collapsed;
             OtherProps.Margin = new Thickness(26, 149, 21, 34);
+            this.alarm = alarm;
+            this.alarmControl = alarmControl;
+            alarmSounds.Add("...\\Sounds\\missileAlert.wav");
+            AlarmTone_comboBox.ItemsSource = alarmSounds;
 
         }
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
-            
+            DateTime alarmTime;
+            DateTime.TryParse(Alarm_TimePicker.Text, out alarmTime);
+            alarm.SetTime(alarmTime);
+            alarm.SetSound((String)AlarmTone_comboBox.SelectedValue);
+            alarmControl.refresh();
             this.Close();
         }
 
@@ -45,7 +56,7 @@ namespace SENG403_AlarmClock_V2
 
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
         }
 
         private void repeat_checkBox_Checked(object sender, RoutedEventArgs e)
