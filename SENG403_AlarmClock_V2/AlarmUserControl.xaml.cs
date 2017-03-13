@@ -42,14 +42,14 @@ namespace SENG403_AlarmClock_V2
             {
                 EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Red);
                 EnableDisableAlarm_Button.Content = "Disable";
-                alarm.disable();
+                alarm.enable();
 
             }
             else if (EnableDisableAlarm_Button.Content.Equals("Disable"))
             {
                 EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Green);
                 EnableDisableAlarm_Button.Content = "Enable";
-                alarm.enable();
+                alarm.disable();
 
             }
         }

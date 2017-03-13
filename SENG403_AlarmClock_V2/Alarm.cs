@@ -6,6 +6,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SENG403_AlarmClock_V2
 {
@@ -15,7 +16,7 @@ namespace SENG403_AlarmClock_V2
         private DateTime defaultAlarmTime; //default time (for repeated alarms)
         private DateTime notifyTime; //when the alarm should go off after being snoozed
         private double snoozeTime;
-        SoundPlayer alarmSound;
+        MediaPlayer alarmSound = new MediaPlayer();
         Boolean enabled;
         private int repeatIntervalDays = -1; //how many days before alarm goes off
 
@@ -46,7 +47,7 @@ namespace SENG403_AlarmClock_V2
         /// <param name="alarmFile"></param>
         public Alarm(string alarmFile, double snoozeTime)
         {
-            alarmSound = new SoundPlayer(alarmFile);
+            alarmSound.Open(new Uri(alarmFile));
             this.snoozeTime = snoozeTime;
         }
 
@@ -56,7 +57,11 @@ namespace SENG403_AlarmClock_V2
         public void play()
         {
             if (enabled)
+            {
+                disable();
                 alarmSound.Play();
+                Console.Write("PLAYED ALARM YAY!!!!");
+            }
         }
 
         /// <summary>
@@ -123,7 +128,7 @@ namespace SENG403_AlarmClock_V2
         /// <returns></returns>
         public void SetSound(String newSound)
         {
-            this.alarmSound = new SoundPlayer(newSound);
+            alarmSound.Open(new Uri(newSound));
         }
         /// <summary>
         /// Gets the time for the alarm with added snooze time 

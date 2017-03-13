@@ -29,7 +29,7 @@ namespace SENG403_AlarmClock_V2
             OtherProps.Margin = new Thickness(26, 149, 21, 34);
             this.alarm = alarm;
             this.alarmControl = alarmControl;
-            alarmSounds.Add("...\\Sounds\\missileAlert.wav");
+            alarmSounds.Add("pack://application:,,,/Sounds/missileAlert.wav");
             AlarmTone_comboBox.ItemsSource = alarmSounds;
 
         }

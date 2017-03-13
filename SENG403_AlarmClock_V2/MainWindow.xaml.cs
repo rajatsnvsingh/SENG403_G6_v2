@@ -59,7 +59,7 @@ namespace SENG403_AlarmClock_V2
         /// <param name="e"></param>
         private void AddAlarmButton_Click(object sender, RoutedEventArgs e)
         {
-            Alarm newAlarm = new Alarm("...\\Sounds\\missileAlert.wav",snoozeTime);
+            Alarm newAlarm = new Alarm("pack://application:,,,/Sounds/missileAlert.wav", snoozeTime);
             AlarmList_Panel.Children.Add(new AlarmUserControl(AlarmList_Panel, newAlarm));
 
         }
