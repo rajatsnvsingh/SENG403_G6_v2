@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace SENG403_AlarmClock_V2
 {
@@ -17,15 +19,16 @@ namespace SENG403_AlarmClock_V2
         private DateTime notifyTime; //when the alarm should go off after being snoozed
         private double snoozeTime;
         MediaPlayer alarmSound = new MediaPlayer();
-        Boolean enabled;
+        Boolean enabled = false;
         private int repeatIntervalDays = -1; //how many days before alarm goes off
+        private string label;
 
         public static Alarm createDailyAlarm(DateTime alarmTime, double snoozeTime)
         {
             TimeSpan ts = new TimeSpan(alarmTime.Hour, alarmTime.Minute, alarmTime.Second);
             DateTime dt = DateTime.Today.Add(ts);
             Console.WriteLine(dt);
-            return new Alarm(dt, 1, snoozeTime, true);
+            return new Alarm(dt, 1, snoozeTime);
         }
 
         public static Alarm createWeeklyAlarm(DayOfWeek day, DateTime alarmTime)
@@ -33,12 +36,11 @@ namespace SENG403_AlarmClock_V2
             return null;
         }
 
-        public Alarm(DateTime alarmTime, int repeatInterval, double snoozeTime, Boolean status)
+        public Alarm(DateTime alarmTime, int repeatInterval, double snoozeTime)
         {
             defaultAlarmTime = notifyTime = alarmTime;
             this.repeatIntervalDays = repeatInterval;
             this.snoozeTime = snoozeTime;
-            enabled = status;
         }
 
         /// <summary>
@@ -51,6 +53,11 @@ namespace SENG403_AlarmClock_V2
             this.snoozeTime = snoozeTime;
         }
 
+        public void SetLabel(string label)
+        {
+            this.label = label;
+        }
+
         /// <summary>
         /// Plays SoundPlayer file for alarm
         /// </summary>
@@ -59,9 +66,18 @@ namespace SENG403_AlarmClock_V2
             if (enabled)
             {
                 disable();
+                Thread notifyThread = new Thread(alarmNotification);
+                notifyThread.SetApartmentState(ApartmentState.STA);
+                notifyThread.IsBackground = true;
+                notifyThread.Start();
                 alarmSound.Play();
-                Console.Write("PLAYED ALARM YAY!!!!");
             }
+        }
+
+        private void alarmNotification()
+        {
+            new NotificationWindow(this).ShowDialog();
+            Dispatcher.Run();
         }
 
         /// <summary>
@@ -72,14 +88,19 @@ namespace SENG403_AlarmClock_V2
             alarmSound.Stop();
         }
 
+        public void snooze()
+        {
+            notifyTime.AddMinutes(snoozeTime);
+            stop();
+        }
+
         /// <summary>
         /// Copy Constructor for Alarm class
         /// </summary>
         /// <param name="newAlarm"></param>
         public Alarm(Alarm newAlarm)
         {
-
-            this.snoozeTime = newAlarm.GetSnoozeTime();
+            snoozeTime = newAlarm.GetSnoozeTime();
         }
 
         /// <summary>
@@ -161,6 +182,11 @@ namespace SENG403_AlarmClock_V2
             {
                 defaultAlarmTime = defaultAlarmTime.AddDays(repeatIntervalDays);
                 notifyTime = defaultAlarmTime;
+                enable();
+            }
+            else
+            {
+                disable();
             }
         }
     }

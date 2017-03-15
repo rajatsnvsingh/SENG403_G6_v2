@@ -27,9 +27,9 @@
             <Button x:Name="Done" Content="Done" HorizontalAlignment="Left" Margin="147,187,0,0" VerticalAlignment="Top" Width="75" Click="Done_Click" RenderTransformOrigin="0.038,0.393"/>
             <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="21,187,0,0" VerticalAlignment="Top" Width="75" Click="Cancel_Click"/>
             <ComboBox x:Name="AlarmTone_comboBox" HorizontalAlignment="Left" Margin="61,126,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox_SelectionChanged"/>
-            <TextBox x:Name="AlarmMessage" HorizontalAlignment="Left" Height="39" Margin="0,34,0,0" TextWrapping="Wrap" Text="Set a message for the alarm..." VerticalAlignment="Top" Width="245"/>
+            <TextBox x:Name="AlarmMessage" HorizontalAlignment="Left" Height="39" Margin="0,34,0,0" TextWrapping="Wrap" Text="Set Alarm Label" VerticalAlignment="Top" Width="245"/>
 
-            <Label x:Name="Title_Label_Copy" Foreground="White" Content="Alarm Message" Margin="66,0,0,0" VerticalAlignment="Top" FontSize="14" Width="105" HorizontalAlignment="Left"/>
+            <Label x:Name="Title_Label_Copy" Foreground="White" Content="Alarm Label" Margin="73,0,0,0" VerticalAlignment="Top" FontSize="14" Width="91" HorizontalAlignment="Left"/>
             <Label x:Name="Title_Label_Copy1" Foreground="White" Content="Change Alarm Sound" Margin="45,97,0,0" VerticalAlignment="Top" FontSize="14" Width="152" HorizontalAlignment="Left"/>
 
         </Grid>

@@ -22,7 +22,7 @@ namespace SENG403_AlarmClock_V2
     {
         double snoozeTime = 5;
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-        
+        DateTime currentTime;
         
         public MainWindow()
         {
@@ -31,20 +31,22 @@ namespace SENG403_AlarmClock_V2
             minuteLabel.Content = DateTime.Now.ToString(": ss");
             AMPM_thing.Content = DateTime.Now.ToString("tt");
             DayDate.Content = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
+            currentTime = DateTime.Now;
             dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             dispatcherTimer.Start();
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            hourLabel.Content = DateTime.Now.ToString("hh : mm");
-            minuteLabel.Content = DateTime.Now.ToString(": ss");
-            AMPM_thing.Content = DateTime.Now.ToString("tt");
-            DayDate.Content = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
+            currentTime = currentTime.AddSeconds(1);
+            hourLabel.Content = currentTime.ToString("hh : mm");
+            minuteLabel.Content = currentTime.ToString(": ss");
+            AMPM_thing.Content = currentTime.ToString("tt");
+            DayDate.Content = currentTime.ToString("dddd, MMMM dd, yyyy");
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
-                if (DateTime.Now.CompareTo(u.alarm.GetTime()) > 0)
+                if (currentTime.CompareTo(u.alarm.GetTime()) > 0)
                 {
                     u.alarm.play();
                 }
@@ -71,7 +73,6 @@ namespace SENG403_AlarmClock_V2
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-
             new GlobalSettings((int)snoozeTime).ShowDialog();
         }
 
@@ -84,6 +85,19 @@ namespace SENG403_AlarmClock_V2
             {
                 AlarmList_Panel.Visibility = Visibility.Visible;
             }
+        }
+
+        private void ClockSpeedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            dispatcherTimer.Stop();
+            int updatedTimerInterval = (int)(1000.0 / Math.Pow(2, ClockSpeedSlider.Value));
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, updatedTimerInterval);
+            dispatcherTimer.Start();
+        }
+
+        private void addDayButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentTime = currentTime.AddDays(1);
         }
     }
 }

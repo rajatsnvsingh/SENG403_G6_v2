@@ -31,6 +31,11 @@ namespace SENG403_AlarmClock_V2
             AlarmTime_label.Content = alarm.GetTime().ToString("hh:mm tt");
         }
 
+        public void setTimeLabel(DateTime time)
+        {
+            time.ToString("HH:mm tt");
+        }
+
         private void EnableDisableRadioButton_Checked(object sender, RoutedEventArgs e)
         {
            
@@ -43,14 +48,12 @@ namespace SENG403_AlarmClock_V2
                 EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Red);
                 EnableDisableAlarm_Button.Content = "Disable";
                 alarm.enable();
-
             }
             else if (EnableDisableAlarm_Button.Content.Equals("Disable"))
             {
                 EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Green);
                 EnableDisableAlarm_Button.Content = "Enable";
                 alarm.disable();
-
             }
         }
 

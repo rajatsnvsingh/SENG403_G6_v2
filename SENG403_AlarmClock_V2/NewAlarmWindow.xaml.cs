@@ -38,8 +38,11 @@ namespace SENG403_AlarmClock_V2
         {
             DateTime alarmTime;
             DateTime.TryParse(Alarm_TimePicker.Text, out alarmTime);
-            alarm.SetTime(alarmTime);
+            if ((bool)radioButton_Daily.IsChecked)
+                alarmControl.alarm = Alarm.createDailyAlarm(alarmTime, 1.0);
+            alarmControl.setTimeLabel(alarmTime);
             alarm.SetSound((String)AlarmTone_comboBox.SelectedValue);
+            if (!AlarmMessage.Text.Equals("Set Alarm Label")) alarm.SetLabel(AlarmMessage.Text);
             alarmControl.refresh();
             this.Close();
         }
