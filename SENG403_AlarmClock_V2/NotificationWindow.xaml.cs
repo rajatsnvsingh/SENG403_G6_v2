@@ -27,6 +27,7 @@ namespace SENG403_AlarmClock_V2
         {
             this.alarm = alarm;
             InitializeComponent();
+            Alarm_Label.Content = alarm.GetLabel();
         }
 
         private void dismissButton_Click(object sender, RoutedEventArgs e)

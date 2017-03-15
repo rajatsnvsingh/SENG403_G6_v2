@@ -63,7 +63,9 @@ namespace SENG403_AlarmClock_V2
         private void AddAlarmButton_Click(object sender, RoutedEventArgs e)
         {
             Alarm newAlarm = new Alarm("pack://application:,,,/Sounds/missileAlert.wav", snoozeTime);
-            AlarmList_Panel.Children.Add(new AlarmUserControl(AlarmList_Panel, newAlarm));
+            AlarmUserControl alarmControl = new AlarmUserControl(AlarmList_Panel, newAlarm);
+            AlarmList_Panel.Children.Add(alarmControl);
+            new NewAlarmWindow(alarmControl).ShowDialog();
 
         }
 
@@ -74,17 +76,21 @@ namespace SENG403_AlarmClock_V2
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            new GlobalSettings((int)snoozeTime).ShowDialog();
+            new GlobalSettings(this).ShowDialog();
         }
 
         private void AlarmSideBarButton_Click(object sender, RoutedEventArgs e)
         {
             if (AlarmList_Panel.Visibility == Visibility.Visible) {
                 AlarmList_Panel.Visibility = Visibility.Collapsed;
+                AddAlarmButton.Visibility = Visibility.Collapsed;
+                SettingsButton.Visibility = Visibility.Collapsed;
             }
             else
             {
                 AlarmList_Panel.Visibility = Visibility.Visible;
+                AddAlarmButton.Visibility = Visibility.Visible;
+                SettingsButton.Visibility = Visibility.Visible;
             }
         }
 
@@ -99,6 +105,11 @@ namespace SENG403_AlarmClock_V2
         private void addDayButton_Click(object sender, RoutedEventArgs e)
         {
             currentTime = currentTime.AddDays(1);
+        }
+
+        public double GetSnoozeTime()
+        {
+            return snoozeTime;
         }
     }
 }

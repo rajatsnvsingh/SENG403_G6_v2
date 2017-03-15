@@ -56,6 +56,11 @@ namespace SENG403_AlarmClock_V2
             this.label = label;
         }
 
+        public string GetLabel()
+        {
+            return label;
+        }
+
         /// <summary>
         /// Plays SoundPlayer file for alarm
         /// </summary>
