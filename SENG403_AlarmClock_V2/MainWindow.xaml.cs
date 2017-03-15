@@ -22,7 +22,7 @@ namespace SENG403_AlarmClock_V2
     {
         double snoozeTime = 5;
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-        DateTime currentTime;
+        public static DateTime currentTime;
         
         public MainWindow()
         {
@@ -46,8 +46,9 @@ namespace SENG403_AlarmClock_V2
             DayDate.Content = currentTime.ToString("dddd, MMMM dd, yyyy");
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
-                if (currentTime.CompareTo(u.alarm.GetTime()) > 0)
+                if (currentTime.CompareTo(u.alarm.GetNotificationTime()) > 0)
                 {
+                    Console.WriteLine(u.alarm.GetNotificationTime());
                     u.alarm.play();
                 }
             }

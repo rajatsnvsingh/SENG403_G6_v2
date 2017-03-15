@@ -28,7 +28,7 @@ namespace SENG403_AlarmClock_V2
             InitializeComponent();
             _parent = parent;
             this.alarm = alarm;
-            AlarmTime_label.Content = alarm.GetTime().ToString("hh:mm tt");
+            AlarmTime_label.Content = alarm.GetNotificationTime().ToString("hh:mm tt");
         }
 
         public void setTimeLabel(DateTime time)
@@ -74,7 +74,7 @@ namespace SENG403_AlarmClock_V2
 
         public void refresh()
         {
-            AlarmTime_label.Content = alarm.GetTime().ToString("hh:mm tt");
+            AlarmTime_label.Content = alarm.GetNotificationTime().ToString("hh:mm tt");
         }
     }
 }
