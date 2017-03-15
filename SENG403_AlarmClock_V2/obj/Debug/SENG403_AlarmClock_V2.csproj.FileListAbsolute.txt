@@ -100,3 +100,5 @@ C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmC
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.csproj.GenerateResource.Cache
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.exe
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.pdb
+C:\Users\alexander.thompson\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V2\obj\Debug\NotificationWindow.g.cs
+C:\Users\alexander.thompson\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V2\obj\Debug\NotificationWindow.baml

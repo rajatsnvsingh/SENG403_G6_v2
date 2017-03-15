@@ -145,6 +145,7 @@
     <Resource Include="Images\x_button.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Sounds\fogHorn.wav" />
     <Content Include="Sounds\missileAlert.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

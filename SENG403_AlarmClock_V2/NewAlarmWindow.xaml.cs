@@ -19,18 +19,18 @@ namespace SENG403_AlarmClock_V2
     /// </summary>
     public partial class NewAlarmWindow : Window
     {
-        private Alarm alarm;
         private List<String> alarmSounds = new List<string>();
         AlarmUserControl alarmControl;
-        public NewAlarmWindow(AlarmUserControl alarmControl, Alarm alarm)
+        public NewAlarmWindow(AlarmUserControl alarmControl)
         {
             InitializeComponent();
             RadioGrid.Visibility = Visibility.Collapsed;
             OtherProps.Margin = new Thickness(26, 149, 21, 34);
-            this.alarm = alarm;
             this.alarmControl = alarmControl;
             alarmSounds.Add("pack://application:,,,/Sounds/missileAlert.wav");
+            alarmSounds.Add("pack://application:,,,/Sounds/fogHorn.wav");
             AlarmTone_comboBox.ItemsSource = alarmSounds;
+            AlarmTone_comboBox.SelectedIndex = 0;
 
         }
 
@@ -40,10 +40,11 @@ namespace SENG403_AlarmClock_V2
             DateTime.TryParse(Alarm_TimePicker.Text, out alarmTime);
             if ((bool)radioButton_Daily.IsChecked)
                 alarmControl.alarm = Alarm.createDailyAlarm(alarmTime, 1.0);
+            else
+                alarmControl.alarm = new Alarm(alarmTime, -1, 1.0);
             alarmControl.setTimeLabel(alarmTime);
-            alarm.SetSound((String)AlarmTone_comboBox.SelectedValue);
-            if (!AlarmMessage.Text.Equals("Set Alarm Label")) alarm.SetLabel(AlarmMessage.Text);
-            alarmControl.refresh();
+            alarmControl.alarm.SetSound((String)AlarmTone_comboBox.SelectedValue);
+            if (!AlarmMessage.Text.Equals("Set Alarm Label")) alarmControl.alarm.SetLabel(AlarmMessage.Text);
             this.Close();
         }
 

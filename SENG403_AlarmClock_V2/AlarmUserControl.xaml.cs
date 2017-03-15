@@ -33,7 +33,7 @@ namespace SENG403_AlarmClock_V2
 
         public void setTimeLabel(DateTime time)
         {
-            time.ToString("HH:mm tt");
+            AlarmTime_label.Content = time.ToString("hh:mm tt");
         }
 
         private void EnableDisableRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -69,12 +69,7 @@ namespace SENG403_AlarmClock_V2
 
         private void EditAlarm_Click(object sender, RoutedEventArgs e)
         {
-            new NewAlarmWindow(this,alarm).ShowDialog();
-        }
-
-        public void refresh()
-        {
-            AlarmTime_label.Content = alarm.GetTime().ToString("hh:mm tt");
+            new NewAlarmWindow(this).ShowDialog();
         }
     }
 }
