@@ -41,27 +41,51 @@ namespace SENG403_AlarmClock_V2
             if ((bool)radioButton_Daily.IsChecked)
                 alarmControl.alarm = Alarm.createDailyAlarm(alarmTime, MainWindow.snoozeTime);
             else if ((bool)radioButton_Sun.IsChecked)
+            {
                 alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Sunday, alarmTime);
+                alarmControl.AlarmType_label.Content = "Sunday";
+            }
 
             else if ((bool)radioButton_Sat.IsChecked)
+            {
                 alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Saturday, alarmTime);
+                alarmControl.AlarmType_label.Content = "Saturday";
+            }
 
             else if ((bool)radioButton_Mon.IsChecked)
+            {
                 alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Monday, alarmTime);
+                alarmControl.AlarmType_label.Content = "Monday";
+            }
 
             else if ((bool)radioButton_Tue.IsChecked)
+            {
                 alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Tuesday, alarmTime);
+                alarmControl.AlarmType_label.Content = "Tuesday";
+            }
 
             else if ((bool)radioButton_Wed.IsChecked)
+            {
                 alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Wednesday, alarmTime);
+                alarmControl.AlarmType_label.Content = "Wednesday";
+            }
 
             else if ((bool)radioButton_Thu.IsChecked)
+            {
                 alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Thursday, alarmTime);
+                alarmControl.AlarmType_label.Content = "Thursday";
+            }
 
             else if ((bool)radioButton_Fri.IsChecked)
+            {
                 alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Friday, alarmTime);
+                alarmControl.AlarmType_label.Content = "Friday";
+            }
             else
+            {
                 alarmControl.alarm.SetTime(alarmTime);
+                alarmControl.AlarmType_label.Content = "No Repeat";
+            }
             alarmControl.alarm.setSnooze(MainWindow.snoozeTime);
 
 
