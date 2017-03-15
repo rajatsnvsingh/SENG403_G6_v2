@@ -98,6 +98,11 @@ namespace SENG403_AlarmClock_V2
             stop();
         }
 
+        public DateTime GetTime()
+        {
+            return defaultAlarmTime;
+        }
+
         /// <summary>
         /// Copy Constructor for Alarm class
         /// </summary>

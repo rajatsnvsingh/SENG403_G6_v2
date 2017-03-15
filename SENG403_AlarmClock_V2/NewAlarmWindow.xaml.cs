@@ -31,6 +31,9 @@ namespace SENG403_AlarmClock_V2
             alarmSounds.Add(@"..\..\Sounds\fogHorn.wav");
             AlarmTone_comboBox.ItemsSource = alarmSounds;
             AlarmTone_comboBox.SelectedIndex = 0;
+            Alarm_TimePicker.Value = alarmControl.alarm.GetTime();
+            AlarmMessage.Text = alarmControl.alarm.GetLabel();
+
 
         }
 
