@@ -33,6 +33,7 @@ namespace SENG403_AlarmClock_V2
             {
                 u.alarm.setSnooze((Double)Snooze_Selector.Value);
             }
+            MainWindow.snoozeTime = (Double)Snooze_Selector.Value;
             this.Close();
         }
 

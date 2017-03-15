@@ -27,10 +27,8 @@ namespace SENG403_AlarmClock_V2
             RadioGrid.Visibility = Visibility.Collapsed;
             OtherProps.Margin = new Thickness(26, 149, 21, 34);
             this.alarmControl = alarmControl;
-            alarmSounds.Add(@"C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\Sounds\missileAlert.wav");
-            alarmSounds.Add(@"C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\Sounds\fogHorn.wav");
-            alarmSounds.Add("pack://application:,,,/Sounds/missileAlert.wav");
-            alarmSounds.Add("pack://application:,,,/Sounds/fogHorn.wav");
+            alarmSounds.Add(@"..\..\Sounds\missileAlert.wav");
+            alarmSounds.Add(@"..\..\Sounds\fogHorn.wav");
             AlarmTone_comboBox.ItemsSource = alarmSounds;
             AlarmTone_comboBox.SelectedIndex = 0;
 
@@ -41,9 +39,32 @@ namespace SENG403_AlarmClock_V2
             DateTime alarmTime;
             DateTime.TryParse(Alarm_TimePicker.Text, out alarmTime);
             if ((bool)radioButton_Daily.IsChecked)
-                alarmControl.alarm = Alarm.createDailyAlarm(alarmTime, 1.0);
+                alarmControl.alarm = Alarm.createDailyAlarm(alarmTime, MainWindow.snoozeTime);
+            else if ((bool)radioButton_Sun.IsChecked)
+                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Sunday, alarmTime);
+
+            else if ((bool)radioButton_Sat.IsChecked)
+                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Saturday, alarmTime);
+
+            else if ((bool)radioButton_Mon.IsChecked)
+                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Monday, alarmTime);
+
+            else if ((bool)radioButton_Tue.IsChecked)
+                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Tuesday, alarmTime);
+
+            else if ((bool)radioButton_Wed.IsChecked)
+                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Wednesday, alarmTime);
+
+            else if ((bool)radioButton_Thu.IsChecked)
+                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Thursday, alarmTime);
+
+            else if ((bool)radioButton_Fri.IsChecked)
+                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Friday, alarmTime);
             else
-                alarmControl.alarm = new Alarm(alarmTime, -1, 1.0);
+                alarmControl.alarm.SetTime(alarmTime);
+            alarmControl.alarm.setSnooze(MainWindow.snoozeTime);
+
+
             alarmControl.setTimeLabel(alarmTime);
             alarmControl.alarm.SetSound((String)AlarmTone_comboBox.SelectedValue);
             if (!AlarmMessage.Text.Equals("Set Alarm Label")) alarmControl.alarm.SetLabel(AlarmMessage.Text);

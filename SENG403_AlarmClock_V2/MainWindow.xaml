@@ -11,7 +11,7 @@
 
         <Label x:Name="hourLabel" Foreground="White" Content="04 : 20 " HorizontalAlignment="Left" VerticalAlignment="Top" Height="128" Width="368" FontSize="100" FontFamily="Franklin Gothic Book" Margin="334,237,0,0"/>
         <Label x:Name="minuteLabel" Foreground="White" Content=": 00" HorizontalAlignment="Left" Margin="647,274,0,0" VerticalAlignment="Top" Height="84" Width="120" FontFamily="Comic Sans MS" FontSize="50"/>
-        <Label x:Name="AMPM_thing" Content="AM"  Foreground="White" HorizontalAlignment="Left" Margin="767,284,0,0" VerticalAlignment="Top" FontSize="48" FontFamily="Matura MT Script Capitals"/>
+        <Label x:Name="AMPM_thing" Content="AM"  Foreground="White" HorizontalAlignment="Left" Margin="767,274,0,0" VerticalAlignment="Top" FontSize="48" FontFamily="Microsoft JhengHei"/>
 
 
         <Label x:Name="label" Foreground="White"  Content="The Dining Philosophers" HorizontalAlignment="Left" Margin="938,620,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Vladimir Script"/>

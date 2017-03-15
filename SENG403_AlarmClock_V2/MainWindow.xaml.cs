@@ -20,7 +20,7 @@ namespace SENG403_AlarmClock_V2
     /// </summary>
     public partial class MainWindow : Window
     {
-        double snoozeTime = 5;
+        static public double snoozeTime = 5;
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         public static DateTime currentTime;
         

@@ -167,6 +167,17 @@ namespace SENG403_AlarmClock_V2
                 " Repeat Interval: " + repeatIntervalDays;
         }
 
+        internal void setWeeklyAlarm(DayOfWeek day, DateTime alarmTime)
+        {
+            enabled = true;
+            repeatIntervalDays = 7;
+            TimeSpan ts = new TimeSpan(alarmTime.Hour, alarmTime.Minute, alarmTime.Second);
+            defaultAlarmTime = DateTime.Today.AddDays(day - DateTime.Now.DayOfWeek).Add(ts);
+            if (defaultAlarmTime.CompareTo(DateTime.Now) <= 0)
+                defaultAlarmTime.AddDays(repeatIntervalDays);
+            notifyTime = defaultAlarmTime;
+        }
+
         public void enable()
         {
             enabled = true;
