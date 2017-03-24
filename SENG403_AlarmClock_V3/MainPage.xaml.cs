@@ -26,5 +26,27 @@ namespace SENG403_AlarmClock_V3
         {
             this.InitializeComponent();
         }
+
+        private void PhoneAddAlarmButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            TimeDateGrid.Margin = new Thickness(40, 90, 58, 420);
+            AlarmUserControl alarmControl = new AlarmUserControl(AlarmList_Panel);
+            AlarmList_Panel.Children.Add(alarmControl);
+        }
+
+        private void PhoneAlarmSideBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(AlarmList_Panel.Visibility ==  Visibility.Visible)
+            {
+                TimeDateGrid.Margin = new Thickness(40, 208, 58, 300);
+                AlarmList_Panel.Visibility = Visibility.Collapsed;
+            }
+            else if(AlarmList_Panel.Visibility == Visibility.Collapsed)
+            {
+                TimeDateGrid.Margin = new Thickness(40, 90, 58, 420);
+                AlarmList_Panel.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

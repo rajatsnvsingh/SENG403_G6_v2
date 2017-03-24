@@ -132,17 +132,19 @@ namespace SENG403_AlarmClock_V3.SENG403_AlarmClock_V3_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[4];
+            _typeNameTable = new string[5];
             _typeNameTable[0] = "SENG403_AlarmClock_V3.AlarmUserControl";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.UserControl";
             _typeNameTable[2] = "SENG403_AlarmClock_V3.MainPage";
             _typeNameTable[3] = "Windows.UI.Xaml.Controls.Page";
+            _typeNameTable[4] = "SENG403_AlarmClock_V3.MyUserControl1";
 
-            _typeTable = new global::System.Type[4];
+            _typeTable = new global::System.Type[5];
             _typeTable[0] = typeof(global::SENG403_AlarmClock_V3.AlarmUserControl);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
             _typeTable[2] = typeof(global::SENG403_AlarmClock_V3.MainPage);
             _typeTable[3] = typeof(global::Windows.UI.Xaml.Controls.Page);
+            _typeTable[4] = typeof(global::SENG403_AlarmClock_V3.MyUserControl1);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -177,7 +179,9 @@ namespace SENG403_AlarmClock_V3.SENG403_AlarmClock_V3_XamlTypeInfo
             return -1;
         }
 
+        private object Activate_0_AlarmUserControl() { return new global::SENG403_AlarmClock_V3.AlarmUserControl(); }
         private object Activate_2_MainPage() { return new global::SENG403_AlarmClock_V3.MainPage(); }
+        private object Activate_4_MyUserControl1() { return new global::SENG403_AlarmClock_V3.MyUserControl1(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -191,6 +195,7 @@ namespace SENG403_AlarmClock_V3.SENG403_AlarmClock_V3_XamlTypeInfo
 
             case 0:   //  SENG403_AlarmClock_V3.AlarmUserControl
                 userType = new global::SENG403_AlarmClock_V3.SENG403_AlarmClock_V3_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_0_AlarmUserControl;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -208,6 +213,13 @@ namespace SENG403_AlarmClock_V3.SENG403_AlarmClock_V3_XamlTypeInfo
 
             case 3:   //  Windows.UI.Xaml.Controls.Page
                 xamlType = new global::SENG403_AlarmClock_V3.SENG403_AlarmClock_V3_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 4:   //  SENG403_AlarmClock_V3.MyUserControl1
+                userType = new global::SENG403_AlarmClock_V3.SENG403_AlarmClock_V3_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_4_MyUserControl1;
+                userType.SetIsLocalType();
+                xamlType = userType;
                 break;
             }
             return xamlType;

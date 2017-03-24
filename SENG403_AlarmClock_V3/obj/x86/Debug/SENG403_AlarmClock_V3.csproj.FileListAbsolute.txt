@@ -190,3 +190,8 @@ C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\qu
 C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\qualifiers.txt.intermediate
 C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\ProjectArchitectures.txt
+C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmUserControl.g.i.cs
+C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmUserControl.g.cs
+C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmUserControl.xaml
+C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmUserControl.xbf
+C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\AlarmUserControl.xbf
