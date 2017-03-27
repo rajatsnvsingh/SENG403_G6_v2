@@ -1,5 +1,10 @@
 ﻿using SENG403_AlarmClock_V2;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -13,6 +18,7 @@ namespace SENG403_AlarmClock_V3
     /// </summary>
     public sealed partial class EditAlarmPage : Page
     {
+        private MainPage mainPage;
         private Alarm alarm;
 
         public EditAlarmPage()
@@ -22,10 +28,12 @@ namespace SENG403_AlarmClock_V3
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            alarm = e.Parameter as Alarm;
+            AlarmParameter param = e.Parameter as AlarmParameter;
+            mainPage = (MainPage)param._page;
+            alarm = param.alarm;
         }
 
-        private void ClickDoneButton(object sender, RoutedEventArgs e)
+        private async void ClickDoneButton(object sender, RoutedEventArgs e)
         {
             TimeSpan ts = timePicker.Time;
             if (MondayButton.IsChecked == true) {
@@ -33,18 +41,40 @@ namespace SENG403_AlarmClock_V3
             }
             else if (TuesdayButton.IsChecked == true)
             {
-
+                alarm.setWeeklyAlarm(DayOfWeek.Tuesday, ts);
             }
-            else if (TuesdayButton.IsChecked == true)
+            else if (WednesdayButton.IsChecked == true)
             {
-
+                alarm.setWeeklyAlarm(DayOfWeek.Wednesday, ts);
             }
             else if (DailyButton.IsChecked == true)
             {
-
+                alarm.setDailyAlarm(ts);
             }
-
+            else if (!repeatCheckbox.IsChecked == true)
+            {
+                
+            } 
+            List<Alarm> temp = mainPage.getAlarms();
+            List<Alarm> alarms = new List<Alarm>();
+            foreach (Alarm a in temp)
+            {
+                if (a == alarm) alarms.Add(alarm);
+                else alarms.Add(a);
+            }
+            await saveAlarmsToJSON(alarms);
             Frame.Navigate(typeof(MainPage));
+        }
+
+        private async Task saveAlarmsToJSON(List<Alarm> alarms)
+        {
+            var serializer = new DataContractJsonSerializer(typeof(List<Alarm>));
+            using (var stream = await ApplicationData.Current.LocalFolder.OpenStreamForWriteAsync(
+                          MainPage.ALARMS_FILE,
+                          CreationCollisionOption.ReplaceExisting))
+            {
+                serializer.WriteObject(stream, alarms);
+            }
         }
         
         private void ClickRepeat(object sender, RoutedEventArgs e)
