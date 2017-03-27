@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using SENG403_AlarmClock_V2;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -20,11 +9,15 @@ namespace SENG403_AlarmClock_V3
     public sealed partial class AlarmUserControl : UserControl
     {
         private StackPanel _parent;
+        private Page _page;
+        private Alarm _alarm;
 
-        public AlarmUserControl(StackPanel parent)
+        public AlarmUserControl(StackPanel parent, Page page, Alarm alarm)
         {
             this.InitializeComponent();
             _parent = parent;
+            _page = page;
+            _alarm = alarm;
         }
 
         private void EnableDisableAlarm_Button_Click(object sender, RoutedEventArgs e)
@@ -34,7 +27,7 @@ namespace SENG403_AlarmClock_V3
 
         private void EditAlarm_Click(object sender, RoutedEventArgs e)
         {
-
+            _page.Frame.Navigate(typeof(EditAlarmPage), _alarm);
         }
 
         private void DeleteAlarm_Click(object sender, RoutedEventArgs e)

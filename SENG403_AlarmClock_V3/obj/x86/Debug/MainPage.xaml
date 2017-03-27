@@ -17,25 +17,23 @@
             <Image Source="/Images/plus-button-green.png" Margin="-10" HorizontalAlignment="Left" Width="75"></Image>
 
         </Button>
-        <Button x:ConnectionId='4' x:Name="PhoneSettingsButton" HorizontalAlignment="Left" Margin="205,10,0,0" VerticalAlignment="Top" Height="75" Width="75">
+        <Button x:ConnectionId='4' x:Name="PhoneSettingsButton" HorizontalAlignment="Left" Margin="205,10,0,0" VerticalAlignment="Top" Height="75" Width="75"                         >
             <Image Source="/Images/TurnMyWrenchBabay.png" Margin="-10"></Image>
 
         </Button>
         <Grid x:ConnectionId='5' x:Name="TimeDateGrid" Margin="40, 208, 58, 300">
 
-            <TextBlock x:ConnectionId='8' x:Name="HourText" Foreground="White" FontSize="50" HorizontalAlignment="Left" TextWrapping="Wrap" Text="04: 20" VerticalAlignment="Top" Width="145"/>
-            <TextBlock x:ConnectionId='9' x:Name="MinuteText" Foreground="White" FontSize="25" HorizontalAlignment="Left" Margin="145,27,0,0" TextWrapping="Wrap" Text=": 20" VerticalAlignment="Top"/>
-            <TextBlock x:ConnectionId='10' x:Name="AMPMText" Foreground="White" FontSize="40" HorizontalAlignment="Left" Margin="199,7,0,0" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top"/>
-            <TextBlock x:ConnectionId='11' x:Name="DayDateText" Foreground="White" FontSize="24" HorizontalAlignment="Left" Margin="0,72,0,0" TextWrapping="Wrap" Text="Munday, March 66, 2917" VerticalAlignment="Top"/>
+            <TextBlock x:ConnectionId='9' x:Name="HourText" Foreground="White" FontSize="50" HorizontalAlignment="Left" TextWrapping="Wrap" Text="04: 20" VerticalAlignment="Top" Width="145"/>
+            <TextBlock x:ConnectionId='10' x:Name="MinuteText" Foreground="White" FontSize="25" HorizontalAlignment="Left" Margin="145,27,0,0" TextWrapping="Wrap" Text=": 20" VerticalAlignment="Top"/>
+            <TextBlock x:ConnectionId='11' x:Name="AMPMText" Foreground="White" FontSize="40" HorizontalAlignment="Left" Margin="199,7,0,0" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top"/>
+            <TextBlock x:ConnectionId='12' x:Name="DayDateText" Foreground="White" FontSize="24" HorizontalAlignment="Left" Margin="0,72,0,0" TextWrapping="Wrap" Text="Munday, March 66, 2917" VerticalAlignment="Top"/>
         </Grid>
         <TextBlock x:ConnectionId='6' x:Name="GroupNameText" Foreground="White" FontSize="24" HorizontalAlignment="Left" Margin="40,560,0,0" TextWrapping="Wrap" Text="The Dining Philosophers" VerticalAlignment="Top" Width="261"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,260,10,85" >
-            <StackPanel x:ConnectionId='7' x:Name="AlarmList_Panel" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="340" >
+            <StackPanel x:ConnectionId='8' x:Name="AlarmList_Panel" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="340" >
             </StackPanel>
         </ScrollViewer>
-
-
-
+        <TextBlock x:ConnectionId='7' x:Name="DebugText" Foreground="White" FontSize="24" HorizontalAlignment="Left" Margin="41,592,0,0" TextWrapping="Wrap" Text="Debug Info" VerticalAlignment="Top" Width="261"/>
     </Grid>
 </Page>
 

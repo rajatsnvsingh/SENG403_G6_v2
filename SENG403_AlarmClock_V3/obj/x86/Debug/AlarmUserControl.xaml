@@ -12,11 +12,16 @@
             <TextBlock x:ConnectionId='1' x:Name="AlarmType_label" Foreground="White" Text="Daily" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="170,10,0,0" Height="21"/>
 
             <TextBlock x:ConnectionId='2' x:Name="AlarmTime_label" Foreground="White" Text="4:20:00 am" HorizontalAlignment="Left" Margin="55,10,0,0" VerticalAlignment="Top" Height="23"/>
+            <StackPanel>
+                <StackPanel>
+                    <Button x:ConnectionId='6' x:Name="EditAlarm_Button" Background="Blue" FontSize="10" Foreground="White" Content="Edit" HorizontalAlignment="Left" Margin="170,33,0,0" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.2,0.5" Height="23"                        />
+                </StackPanel>
+                <Frame></Frame>
+            </StackPanel>
             <Button x:ConnectionId='3' x:Name="EnableDisableAlarm_Button" FontSize="10" Background="Green" Foreground="White" Content="Enable" HorizontalAlignment="Left" Margin="55,33,0,0" VerticalAlignment="Top" Width="66"                                         Height="23" RenderTransformOrigin="-0.545,1.304"/>
-            <Button x:ConnectionId='4' x:Name="EditAlarm_Button" Background="Blue" FontSize="10" Foreground="White" Content="Edit" HorizontalAlignment="Left" Margin="170,33,0,0" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.2,0.5" Height="23"                        />
 
-            <Button x:ConnectionId='5' x:Name="DeleteAlarm_Button" Background="Transparent"  HorizontalAlignment="Left" Margin="306,0,0,0" VerticalAlignment="Top" Width="15" Height="15" RenderTransformOrigin="0.333,0.2"                          >
-                <Image x:ConnectionId='6' x:Name="DeleteButtonImage" Source="Images/x_button.png" HorizontalAlignment="Left" Margin="-10,-6,-5,-6" Width="15"/>
+            <Button x:ConnectionId='4' x:Name="DeleteAlarm_Button" Background="Transparent"  HorizontalAlignment="Left" Margin="306,0,0,0" VerticalAlignment="Top" Width="15" Height="15" RenderTransformOrigin="0.333,0.2"                          >
+                <Image x:ConnectionId='5' x:Name="DeleteButtonImage" Source="Images/x_button.png" HorizontalAlignment="Left" Margin="-10,-6,-5,-6" Width="15"/>
 
             </Button>
 
