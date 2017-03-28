@@ -2,21 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -29,18 +19,12 @@ namespace SENG403_AlarmClock_V3
     {
         public static DateTime currentTime = DateTime.Now;
         public static double snoozeTime = 1.0;
-
-        //prevent timer task from being dispatched twice
-        //TODO: fix this hack
-        private static bool firstTime = true;
+        
         public DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
         //constants
         public static string DEFAULT_ALARM_SOUND = "";
         public static string ALARMS_FILE = "alarms.txt";
-
-        //debug
-        private int init_count = 0;
 
         public MainPage()
         {
@@ -52,6 +36,7 @@ namespace SENG403_AlarmClock_V3
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             dispatcherTimer.Start();
+            loadAlarmsFromJSON();
         }
 
         public async Task saveAlarmsToJSON(List<Alarm> alarms)
@@ -85,8 +70,6 @@ namespace SENG403_AlarmClock_V3
 
                 alarms = (List<Alarm>)jsonSerializer.ReadObject(myStream);
 
-                DebugText.Text = alarms.Count.ToString();
-
                 foreach (var a in alarms)
                 {
                     AlarmUserControl alarmDisplay = new AlarmUserControl(AlarmList_Panel, this, a);
@@ -100,13 +83,22 @@ namespace SENG403_AlarmClock_V3
             }
         }
 
-        private void DispatcherTimer_Tick(object sender, object e)
+        private async void DispatcherTimer_Tick(object sender, object e)
         {
             currentTime = currentTime.AddSeconds(1);
             HourText.Text = currentTime.ToString("hh:mm");
             MinuteText.Text = currentTime.ToString(":ss");
             AMPMText.Text = currentTime.ToString("tt");
             DayDateText.Text = currentTime.ToString("dddd, MMMM dd, yyyy");
+
+            foreach (AlarmUserControl u in AlarmList_Panel.Children)
+            {
+                if (u.alarm.enabled && currentTime.CompareTo(u.alarm.notifyTime) > 0)
+                {
+                    dismissButton.Visibility = Visibility.Visible;
+                    snoozeButton.Visibility = Visibility.Visible;
+                }
+            }
         }
 
         private void PhoneAddAlarmButton_Click(object sender, RoutedEventArgs e)
@@ -117,13 +109,14 @@ namespace SENG403_AlarmClock_V3
 
         private void Settings_Clicked(object sender, RoutedEventArgs e)
         {
+            dispatcherTimer.Tick -= DispatcherTimer_Tick;
             Frame.Navigate(typeof(SettingsPage));
         }
 
         private async void SideBarButtonClick(object sender, RoutedEventArgs e)
         {
+            AlarmList_Panel.Children.Clear();
             await loadAlarmsFromJSON();
-            DebugText.Text = init_count.ToString();
             /*
             if(AlarmList_Panel.Visibility ==  Visibility.Visible)
             {
@@ -141,6 +134,19 @@ namespace SENG403_AlarmClock_V3
         internal void destroy()
         {
             dispatcherTimer.Tick -= DispatcherTimer_Tick;
+        }
+
+        private void dismissAlarmButtonClicked(object sender, RoutedEventArgs e)
+        {
+            foreach (AlarmUserControl u in AlarmList_Panel.Children)
+            {
+                if (u.alarm.enabled && currentTime.CompareTo(u.alarm.notifyTime) > 0)
+                {
+                    u.alarm.enabled = false;
+                    dismissButton.Visibility = Visibility.Collapsed;
+                    snoozeButton.Visibility = Visibility.Collapsed;
+                }
+            }
         }
     }
 }

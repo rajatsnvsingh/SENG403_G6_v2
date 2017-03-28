@@ -53,7 +53,7 @@ namespace SENG403_AlarmClock_V3
             }
             else if (!repeatCheckbox.IsChecked == true)
             {
-                
+                alarm.setOneTimeAlarm(DateTime.Today.Add(ts));
             } 
             List<Alarm> temp = mainPage.getAlarms();
             List<Alarm> alarms = new List<Alarm>();

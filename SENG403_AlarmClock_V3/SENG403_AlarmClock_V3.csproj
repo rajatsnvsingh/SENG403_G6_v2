@@ -93,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alarm.cs" />
+    <Compile Include="AlarmNotificationPage.xaml.cs">
+      <DependentUpon>AlarmNotificationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AlarmUserControl.xaml.cs">
       <DependentUpon>AlarmUserControl.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,7 @@
     <None Include="SENG403_AlarmClock_V3_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\missileAlert.wav" />
     <Content Include="Images\background.jpg" />
     <Content Include="Images\menu-icon.png" />
     <Content Include="Images\plus-button-green.png" />
@@ -136,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AlarmNotificationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AlarmUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

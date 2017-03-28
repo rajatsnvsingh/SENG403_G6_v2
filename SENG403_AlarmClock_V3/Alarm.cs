@@ -1,13 +1,17 @@
-﻿using System;
+﻿using SENG403_AlarmClock_V3;
+using System;
 using System.Runtime.Serialization;
+using Windows.Storage;
+using Windows.UI.Xaml.Controls;
 
 namespace SENG403_AlarmClock_V2
 {
     [DataContract]
     public class Alarm
     {
-        private const string defaultSoundFile = @"C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\Sounds\missileAlert.wav";
+        private const string DEFAULT_ALARM_SOUND = @"C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\Sounds\missileAlert.wav";
 
+        private MediaElement alarmSound;
         //instance variables
         [DataMember]
         public DateTime defaultAlarmTime { get; set; } //default time (for repeated alarms)
@@ -42,6 +46,13 @@ namespace SENG403_AlarmClock_V2
             notifyTime = defaultAlarmTime;
         }
 
+        internal void setOneTimeAlarm(DateTime dateTime)
+        {
+            enabled = true;
+            repeatIntervalDays = -1;
+            notifyTime = defaultAlarmTime = dateTime;
+        }
+
         public Alarm(DateTime alarmTime, int repeatInterval, double snoozeTime)
         {
             defaultAlarmTime = notifyTime = alarmTime;
@@ -55,7 +66,18 @@ namespace SENG403_AlarmClock_V2
         /// <param name="alarmFile"></param>
         public Alarm(string alarmFile, double snoozeTime)
         {
+            enabled = false;
             this.snoozeTime = snoozeTime;
+            setUpSound();
+        }
+
+        public async void setUpSound()
+        {
+            alarmSound = new MediaElement();
+            StorageFolder folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            folder = await folder.GetFolderAsync("Assets");
+            StorageFile sf = await folder.GetFileAsync("missileAlert.wav");
+            //alarmSound.Source = new Uri("///Assets/missileAlert.wav");
         }
 
         /// <summary>
@@ -67,13 +89,30 @@ namespace SENG403_AlarmClock_V2
             snoozeTime = newAlarm.snoozeTime;
         }
 
-        /// <summary>
-        /// Snooze an existing alarm by adding minutes until next alarm time
-        /// </summary>
-        /// <param name="currentTime"></param>
-        public void Snooze(DateTime currentTime)
+        public void snooze()
         {
-            defaultAlarmTime = currentTime.AddMinutes(snoozeTime);
+            notifyTime = MainPage.currentTime.AddMinutes(snoozeTime);
+            enabled = true;
+        }
+
+        internal void play()
+        {
+            alarmSound.Volume = 10;
+        }
+
+        public void update()
+        {
+            alarmSound.Volume = 0;
+            if (repeatIntervalDays != -1)
+            {
+                enabled = true;
+                defaultAlarmTime = defaultAlarmTime.AddDays(repeatIntervalDays);
+                notifyTime = defaultAlarmTime;
+            }
+            else
+            {
+                enabled = false;
+            }
         }
     }
 }

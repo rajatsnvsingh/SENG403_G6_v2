@@ -402,3 +402,8 @@ C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmC
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\ProjectArchitectures.txt
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\SENG403_AlarmClock_V3.csprojResolveAssemblyReference.cache
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\AlarmNotificationPage.xbf
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmNotificationPage.g.i.cs
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmNotificationPage.g.cs
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmNotificationPage.xaml
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmNotificationPage.xbf
