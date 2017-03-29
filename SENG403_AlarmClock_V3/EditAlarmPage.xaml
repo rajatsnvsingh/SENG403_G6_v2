@@ -7,23 +7,23 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="SteelBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="221*"/>
             <RowDefinition Height="419*"/>
         </Grid.RowDefinitions>
-        <RadioButton x:Name="MondayButton" Content="Monday" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="34,172,0,0"/>
-        <RadioButton x:Name="TuesdayButton" Content="Tuesday" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,172,0,0"/>
-        <RadioButton x:Name="WednesdayButton" Content="Wednesday" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="34,203,0,0" Grid.RowSpan="2"/>
-        <RadioButton x:Name="DailyButton" Content="Daily" Visibility="Collapsed" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,203,0,0" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" UseLayoutRounding="False" d:LayoutRounding="Auto">
+        <RadioButton x:Name="MondayButton" Foreground ="White" Content="Monday" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,22,0,0" Grid.Row="1"/>
+        <RadioButton x:Name="TuesdayButton" Foreground ="White" Content="Tuesday" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="177,22,0,0" Grid.Row="1"/>
+        <RadioButton x:Name="WednesdayButton" Foreground ="White" Content="Wednesday" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,53,0,0" Grid.Row="1"/>
+        <RadioButton x:Name="DailyButton" Foreground="White" Content="Daily" Visibility="Visible" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="177.53,53,0,0" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Grid.Row="1">
             <RadioButton.RenderTransform>
                 <CompositeTransform SkewX="-1.685" TranslateX="0.471"/>
             </RadioButton.RenderTransform>
         </RadioButton>
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="92,348,0,0" Grid.Row="1"/>
-        <Button x:Name="DoneButton" Content="Done" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="219,348,0,0" Grid.Row="1" Click="ClickDoneButton"/>
-        <TimePicker x:Name="timePicker" Time="13:00" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,63,0,0"/>
-        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,26,0,0"/>
-        <CheckBox x:Name="repeatCheckbox" Content="Repeat" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,127,0,0" Click="ClickRepeat"/>
+        <Button x:Name="CancelButton" FontSize="20" Background="Red" Foreground="White" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,348,0,0" Grid.Row="1" Height="42" Width="140"/>
+        <Button x:Name="DoneButton" FontSize="20" Background="Green" Foreground="White" Content="Done" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,348,0,0" Grid.Row="1" Click="ClickDoneButton" Width="140" Height="42"/>
+        <TimePicker x:Name="timePicker" Time="13:00" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,110,0,0" Width="294"/>
+        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="34,63,0,0"/>
+        <CheckBox x:Name="repeatCheckbox" Foreground="White" Content="Repeat Alarm" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,167,0,0" Click="ClickRepeat"/>
     </Grid>
 </Page>

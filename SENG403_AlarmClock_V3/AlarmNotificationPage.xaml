@@ -7,10 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="DismissButton" Content="Dismiss" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="61,472,0,0" Click="DismissButton_Click"/>
-        <Button x:Name="SnoozeButton" Content="Snooze" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="204,472,0,0" Click="SnoozeButton_Click"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="61,82,0,0" Height="111" Width="212" FontSize="36">
+    <Grid Background="Black">
+        <Button x:Name="DismissButton" Background ="Red" Foreground="White" Content="Dismiss" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,472,0,0" Click="DismissButton_Click" Height="80" Width="150"/>
+        <Button x:Name="SnoozeButton" Background="Blue" Foreground="White" Content="Snooze" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,472,0,0" Click="SnoozeButton_Click" Height="80" Width="150"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="61,82,0,0" Height="111" Width="212" FontSize="36">
             <Run Text="An alarm has gon"/>
             <Run Text="e"/>
             <Run Text=" off!"/>
