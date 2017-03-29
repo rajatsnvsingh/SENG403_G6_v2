@@ -36,7 +36,10 @@ namespace SENG403_AlarmClock_V3
         private async void ClickDoneButton(object sender, RoutedEventArgs e)
         {
             TimeSpan ts = timePicker.Time;
-            if (MondayButton.IsChecked == true) {
+            if (!repeatCheckbox.IsChecked == true)
+            {
+                alarm.setOneTimeAlarm(DateTime.Today.Add(ts));
+            } else if (MondayButton.IsChecked == true) {
                 alarm.setWeeklyAlarm(DayOfWeek.Monday, ts);
             }
             else if (TuesdayButton.IsChecked == true)
@@ -51,10 +54,6 @@ namespace SENG403_AlarmClock_V3
             {
                 alarm.setDailyAlarm(ts);
             }
-            else if (!repeatCheckbox.IsChecked == true)
-            {
-                alarm.setOneTimeAlarm(DateTime.Today.Add(ts));
-            } 
             List<Alarm> temp = mainPage.getAlarms();
             List<Alarm> alarms = new List<Alarm>();
             foreach (Alarm a in temp)

@@ -14,8 +14,6 @@
       <RootProperty Name="Margin" />
       <RootMethod Name="GetRow" />
       <RootMethod Name="SetRow" />
-      <RootMethod Name="GetRowSpan" />
-      <RootMethod Name="SetRowSpan" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Button">
       <RootProperty Name="Background" />
@@ -101,6 +99,7 @@
       <RootProperty Name="Margin" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.CheckBox">
+      <RootProperty Name="IsChecked" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="Content" />
       <RootProperty Name="HorizontalAlignment" />
@@ -120,6 +119,13 @@
     </RootType>
     <RootType FullName="SENG403_AlarmClock_V3.MainPage" />
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="TextWrapping" />
+      <RootProperty Name="Text" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Margin" />
+    </RootType>
     <RootType FullName="SENG403_AlarmClock_V3.SettingsPage" />
   </Roots.RootTypes>
 </Roots>

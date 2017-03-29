@@ -148,5 +148,18 @@ namespace SENG403_AlarmClock_V3
                 }
             }
         }
+
+        private void snoozeAlarmButtonClick(object sender, RoutedEventArgs e)
+        {
+            foreach (AlarmUserControl u in AlarmList_Panel.Children)
+            {
+                if (u.alarm.enabled && currentTime.CompareTo(u.alarm.notifyTime) > 0)
+                {
+                    u.alarm.enabled = false;
+                    dismissButton.Visibility = Visibility.Collapsed;
+                    snoozeButton.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
     }
 }

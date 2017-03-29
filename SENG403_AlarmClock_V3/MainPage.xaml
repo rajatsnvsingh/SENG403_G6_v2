@@ -27,12 +27,12 @@
             <TextBlock x:Name="AMPMText" Foreground="White" FontSize="32" HorizontalAlignment="Left" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" Height="40" Width="63" Margin="165,19,0,0"/>
         </Grid>
         <TextBlock x:Name="DayDateText" Foreground="White" FontSize="24" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Munday, March 66, 2917" VerticalAlignment="Top" Margin="60,190,0,0"/>
-        <TextBlock x:Name="GroupNameText" Foreground="White" FontSize="24" HorizontalAlignment="Left" Margin="68,598,0,0" TextWrapping="Wrap" Text="The Dining Philosophers" VerticalAlignment="Top" Width="282" FontFamily="Matura MT Script Capitals" FontStyle="Italic"/>
+        <TextBlock x:Name="GroupNameText" Foreground="White" FontSize="24" HorizontalAlignment="Left" Margin="39,560,0,0" TextWrapping="Wrap" Text="The Dining Philosophers" VerticalAlignment="Top" Width="282" FontFamily="Matura MT Script Capitals" FontStyle="Italic"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,260,10,85" >
             <StackPanel x:Name="AlarmList_Panel" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="340" >
             </StackPanel>
         </ScrollViewer>
         <Button x:Name="dismissButton" Content="Dismiss" Foreground="Black" Background="White" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="195,228,0,0" Click="dismissAlarmButtonClicked"/>
-        <Button x:Name="snoozeButton" Content="Snooze" Foreground="Black" Background="White" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,227,0,0"/>
+        <Button x:Name="snoozeButton" Content="Snooze" Foreground="Black" Background="White" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,227,0,0" Click="snoozeAlarmButtonClick"/>
     </Grid>
 </Page>

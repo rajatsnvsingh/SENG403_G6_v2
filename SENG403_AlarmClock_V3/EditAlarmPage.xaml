@@ -24,6 +24,6 @@
         <Button x:Name="DoneButton" FontSize="20" Background="Green" Foreground="White" Content="Done" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,348,0,0" Grid.Row="1" Click="ClickDoneButton" Width="140" Height="42"/>
         <TimePicker x:Name="timePicker" Time="13:00" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,110,0,0" Width="294"/>
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="34,63,0,0"/>
-        <CheckBox x:Name="repeatCheckbox" Foreground="White" Content="Repeat Alarm" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,167,0,0" Click="ClickRepeat"/>
+        <CheckBox x:Name="repeatCheckbox" IsChecked="True" Foreground="White" Content="Repeat Alarm" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,167,0,0" Click="ClickRepeat"/>
     </Grid>
 </Page>
