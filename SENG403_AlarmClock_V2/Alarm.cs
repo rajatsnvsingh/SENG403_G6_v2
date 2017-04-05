@@ -13,13 +13,14 @@ namespace SENG403_AlarmClock_V2
         private const string defaultSoundFile = @"C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\Sounds\missileAlert.wav";
 
         //instance variables
-        private DateTime defaultAlarmTime; //default time (for repeated alarms)
-        private DateTime notifyTime; //when the alarm should go off after being snoozed
-        private double snoozeTime;
+        public DateTime defaultAlarmTime { get; set; } //default time (for repeated alarms)
+
+        public DateTime notifyTime { get; set; } //when the alarm should go off after being snoozed
+        public double snoozeTime { get; set; }
         SoundPlayer alarmSound = new SoundPlayer(defaultSoundFile);
         Boolean enabled = false;
         private int repeatIntervalDays = -1; //how many days before alarm goes off
-        private string label;
+        public string label { get; set; }
 
         public static Alarm createDailyAlarm(DateTime alarmTime, double snoozeTime)
         {

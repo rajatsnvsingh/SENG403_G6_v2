@@ -44,12 +44,19 @@ namespace SENG403_AlarmClock_V2
             minuteLabel.Content = currentTime.ToString(": ss");
             AMPM_thing.Content = currentTime.ToString("tt");
             DayDate.Content = currentTime.ToString("dddd, MMMM dd, yyyy");
+            int windowsOpen = 0;
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
-                if (currentTime.CompareTo(u.alarm.GetNotificationTime()) > 0)
+                
+                if (windowsOpen > 0)
                 {
-                    Console.WriteLine(u.alarm.GetNotificationTime());
+                    missedAlarmLabel.Visibility = Visibility.Visible;
+                }
+                else if (currentTime.CompareTo(u.alarm.notifyTime) > 0)
+                {
+                    Console.WriteLine(u.alarm.notifyTime);
                     u.alarm.play();
+                    windowsOpen++;
                 }
             }
            

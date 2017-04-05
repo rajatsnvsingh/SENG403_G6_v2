@@ -36,6 +36,7 @@
         <Label x:Name="label1" Content="Clock Speed" Foreground="White" HorizontalAlignment="Left" Margin="287,468,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="-1.956,0.675"/>
         <Slider x:Name="ClockSpeedSlider" Margin="287,505,340.2,-505.6" ValueChanged="ClockSpeedSlider_ValueChanged" Maximum="14"/>
         <Button x:Name="addDayButton" Content="Add day" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="287,553,0,0" Click="addDayButton_Click"/>
+        <Label x:Name="missedAlarmLabel" Foreground="White" Content="You Missed An Alarm" HorizontalAlignment="Left" Margin="384,138,0,0" VerticalAlignment="Top" FontSize="22" Visibility="Collapsed"/>
 
     </Grid>
 </Window>
