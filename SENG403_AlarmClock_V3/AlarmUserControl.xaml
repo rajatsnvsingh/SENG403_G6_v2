@@ -9,12 +9,12 @@
     <Border BorderBrush="White" BorderThickness="2">
         <Grid Background="Black">
 
-            <TextBlock x:Name="AlarmType_label" Foreground="White" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="170,10,0,0" Height="21"/>
-
-            <TextBlock x:Name="AlarmTime_label" Foreground="White" Text="Alarm Not Set" HorizontalAlignment="Left" Margin="55,10,0,0" VerticalAlignment="Top" Height="23"/>
+            <TextBlock x:Name="AlarmTypeLabel" Foreground="White" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="170,10,0,0" Height="21"/>
+            <TextBlock x:Name="AlarmTimeLabel" Foreground="White" Text="Alarm Not Set" HorizontalAlignment="Left" Margin="55,10,0,0" VerticalAlignment="Top" Height="23"/>
             <StackPanel>
                 <StackPanel>
                     <Button x:Name="EditAlarm_Button" Background="Blue" FontSize="10" Foreground="White" Content="Edit" HorizontalAlignment="Left" Margin="170,33,0,0" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.2,0.5" Height="23" Click="EditAlarm_Click"/>
+                    <Button x:Name="SnoozeAlarmButton" Visibility="Collapsed" Background="DarkBlue" FontSize="10" Foreground="White" Content="Snooze" HorizontalAlignment="Left" Margin="170,33,0,0" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.2,0.5" Height="23" Click="SnoozeButtonClick"/>
                 </StackPanel>
                 <Frame></Frame>
             </StackPanel>
@@ -22,8 +22,8 @@
 
             <Button x:Name="DeleteAlarm_Button" Background="Transparent"  HorizontalAlignment="Left" Margin="306,0,0,0" VerticalAlignment="Top" Width="15" Height="15" RenderTransformOrigin="0.333,0.2" Click="DeleteAlarm_Click">
                 <Image x:Name="DeleteButtonImage" Source="Images/x_button.png" HorizontalAlignment="Left" Margin="-10,-6,-5,-6" Width="15"/>
-
             </Button>
+            <Button x:Name="DismissAlarmButton" FontSize="10" Visibility="Collapsed" Background="DarkBlue" Foreground="White" Content="Dismiss" HorizontalAlignment="Left" Margin="55,33,0,0" VerticalAlignment="Top" Width="66" Click="DismissAlarmButtonClick" Height="23" RenderTransformOrigin="-0.545,1.304"/>
 
         </Grid>
     </Border>

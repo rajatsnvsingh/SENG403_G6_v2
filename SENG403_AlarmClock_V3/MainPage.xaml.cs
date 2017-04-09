@@ -1,5 +1,4 @@
-﻿using SENG403_AlarmClock_V2;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
@@ -17,14 +16,15 @@ namespace SENG403_AlarmClock_V3
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public static DateTime currentTime = DateTime.Now;
+        public static DateTime currentTime;
         public static double snoozeTime = 1.0;
-        
+
         public DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
         //constants
         public static string DEFAULT_ALARM_SOUND = "";
         public static string ALARMS_FILE = "alarms.txt";
+        public static bool ALARM_NOTIFICATION_OPEN = false;
 
         public MainPage()
         {
@@ -36,7 +36,19 @@ namespace SENG403_AlarmClock_V3
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             dispatcherTimer.Start();
-            loadAlarmsFromJSON();
+        }
+
+        public async void pageLoaded(Object sender, RoutedEventArgs e)
+        {
+            await loadAlarmsFromJSON();
+            foreach (AlarmUserControl u in AlarmList_Panel.Children)
+            {
+                if (u.alarm.currentState == AlarmState.FIRST_TO_GO_OFF)
+                {
+                    openAlarmNotificationWindow(u.alarm.label);
+                    ALARM_NOTIFICATION_OPEN = true;
+                }
+            }
         }
 
         public async Task saveAlarmsToJSON(List<Alarm> alarms)
@@ -72,8 +84,8 @@ namespace SENG403_AlarmClock_V3
 
                 foreach (var a in alarms)
                 {
-                    AlarmUserControl alarmDisplay = new AlarmUserControl(AlarmList_Panel, this, a);
-                    alarmDisplay.update();
+                    AlarmUserControl alarmDisplay = new AlarmUserControl(this, a);
+                    alarmDisplay.updateDisplay();
                     AlarmList_Panel.Children.Add(alarmDisplay);
                 }
             }
@@ -83,7 +95,7 @@ namespace SENG403_AlarmClock_V3
             }
         }
 
-        private async void DispatcherTimer_Tick(object sender, object e)
+        private void DispatcherTimer_Tick(object sender, object e)
         {
             currentTime = currentTime.AddSeconds(1);
             HourText.Text = currentTime.ToString("hh:mm");
@@ -93,30 +105,25 @@ namespace SENG403_AlarmClock_V3
 
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
-                if (u.alarm.enabled && currentTime.CompareTo(u.alarm.notifyTime) > 0)
-                {
-                    dismissButton.Visibility = Visibility.Visible;
-                    snoozeButton.Visibility = Visibility.Visible;
-                }
+                u.requestAlarmWithCheck(currentTime);
             }
         }
 
         private void PhoneAddAlarmButton_Click(object sender, RoutedEventArgs e)
         {
-            AlarmUserControl alarmControl = new AlarmUserControl(AlarmList_Panel, this, new Alarm(DEFAULT_ALARM_SOUND, snoozeTime));
+            AlarmUserControl alarmControl = new AlarmUserControl(this, new Alarm(DEFAULT_ALARM_SOUND, snoozeTime));
             AlarmList_Panel.Children.Add(alarmControl);
         }
 
-        private void Settings_Clicked(object sender, RoutedEventArgs e)
+        private async void Settings_Clicked(object sender, RoutedEventArgs e)
         {
+            await saveAlarmsToJSON(getAlarms());
             dispatcherTimer.Tick -= DispatcherTimer_Tick;
             Frame.Navigate(typeof(SettingsPage));
         }
 
-        private async void SideBarButtonClick(object sender, RoutedEventArgs e)
+        private void SideBarButtonClick(object sender, RoutedEventArgs e)
         {
-            AlarmList_Panel.Children.Clear();
-            await loadAlarmsFromJSON();
             /*
             if(AlarmList_Panel.Visibility ==  Visibility.Visible)
             {
@@ -136,30 +143,102 @@ namespace SENG403_AlarmClock_V3
             dispatcherTimer.Tick -= DispatcherTimer_Tick;
         }
 
-        private void dismissAlarmButtonClicked(object sender, RoutedEventArgs e)
+        private async void pageUnloaded(object sender, RoutedEventArgs e)
         {
-            foreach (AlarmUserControl u in AlarmList_Panel.Children)
-            {
-                if (u.alarm.enabled && currentTime.CompareTo(u.alarm.notifyTime) > 0)
-                {
-                    u.alarm.enabled = false;
-                    dismissButton.Visibility = Visibility.Collapsed;
-                    snoozeButton.Visibility = Visibility.Collapsed;
-                }
-            }
+            await saveAlarmsToJSON(getAlarms());
         }
 
-        private void snoozeAlarmButtonClick(object sender, RoutedEventArgs e)
+        //Edit Alarm Window
+        internal void openEditPage()
+        {
+            EditAlarmPage.Visibility = Visibility.Visible;
+        }
+
+        private void DoneButtonClicked(object sender, RoutedEventArgs e)
         {
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
-                if (u.alarm.enabled && currentTime.CompareTo(u.alarm.notifyTime) > 0)
+                if (u.currentState == State.EDIT)
                 {
-                    u.alarm.enabled = false;
-                    dismissButton.Visibility = Visibility.Collapsed;
-                    snoozeButton.Visibility = Visibility.Collapsed;
+                    u.currentState = State.IDLE;
+                    TimeSpan ts = timePicker.Time;
+                    string label = AlarmLabelTextbox.Text;
+                    if (!repeatCheckbox.IsChecked == true)
+                    {
+                        u.setOneTimeAlarm(DateTime.Today.Add(ts), label);
+                    }
+                    else if (Monday.IsChecked == true)
+                    {
+                        u.setWeeklyAlarm(DayOfWeek.Monday, ts, label);
+                    }
+                    else if (Tuesday.IsChecked == true)
+                    {
+                        u.setWeeklyAlarm(DayOfWeek.Tuesday, ts, label);
+                    }
+                    else if (Wednesday.IsChecked == true)
+                    {
+                        u.setWeeklyAlarm(DayOfWeek.Wednesday, ts, label);
+                    }
+                    else if (Daily.IsChecked == true)
+                    {
+                        u.setDailyAlarm(ts, label);
+                    }
                 }
             }
+            EditAlarmPage.Visibility = Visibility.Collapsed;
         }
+
+        private void CancelButtonClicked(object sender, RoutedEventArgs e)
+        {
+            foreach (AlarmUserControl u in AlarmList_Panel.Children)
+            {
+                if (u.currentState == State.EDIT) u.currentState = State.IDLE;
+            }
+            EditAlarmPage.Visibility = Visibility.Collapsed;
+        }
+
+        private void repeatCheckboxChecked(object sender, RoutedEventArgs e)
+        {
+            datePicker.Visibility = Visibility.Collapsed;
+            repeatedAlarms.Visibility = Visibility.Visible;
+        }
+
+        private void repeatCheckboxUnchecked(object sender, RoutedEventArgs e)
+        {
+            datePicker.Visibility = Visibility.Visible;
+            repeatedAlarms.Visibility = Visibility.Collapsed;
+        }
+
+        // Alarm Notification Window
+        internal void openAlarmNotificationWindow(string text)
+        {
+            AlarmLabel.Text = "Alarm";
+            AlarmNotification.Visibility = Visibility.Visible;
+        }
+
+        private void DismissButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!ALARM_NOTIFICATION_OPEN) throw new Exception("Alarm notification window was not open but dismiss button somehow got clicked on");
+            dispatcherTimer.Tick -= DispatcherTimer_Tick;
+            foreach (AlarmUserControl u in AlarmList_Panel.Children)
+            {
+                if (u.alarm.currentState.Equals(AlarmState.FIRST_TO_GO_OFF))
+                    u.alarm.updateAlarmTime();
+            }
+            AlarmNotification.Visibility = Visibility.Collapsed;
+            MainPage.ALARM_NOTIFICATION_OPEN = false;
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+        }
+
+        private void SnoozeButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!ALARM_NOTIFICATION_OPEN) throw new Exception("Alarm notification window was not open but snooze button somehow got clicked on");
+            foreach (AlarmUserControl u in AlarmList_Panel.Children)
+                if (u.alarm.currentState == AlarmState.FIRST_TO_GO_OFF)
+                    u.alarm.snooze();
+            AlarmNotification.Visibility = Visibility.Collapsed;
+            MainPage.ALARM_NOTIFICATION_OPEN = false;
+        }
+
     }
 }
