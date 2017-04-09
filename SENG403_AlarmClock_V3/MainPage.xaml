@@ -31,7 +31,7 @@
             <StackPanel x:Name="AlarmList_Panel" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="340" >
             </StackPanel>
         </ScrollViewer>
-            <Grid x:Name="EditAlarmPage" Visibility="Collapsed">
+        <Grid x:Name="EditAlarmPage" Visibility="Collapsed">
             <Rectangle Fill="White" HorizontalAlignment="Left" Height="640" Stroke="Black" VerticalAlignment="Top" Width="360"/>
             <Grid x:Name="repeatedAlarms">
                 <RadioButton x:Name="Monday" Foreground ="Black" Content="Monday" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,243,0,0"/>
@@ -52,10 +52,13 @@
         </Grid>
         <Grid x:Name="AlarmNotification" Visibility="Collapsed">
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="640" Stroke="Black" VerticalAlignment="Top" Width="360"/>
-            <TextBlock x:Name="AlarmLabel" HorizontalAlignment="Left" Margin="64,166,0,0" TextWrapping="Wrap" Text="An alarm has gone off!" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="98" Width="245" FontSize="24"/>
-            <Button x:Name="DismissButton" Content="Dismiss" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="192,264,0,0" Click="DismissButtonClick"/>
-            <Button x:Name="SnoozeButton" Content="Snooze" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="93,264,0,0" Click="SnoozeButtonClick"/>
+            <TextBlock x:Name="AlarmNotificationWindowTime" HorizontalAlignment="Left" Margin="60,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="41" Width="245" FontSize="24" />
+            <TextBlock x:Name="AlarmNotificationWindowDate" HorizontalAlignment="Left" Margin="60,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="41" Width="245" FontSize="24" />
+            <TextBlock x:Name="AlarmNotifyMessage" HorizontalAlignment="Left" Margin="60,171,0,0" TextWrapping="Wrap" Text="An alarm has gone off at 4:20pm!" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="78" Width="245" FontSize="24"/>
+            <TextBlock x:Name="AlarmLabel" HorizontalAlignment="Left" Margin="60,294,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="80" Width="245" FontSize="24"/>
+            <Button x:Name="DismissButton" Content="Dismiss" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="208,426,0,0" Click="DismissButtonClick"/>
+            <Button x:Name="SnoozeButton" Content="Snooze" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,426,0,0" Click="SnoozeButtonClick"/>
+            <TextBlock HorizontalAlignment="Left" Margin="60,249,0,0" TextWrapping="Wrap" Text="Alarm Message:" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="40" Width="245" FontSize="24"/>
         </Grid>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Alarm Label" VerticalAlignment="Top" Margin="39,392,0,0"/>
     </Grid>
 </Page>

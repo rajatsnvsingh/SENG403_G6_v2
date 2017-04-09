@@ -42,11 +42,15 @@ namespace SENG403_AlarmClock_V3
             MinuteText.Text = time.ToString(":ss");
             AMPMText.Text = time.ToString("tt");
             DayDateText.Text = time.ToString("dddd, MMMM dd, yyyy");
+
+            AlarmNotificationWindowTime.Text = time.ToString("hh:mm:ss tt");
+            AlarmNotificationWindowDate.Text = time.ToString("dddd, MMMM dd, yyyy");
         }
 
         public async void pageLoaded(Object sender, RoutedEventArgs e)
         {
             await loadAlarmsFromJSON();
+            currentTime = DateTime.Now;
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
                 if (u.alarm.currentState == AlarmState.FIRST_TO_GO_OFF)
@@ -103,7 +107,7 @@ namespace SENG403_AlarmClock_V3
 
         private void DispatcherTimer_Tick(object sender, object e)
         {
-            currentTime = currentTime.AddSeconds(1);
+            currentTime = DateTime.Now;
             updateTimeDisplay(currentTime);
 
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
@@ -215,14 +219,15 @@ namespace SENG403_AlarmClock_V3
         // Alarm Notification Window
         internal void openAlarmNotificationWindow(string text)
         {
-            AlarmLabel.Text = "Alarm";
+            AlarmLabel.Text = text;
+            AlarmNotifyMessage.Text = "An alarm has gone off at " + currentTime.ToString("hh:mm:ss tt");
             AlarmNotification.Visibility = Visibility.Visible;
         }
 
         private void DismissButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!ALARM_NOTIFICATION_OPEN) throw new Exception("Alarm notification window was not open but dismiss button somehow got clicked on");
-            dispatcherTimer.Tick -= DispatcherTimer_Tick;
+            if (!ALARM_NOTIFICATION_OPEN)
+                throw new Exception("Alarm notification window was not open but dismiss button somehow got clicked on");
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
                 if (u.alarm.currentState.Equals(AlarmState.FIRST_TO_GO_OFF))
@@ -230,12 +235,12 @@ namespace SENG403_AlarmClock_V3
             }
             AlarmNotification.Visibility = Visibility.Collapsed;
             MainPage.ALARM_NOTIFICATION_OPEN = false;
-            dispatcherTimer.Tick += DispatcherTimer_Tick;
         }
 
         private void SnoozeButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!ALARM_NOTIFICATION_OPEN) throw new Exception("Alarm notification window was not open but snooze button somehow got clicked on");
+            if (!ALARM_NOTIFICATION_OPEN)
+                throw new Exception("Alarm notification window was not open but snooze button somehow got clicked on");
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
                 if (u.alarm.currentState == AlarmState.FIRST_TO_GO_OFF)
                     u.alarm.snooze();
