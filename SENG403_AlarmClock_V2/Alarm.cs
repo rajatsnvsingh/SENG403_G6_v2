@@ -8,6 +8,7 @@ using System.Windows.Threading;
 
 namespace SENG403_AlarmClock_V2
 {
+    [Serializable]
     public class Alarm
     {
         private const string defaultSoundFile = @"C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\Sounds\missileAlert.wav";

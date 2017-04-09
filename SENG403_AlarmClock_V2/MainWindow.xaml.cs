@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SENG403_AlarmClock_V2
 {
@@ -23,10 +25,16 @@ namespace SENG403_AlarmClock_V2
         static public double snoozeTime = 5;
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         public static DateTime currentTime;
+
+        private Stream fileStream;
+        private BinaryFormatter formatter;
+
         
         public MainWindow()
         {
             InitializeComponent();
+
+            //time display elements
             hourLabel.Content = DateTime.Now.ToString("hh : mm");
             minuteLabel.Content = DateTime.Now.ToString(": ss");
             AMPM_thing.Content = DateTime.Now.ToString("tt");
@@ -35,6 +43,12 @@ namespace SENG403_AlarmClock_V2
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             dispatcherTimer.Start();
+
+            formatter = new BinaryFormatter();
+            if(File.Exists("alarmFile.bin"))
+            {
+                loadAlarmFile(AlarmList_Panel);
+            }
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -117,6 +131,27 @@ namespace SENG403_AlarmClock_V2
         public double GetSnoozeTime()
         {
             return snoozeTime;
+        }
+
+
+
+        /// <summary>
+        /// if file for alarm objects exists, load serialized objects
+        /// </summary>
+        private void loadAlarmFile(StackPanel alarmPanel)
+        {
+            fileStream = new FileStream("alarmFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            alarmPanel.Children.Clear();
+
+            while (fileStream.Position != fileStream.Length)
+            {
+                Alarm loadedAlarm = (Alarm) formatter.Deserialize(fileStream);
+                AlarmUserControl alarmControl = new AlarmUserControl(AlarmList_Panel, loadedAlarm);
+                AlarmList_Panel.Children.Add(alarmControl);
+            }
+
+            fileStream.Close();
         }
     }
 }

@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SENG403_AlarmClock_V2
 {
@@ -21,6 +23,11 @@ namespace SENG403_AlarmClock_V2
     {
         private List<String> alarmSounds = new List<string>();
         AlarmUserControl alarmControl;
+
+        private Stream fileStream;
+        private BinaryFormatter formatter;
+        
+
         public NewAlarmWindow(AlarmUserControl alarmControl)
         {
             InitializeComponent();
@@ -34,6 +41,8 @@ namespace SENG403_AlarmClock_V2
             Alarm_TimePicker.Value = alarmControl.alarm.notifyTime;
             AlarmMessage.Text = alarmControl.alarm.GetLabel();
 
+            formatter = new BinaryFormatter();
+            
 
         }
 
@@ -94,7 +103,26 @@ namespace SENG403_AlarmClock_V2
 
             alarmControl.setTimeLabel(alarmTime);
             alarmControl.alarm.SetSound((String)AlarmTone_comboBox.SelectedValue);
-            if (!AlarmMessage.Text.Equals("Set Alarm Label")) alarmControl.alarm.SetLabel(AlarmMessage.Text);
+            if (!AlarmMessage.Text.Equals("Set Alarm Label"))
+                alarmControl.alarm.SetLabel(AlarmMessage.Text);
+
+
+            //writes new alarm to object file
+            if(File.Exists("alarmFile.bin"))
+            {
+                fileStream = new FileStream("alarmFile.bin", FileMode.Append, FileAccess.Write, FileShare.None);
+                formatter.Serialize(fileStream, alarmControl.alarm);
+            }
+            else
+            {
+                fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+            }
+
+            fileStream.Close();
+
+
+
+
             this.Close();
         }
 
@@ -125,5 +153,7 @@ namespace SENG403_AlarmClock_V2
             RadioGrid.Visibility = Visibility.Collapsed;
             OtherProps.Margin = new Thickness(26, 149, 21, 34);
         }
+
+       
     }
 }

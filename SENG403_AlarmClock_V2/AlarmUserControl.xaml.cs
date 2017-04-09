@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SENG403_AlarmClock_V2
 {
@@ -23,12 +25,19 @@ namespace SENG403_AlarmClock_V2
 
         private Panel _parent;
         public Alarm alarm;
+
+        private Stream fileStream;
+        private BinaryFormatter formatter;
+
+
         public AlarmUserControl(StackPanel parent, Alarm alarm)
         {
             InitializeComponent();
             _parent = parent;
             this.alarm = alarm;
             AlarmTime_label.Content = alarm.GetNotificationTime().ToString("hh:mm tt");
+
+            formatter = new BinaryFormatter();
         }
 
         public void setTimeLabel(DateTime time)
@@ -59,12 +68,28 @@ namespace SENG403_AlarmClock_V2
 
         private void DeleteAlarm_Click(object sender, RoutedEventArgs e)
         {
+            //open file stream to rewrite alarm objects
+            fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+
+            //delete from list of alarms
             foreach (AlarmUserControl u in _parent.Children)
+            {
                 if (this.Equals(u))
-                {
+                {                    
                     _parent.Children.Remove(this);
                     break;
                 }
+            }
+
+            //rewrite alarm object file based on changes to alarm list
+            foreach(AlarmUserControl alarmControl in _parent.Children)
+            {
+                formatter.Serialize(fileStream, alarmControl.alarm);
+            }
+
+            //close stream to yield file access
+            fileStream.Close();
+                
         }
 
         private void EditAlarm_Click(object sender, RoutedEventArgs e)
