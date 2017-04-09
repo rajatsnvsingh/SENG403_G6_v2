@@ -68,21 +68,24 @@ namespace SENG403_AlarmClock_V2
 
         private void DeleteAlarm_Click(object sender, RoutedEventArgs e)
         {
-            //open file stream to rewrite alarm objects
-            fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-
+           
             //delete from list of alarms
             foreach (AlarmUserControl u in _parent.Children)
             {
                 if (this.Equals(u))
                 {                    
-                    _parent.Children.Remove(this);
+                    _parent.Children.Remove(u);
                     break;
                 }
             }
 
+            File.Delete("alarmFile.bin");
+
+            //open file stream to rewrite alarm objects
+            fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+
             //rewrite alarm object file based on changes to alarm list
-            foreach(AlarmUserControl alarmControl in _parent.Children)
+            foreach (AlarmUserControl alarmControl in _parent.Children)
             {
                 formatter.Serialize(fileStream, alarmControl.alarm);
             }

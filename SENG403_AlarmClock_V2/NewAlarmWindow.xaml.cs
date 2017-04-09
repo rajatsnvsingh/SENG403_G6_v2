@@ -107,18 +107,22 @@ namespace SENG403_AlarmClock_V2
                 alarmControl.alarm.SetLabel(AlarmMessage.Text);
 
 
+            
+
             //writes new alarm to object file
             if(File.Exists("alarmFile.bin"))
             {
+                
                 fileStream = new FileStream("alarmFile.bin", FileMode.Append, FileAccess.Write, FileShare.None);
                 formatter.Serialize(fileStream, alarmControl.alarm);
+                fileStream.Close();
+
             }
             else
             {
-                fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+                //fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
             }
 
-            fileStream.Close();
 
 
 

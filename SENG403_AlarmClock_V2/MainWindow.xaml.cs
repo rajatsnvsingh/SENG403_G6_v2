@@ -47,7 +47,8 @@ namespace SENG403_AlarmClock_V2
             formatter = new BinaryFormatter();
             if(File.Exists("alarmFile.bin"))
             {
-                loadAlarmFile(AlarmList_Panel);
+                //AlarmList_Panel.Children.Clear();
+                loadAlarmFile();
             }
         }
 
@@ -85,8 +86,9 @@ namespace SENG403_AlarmClock_V2
         {
             Alarm newAlarm = new Alarm(@"..\..\Sounds\missileAlert.wav", snoozeTime);
             AlarmUserControl alarmControl = new AlarmUserControl(AlarmList_Panel, newAlarm);
-            AlarmList_Panel.Children.Add(alarmControl);
             new NewAlarmWindow(alarmControl).ShowDialog();
+            AlarmList_Panel.Children.Add(alarmControl);
+
 
         }
 
@@ -138,11 +140,11 @@ namespace SENG403_AlarmClock_V2
         /// <summary>
         /// if file for alarm objects exists, load serialized objects
         /// </summary>
-        private void loadAlarmFile(StackPanel alarmPanel)
+        private void loadAlarmFile()
         {
             fileStream = new FileStream("alarmFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
 
-            alarmPanel.Children.Clear();
+            //AlarmList_Panel.Children.Clear();
 
             while (fileStream.Position != fileStream.Length)
             {
