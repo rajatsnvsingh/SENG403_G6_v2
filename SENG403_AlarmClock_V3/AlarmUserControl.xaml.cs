@@ -109,9 +109,9 @@ namespace SENG403_AlarmClock_V3
             if (!alarm.enabled || alarm.currentState != AlarmState.NONE) return;
             if (alarm.notifyTime.CompareTo(currentTime) <= 0)
             {
-                mainPage.openAlarmNotificationWindow(alarm.label);
                 if (!MainPage.ALARM_NOTIFICATION_OPEN)
                 {
+                    alarm.mediaPlayer.Play();
                     MainPage.ALARM_NOTIFICATION_OPEN = true;
                     mainPage.openAlarmNotificationWindow(alarm.label);
                     alarm.currentState = AlarmState.FIRST_TO_GO_OFF;

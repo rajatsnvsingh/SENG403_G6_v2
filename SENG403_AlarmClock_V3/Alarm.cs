@@ -1,6 +1,7 @@
 ﻿using SENG403_AlarmClock_V3;
 using System;
 using System.Runtime.Serialization;
+using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
@@ -13,9 +14,8 @@ namespace SENG403_AlarmClock_V3
     public class Alarm
     {
         private const string DEFAULT_ALARM_SOUND = @"C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\Sounds\missileAlert.wav";
-        private MediaPlayer mediaPlayer = new MediaPlayer();
-        private MediaElement alarmSound;
-        //instance variables
+        [DataMember]
+        public MediaPlayer mediaPlayer { get; set; }
         [DataMember]
         public DateTime defaultAlarmTime { get; set; } //default time (for repeated alarms)
         [DataMember]
@@ -69,15 +69,9 @@ namespace SENG403_AlarmClock_V3
             currentState = AlarmState.NONE;
             enabled = initialized = false;
             this.snoozeTime = snoozeTime;
-        }
-
-        public async void setUpSound()
-        {
-            alarmSound = new MediaElement();
-            StorageFolder folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            folder = await folder.GetFolderAsync("Assets");
-            StorageFile sf = await folder.GetFileAsync("missileAlert.wav");
-            //alarmSound.Source = new Uri("///Assets/missileAlert.wav");
+            mediaPlayer = new MediaPlayer();
+            Uri pathUri = new Uri("ms-appx:///Assets/missileAlert.wav");
+            mediaPlayer.Source = MediaSource.CreateFromUri(pathUri);
         }
 
         /// <summary>
@@ -91,17 +85,14 @@ namespace SENG403_AlarmClock_V3
 
         public void snooze()
         {
+            mediaPlayer.Pause();
             currentState = AlarmState.NONE;
             notifyTime = MainPage.currentTime.AddMinutes(snoozeTime);
         }
 
-        internal void play()
-        {
-            
-        }
-
         internal void updateAlarmTime()
         {
+            mediaPlayer.Pause();
             currentState = AlarmState.NONE;
             if (repeatIntervalDays != -1)
             {

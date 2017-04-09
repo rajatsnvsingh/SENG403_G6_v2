@@ -30,12 +30,18 @@ namespace SENG403_AlarmClock_V3
         {
             InitializeComponent();
             currentTime = DateTime.Now;
-            HourText.Text = currentTime.ToString("hh:mm");
-            MinuteText.Text = currentTime.ToString(":ss");
-            AMPMText.Text = currentTime.ToString("tt");
+            updateTimeDisplay(currentTime);
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             dispatcherTimer.Start();
+        }
+
+        private void updateTimeDisplay(DateTime time)
+        {
+            HourText.Text = time.ToString("hh:mm");
+            MinuteText.Text = time.ToString(":ss");
+            AMPMText.Text = time.ToString("tt");
+            DayDateText.Text = time.ToString("dddd, MMMM dd, yyyy");
         }
 
         public async void pageLoaded(Object sender, RoutedEventArgs e)
@@ -98,10 +104,7 @@ namespace SENG403_AlarmClock_V3
         private void DispatcherTimer_Tick(object sender, object e)
         {
             currentTime = currentTime.AddSeconds(1);
-            HourText.Text = currentTime.ToString("hh:mm");
-            MinuteText.Text = currentTime.ToString(":ss");
-            AMPMText.Text = currentTime.ToString("tt");
-            DayDateText.Text = currentTime.ToString("dddd, MMMM dd, yyyy");
+            updateTimeDisplay(currentTime);
 
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
