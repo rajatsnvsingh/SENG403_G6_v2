@@ -5,18 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SENG403_AlarmClock_V2"
              mc:Ignorable="d" 
-             d:DesignHeight="70" d:DesignWidth="235">
+             d:DesignHeight="80" d:DesignWidth="235">
     <Border BorderBrush="White" BorderThickness="2">
         <Grid Background="Black">
 
-            <Label x:Name="AlarmType_label" Foreground="White" Content="Daily" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="132,8,0,0" Height="28"/>
+            <Label x:Name="AlarmType_label" Foreground="White" Content="Daily" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,18,0,0" Height="30"/>
 
-            <Label x:Name="AlarmTime_label" Foreground="White" Content="4:20:00 am" HorizontalAlignment="Left" Margin="65,8,0,0" VerticalAlignment="Top" Height="23"/>
-            <Button x:Name="EnableDisableAlarm_Button" Background="Green" Foreground="White" Content="Enable" HorizontalAlignment="Left" Margin="17,33,0,0" VerticalAlignment="Top" Width="66" Click="EnableDisableAlarm_Button_Click" Height="23" RenderTransformOrigin="-0.545,1.304"/>
-            <Button x:Name="EditAlarm_Button" Background="Blue" Foreground="White" Content="Edit" HorizontalAlignment="Left" Margin="148,33,0,0" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.2,0.5" Height="23" Click="EditAlarm_Click"/>
+            <Label x:Name="AlarmTime_label" Foreground="White" Content="4:20:00 am" HorizontalAlignment="Left" Margin="17,18,0,0" VerticalAlignment="Top" Height="23"/>
+            <Button x:Name="EnableDisableAlarm_Button" Background="Green" Foreground="White" Content="Enable" HorizontalAlignment="Left" Margin="17,43,0,0" VerticalAlignment="Top" Width="66" Click="EnableDisableAlarm_Button_Click" Height="23" RenderTransformOrigin="-0.545,1.304"/>
+            <Button x:Name="EditAlarm_Button" Background="Blue" Foreground="White" Content="Edit" HorizontalAlignment="Left" Margin="148,43,0,0" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.2,0.5" Height="23" Click="EditAlarm_Click"/>
             <Button x:Name="DeleteAlarm_Button" Background="Black" HorizontalAlignment="Left" Margin="216,0,0,0" VerticalAlignment="Top" Width="15" Height="15" RenderTransformOrigin="0.333,0.2" Click="DeleteAlarm_Click">
                 <Image Source="pack://application:,,,/Images/x_button.png" RenderOptions.BitmapScalingMode="Fant"></Image>
             </Button>
+            <Label x:Name="AlarmText_label"  Foreground="White"  Content="Label" HorizontalAlignment="Left" Margin="17,0,0,0" VerticalAlignment="Top" Height="28" Width="101"/>
 
         </Grid>
     </Border>

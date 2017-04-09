@@ -107,7 +107,8 @@ namespace SENG403_AlarmClock_V2
                 alarmControl.alarm.SetLabel(AlarmMessage.Text);
 
 
-            
+            alarmControl.AlarmText_label.Content = alarmControl.alarm.label;
+
 
             //writes new alarm to object file
             if(File.Exists("alarmFile.bin"))

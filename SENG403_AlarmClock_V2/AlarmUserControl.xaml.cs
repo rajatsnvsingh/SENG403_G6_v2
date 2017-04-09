@@ -36,8 +36,9 @@ namespace SENG403_AlarmClock_V2
             _parent = parent;
             this.alarm = alarm;
             AlarmTime_label.Content = alarm.GetNotificationTime().ToString("hh:mm tt");
+            AlarmText_label.Content = alarm.label;
 
-            formatter = new BinaryFormatter();
+             formatter = new BinaryFormatter();
         }
 
         public void setTimeLabel(DateTime time)
