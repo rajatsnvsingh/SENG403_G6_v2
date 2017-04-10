@@ -5,38 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SENG403_AlarmClock_V2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1210" Background="Black">
+        ResizeMode="CanMinimize"
+        Title="TDP Alarm Clock" Height="720" Width="1210" Background="Black">
     <Grid>
         <Image x:Name="clockBackground"  Source="pack://application:,,,/Images/background.jpg" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-56,0" Width="1278" />
+        <Grid x:Name="TimeDisplay" Margin="334,237,292,253">
 
-        <Label x:Name="hourLabel" Foreground="White" Content="04 : 20 " HorizontalAlignment="Left" VerticalAlignment="Top" Height="128" Width="368" FontSize="100" FontFamily="Franklin Gothic Book" Margin="334,237,0,0"/>
-        <Label x:Name="minuteLabel" Foreground="White" Content=": 00" HorizontalAlignment="Left" Margin="647,274,0,0" VerticalAlignment="Top" Height="84" Width="120" FontFamily="Comic Sans MS" FontSize="50"/>
-        <Label x:Name="AMPM_thing" Content="AM"  Foreground="White" HorizontalAlignment="Left" Margin="767,274,0,0" VerticalAlignment="Top" FontSize="48" FontFamily="Microsoft JhengHei"/>
+            <Label x:Name="hourLabel" Foreground="White" Content="04 : 20 " HorizontalAlignment="Left" VerticalAlignment="Top" Height="128" Width="368" FontSize="100" FontFamily="Franklin Gothic Book"/>
+            <Label x:Name="minuteLabel" Foreground="White" Content=": 00" HorizontalAlignment="Left" Margin="329,37,0,0" VerticalAlignment="Top" Height="84" Width="120" FontFamily="Comic Sans MS" FontSize="50"/>
+            <Label x:Name="AMPM_thing" Content="AM"  Foreground="White" HorizontalAlignment="Left" Margin="433,37,0,0" VerticalAlignment="Top" FontSize="48" FontFamily="Microsoft JhengHei"/>
+            <Label x:Name="DayDate" Foreground="White" Content="Munday, March 66, 2917" HorizontalAlignment="Left" Margin="294,133,0,0" VerticalAlignment="Top" FontSize="22"/>
+        </Grid>
+        <Rectangle x:Name="Sidebar_Back" Fill="Black" Visibility="Hidden" Opacity="0.3" HorizontalAlignment="Left" Height="689" Stroke="Black" VerticalAlignment="Top" Width="262"/>
+        <Rectangle x:Name="SidebarH" Fill="Black" Visibility="Hidden" Opacity="0.8" HorizontalAlignment="Left" Height="60" Stroke="Black" VerticalAlignment="Top" Width="262"/>
 
-
-        <Label x:Name="label" Foreground="White"  Content="The Dining Philosophers" HorizontalAlignment="Left" Margin="938,620,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Vladimir Script"/>
-       
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Background="Transparent" Width="252" Margin="0,60,0,16" HorizontalAlignment="Left">
-            
-            <StackPanel x:Name="AlarmList_Panel"  HorizontalAlignment="Left"  Margin="0,62,0,0" VerticalAlignment="Top" Width="252" Height="Auto">
-               
-            </StackPanel>
-        </ScrollViewer>
-        <Button x:Name="alarmSideBarButton" Background="Black" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="50" Height="50" FontSize="22" Click="AlarmSideBarButton_Click">
+        <Label x:Name="label" Foreground="White"  Content="The Dining Philosophers" HorizontalAlignment="Left" Margin="938,622,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Vladimir Script"/>
+        <Button x:Name="alarmSideBarButton" Background="Transparent" HorizontalAlignment="Left" Margin="15,15,0,0" VerticalAlignment="Top" Width="30" Height="30" FontSize="22" BorderThickness="0"  Click="AlarmSideBarButton_Click">
             <Image Source="pack://application:,,,/Images/menu-icon.png" RenderOptions.BitmapScalingMode="Fant"></Image>
         </Button>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Background="Transparent" Width="252" Margin="10,65,0,10" HorizontalAlignment="Left">
+            <StackPanel x:Name="AlarmList_Panel" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="235" Height="Auto"/>
+        </ScrollViewer>
 
-        <Button x:Name="AddAlarmButton" Background="Black" HorizontalAlignment="Left" Margin="55,10,0,0" VerticalAlignment="Top" Width="50" Height="50" BorderThickness="0" Click="AddAlarmButton_Click">
-            <Image Source="pack://application:,,,/Images/plus-button-green.png" Width="50"></Image>
+        <Button x:Name="AddAlarmButton" Visibility="Hidden" Background="Transparent" HorizontalAlignment="Left" Margin="180,15,0,0" VerticalAlignment="Top" Width="30" Height="30" BorderThickness="0" Click="AddAlarmButton_Click">
+            <Image Source="pack://application:,,,/Images/plus-button-green.png" Width="50" ></Image>
         </Button>
-        <Label x:Name="DayDate" Foreground="White" Content="Munday, March 66, 2917" HorizontalAlignment="Left" Margin="663,365,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Button x:Name="SettingsButton" Background="Black"  BorderThickness="0" HorizontalAlignment="Left" Margin="110,10,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="Settings_Click">
-            <Image x:Name="GlobalSettings_Button" Source="pack://application:,,,/Images/TurnMyWrenchBabay.png" ></Image>
+        <Button x:Name="SettingsButton" Background="Transparent" Visibility="Hidden" BorderThickness="0" HorizontalAlignment="Left" Margin="220,15,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="Settings_Click">
+            <Image x:Name="GlobalSettings_Button"  Source="pack://application:,,,/Images/TurnMyWrenchBabay.png" ></Image>
         </Button>
-        <Label x:Name="label1" Content="Clock Speed" Foreground="White" HorizontalAlignment="Left" Margin="287,468,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="-1.956,0.675"/>
-        <Slider x:Name="ClockSpeedSlider" Margin="287,505,340.2,-505.6" ValueChanged="ClockSpeedSlider_ValueChanged" Maximum="14"/>
-        <Button x:Name="addDayButton" Content="Add day" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="287,553,0,0" Click="addDayButton_Click"/>
         <Label x:Name="missedAlarmLabel" Foreground="White" Content="You Missed An Alarm" HorizontalAlignment="Left" Margin="384,138,0,0" VerticalAlignment="Top" FontSize="22" Visibility="Collapsed"/>
+        <Grid x:Name="Debug_Options" Margin="564,47,28,-103" Visibility="Hidden">
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="92" Stroke="Black" VerticalAlignment="Top" Width="262" Margin="348,0,0,0"/>
+            <Label x:Name="label1" Content="Clock Speed" Foreground="Black" HorizontalAlignment="Left" Margin="365,15,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="-1.956,0.675"/>
+            <Slider x:Name="ClockSpeedSlider" Margin="365,55,18,0" ValueChanged="ClockSpeedSlider_ValueChanged" Maximum="14"/>
+            <Button x:Name="addDayButton" Content="Add day" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="513,26,0,0" Click="addDayButton_Click"/>
+
+        </Grid>
+        <Button x:Name="Debug" Content="Show Debug " HorizontalAlignment="Left" Margin="1085,22,0,0" VerticalAlignment="Top" Width="89" Click="Debug_Click"/>
 
     </Grid>
 </Window>

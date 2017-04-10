@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:SENG403_AlarmClock_V2"
         mc:Ignorable="d"
         WindowStyle="None"
-        Background="Black"
-        Title="Window1" Height="200" Width="300">
-    <Grid>
-        <Button x:Name="dismissButton" Content="Dismiss" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="68,107,0,0" Click="dismissButton_Click"/>
-        <Button x:Name="snoozeButton" Content="Snooze" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="177,107,0,0" Click="snoozeButton_Click"/>
-        <Label x:Name="Alarm_Label" Content="Alarm has gone off!" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,42,0,0" RenderTransformOrigin="0.5,0.5" FontSize="20"/>
+        Background="#efefef"
+        Title="Window1" Height="119" Width="283.5">
+    <Grid MouseDown="Global_Mice">
+        <Rectangle Fill="Transparent" HorizontalAlignment="Left" Height="110" Margin="0,1,0,0" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="276"/>
+        <Button x:Name="dismissButton" Content="Dismiss" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="32,72,0,0" Click="dismissButton_Click"/>
+        <Button x:Name="snoozeButton" Content="Snooze" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="169,72,0,0" Click="snoozeButton_Click"/>
+        <Label x:Name="Alarm_Label" Content="Take Medicine" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0" RenderTransformOrigin="0.5,0.5" FontSize="24" FontWeight="Bold"/>
         <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="214,269,0,0" VerticalAlignment="Top"/>
 
     </Grid>

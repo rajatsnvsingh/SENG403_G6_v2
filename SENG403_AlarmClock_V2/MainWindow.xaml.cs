@@ -86,7 +86,7 @@ namespace SENG403_AlarmClock_V2
         {
             Alarm newAlarm = new Alarm(@"..\..\Sounds\missileAlert.wav", snoozeTime);
             AlarmUserControl alarmControl = new AlarmUserControl(AlarmList_Panel, newAlarm);
-            new NewAlarmWindow(alarmControl).ShowDialog();
+           // new NewAlarmWindow(alarmControl).ShowDialog();
             AlarmList_Panel.Children.Add(alarmControl);
 
 
@@ -108,12 +108,18 @@ namespace SENG403_AlarmClock_V2
                 AlarmList_Panel.Visibility = Visibility.Collapsed;
                 AddAlarmButton.Visibility = Visibility.Collapsed;
                 SettingsButton.Visibility = Visibility.Collapsed;
+                Sidebar_Back.Visibility = Visibility.Hidden;
+                SidebarH.Visibility = Visibility.Hidden;
+                TimeDisplay.Margin = new Thickness(334, 237, 292, 253);
             }
             else
             {
                 AlarmList_Panel.Visibility = Visibility.Visible;
                 AddAlarmButton.Visibility = Visibility.Visible;
+                SidebarH.Visibility = Visibility.Visible;
                 SettingsButton.Visibility = Visibility.Visible;
+                Sidebar_Back.Visibility = Visibility.Visible;
+                TimeDisplay.Margin = new Thickness(474, 237, 152, 253);
             }
         }
 
@@ -154,6 +160,22 @@ namespace SENG403_AlarmClock_V2
             }
 
             fileStream.Close();
+        }
+
+        private void Debug_Click(object sender, RoutedEventArgs e)
+        {
+            if (Debug_Options.Visibility == Visibility.Visible)
+            {
+                Debug_Options.Visibility = Visibility.Hidden;
+                Debug.Content = "Show Debug";
+            }
+
+            else
+            {
+                Debug_Options.Visibility = Visibility.Visible;
+                Debug.Content = "Hide Debug";
+            }
+               
         }
     }
 }

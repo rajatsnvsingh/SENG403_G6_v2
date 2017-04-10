@@ -157,7 +157,12 @@ namespace SENG403_AlarmClock_V2
             RadioGrid.Visibility = Visibility.Collapsed;
             OtherProps.Margin = new Thickness(26, 149, 21, 34);
         }
+        private void Global_Mice(object sender, MouseButtonEventArgs e)
+        {
 
-       
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
+        }
+
     }
 }

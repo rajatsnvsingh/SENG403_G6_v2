@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>1491796110_Times and Dates.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -145,6 +148,7 @@
     <Resource Include="Images\x_button.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="1491796110_Times and Dates.ico" />
     <Content Include="Sounds\fogHorn.wav" />
     <Content Include="Sounds\missileAlert.wav" />
   </ItemGroup>

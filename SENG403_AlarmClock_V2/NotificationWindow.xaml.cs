@@ -41,5 +41,11 @@ namespace SENG403_AlarmClock_V2
             alarm.snooze();
             Close();
         }
+        private void Global_Mice(object sender, MouseButtonEventArgs e)
+        {
+
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
+        }
     }
 }
