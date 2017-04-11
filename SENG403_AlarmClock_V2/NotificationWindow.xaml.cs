@@ -21,24 +21,25 @@ namespace SENG403_AlarmClock_V2
     public partial class NotificationWindow : Window
     {
 
-        private Alarm alarm;
+        private AlarmUserControl alarmControl;
 
-        public NotificationWindow(Alarm alarm)
+        public NotificationWindow(AlarmUserControl alarm)
         {
-            this.alarm = alarm;
             InitializeComponent();
-            Alarm_Label.Content = alarm.GetLabel();
+            alarmControl = alarm;
+            if (!alarmControl.alarm.label.Equals(""))
+                AlarmLabel.Content = alarmControl.alarm.label;
         }
 
         private void dismissButton_Click(object sender, RoutedEventArgs e)
         {
-            alarm.update();
+            alarmControl.dismissAlarm();
             Close();
         }
 
         private void snoozeButton_Click(object sender, RoutedEventArgs e)
         {
-            alarm.snooze();
+            alarmControl.snoozeAlarm();
             Close();
         }
         private void Global_Mice(object sender, MouseButtonEventArgs e)

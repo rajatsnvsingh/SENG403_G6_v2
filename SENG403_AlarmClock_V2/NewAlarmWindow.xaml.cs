@@ -47,11 +47,13 @@ namespace SENG403_AlarmClock_V2
         }
 
         private void Done_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             DateTime alarmTime;
             DateTime.TryParse(Alarm_TimePicker.Text, out alarmTime);
             if ((bool)radioButton_Daily.IsChecked)
-                alarmControl.alarm = Alarm.createDailyAlarm(alarmTime, MainWindow.snoozeTime);
+            {
+                alarmControl.alarm.setDailyAlarm(alarmTime);
+            }
             else if ((bool)radioButton_Sun.IsChecked)
             {
                 alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Sunday, alarmTime);
@@ -96,6 +98,7 @@ namespace SENG403_AlarmClock_V2
             else
             {
                 alarmControl.alarm.notifyTime = alarmTime;
+                alarmControl.alarm.repeatIntervalDays = -1;
                 alarmControl.AlarmType_label.Content = "No Repeat";
             }
             alarmControl.alarm.setSnooze(MainWindow.snoozeTime);
@@ -104,10 +107,17 @@ namespace SENG403_AlarmClock_V2
             alarmControl.setTimeLabel(alarmTime);
             alarmControl.alarm.SetSound((String)AlarmTone_comboBox.SelectedValue);
             if (!AlarmMessage.Text.Equals("Set Alarm Label"))
+            {
+                alarmControl.ReminderLabel.Content = AlarmMessage.Text;
                 alarmControl.alarm.SetLabel(AlarmMessage.Text);
-
-
-            
+                if (AlarmMessage.Text.Equals(""))
+                {
+                    alarmControl.ReminderLabel.Content = "Alarm";
+                    alarmControl.alarm.SetLabel("Alarm");
+                }
+                   
+            }
+                
 
             //writes new alarm to object file
             if(File.Exists("alarmFile.bin"))
@@ -116,16 +126,12 @@ namespace SENG403_AlarmClock_V2
                 fileStream = new FileStream("alarmFile.bin", FileMode.Append, FileAccess.Write, FileShare.None);
                 formatter.Serialize(fileStream, alarmControl.alarm);
                 fileStream.Close();
-
+          
             }
             else
             {
                 //fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
             }
-
-
-
-
 
             this.Close();
         }

@@ -18,7 +18,7 @@
             <Button x:Name="DeleteAlarm_Button" Background="Black" HorizontalAlignment="Left" Margin="216,0,0,0" VerticalAlignment="Top" Width="15" Height="15" RenderTransformOrigin="0.333,0.2" Click="DeleteAlarm_Click">
                 <Image Source="pack://application:,,,/Images/x_button.png" RenderOptions.BitmapScalingMode="Fant"></Image>
             </Button>
-            <Label x:Name="ReminderLabel" Content="Take Medicine" HorizontalAlignment="Left" VerticalAlignment="Top" Width="206" FontWeight="Bold" FontSize="18" Height="31" Margin="10,0,0,0"/>
+            <Label x:Name="ReminderLabel" Content="Alarm" HorizontalAlignment="Left" VerticalAlignment="Top" Width="206" FontWeight="Bold" FontSize="18" Height="39" Margin="10,-1,0,0"/>
 
         </Grid>
     </Border>

@@ -33,7 +33,7 @@
         <Button x:Name="SettingsButton" Background="Transparent" Visibility="Hidden" BorderThickness="0" HorizontalAlignment="Left" Margin="220,15,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="Settings_Click">
             <Image x:Name="GlobalSettings_Button"  Source="pack://application:,,,/Images/TurnMyWrenchBabay.png" ></Image>
         </Button>
-        <Label x:Name="missedAlarmLabel" Foreground="White" Content="You Missed An Alarm" HorizontalAlignment="Left" Margin="384,138,0,0" VerticalAlignment="Top" FontSize="22" Visibility="Collapsed"/>
+        <Label x:Name="missedAlsarmLabel" Foreground="White" Content="You Missed An Alarm" HorizontalAlignment="Left" Margin="384,138,0,0" VerticalAlignment="Top" FontSize="22" Visibility="Collapsed"/>
         <Grid x:Name="Debug_Options" Margin="564,47,28,-103" Visibility="Hidden">
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="92" Stroke="Black" VerticalAlignment="Top" Width="262" Margin="348,0,0,0"/>
             <Label x:Name="label1" Content="Clock Speed" Foreground="Black" HorizontalAlignment="Left" Margin="365,15,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="-1.956,0.675"/>

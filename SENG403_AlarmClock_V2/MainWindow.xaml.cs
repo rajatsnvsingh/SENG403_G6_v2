@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -59,20 +47,10 @@ namespace SENG403_AlarmClock_V2
             minuteLabel.Content = currentTime.ToString(": ss");
             AMPM_thing.Content = currentTime.ToString("tt");
             DayDate.Content = currentTime.ToString("dddd, MMMM dd, yyyy");
-            int windowsOpen = 0;
+            //int windowsOpen = 0;
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
-                
-                if (windowsOpen > 0)
-                {
-                    missedAlarmLabel.Visibility = Visibility.Visible;
-                }
-                else if (currentTime.CompareTo(u.alarm.notifyTime) > 0)
-                {
-                    Console.WriteLine(u.alarm.notifyTime);
-                    u.alarm.play();
-                    windowsOpen++;
-                }
+                u.requestAlarmWithCheck(currentTime);
             }
            
         }

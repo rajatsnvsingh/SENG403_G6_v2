@@ -155,3 +155,49 @@ C:\Users\Rajat\Documents\Visual Studio 2017\Projects\seng 403 Alarm Clock\SENG40
 C:\Users\Rajat\Documents\Visual Studio 2017\Projects\seng 403 Alarm Clock\SENG403_G6_v2\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.csproj.GenerateResource.Cache
 C:\Users\Rajat\Documents\Visual Studio 2017\Projects\seng 403 Alarm Clock\SENG403_G6_v2\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.exe
 C:\Users\Rajat\Documents\Visual Studio 2017\Projects\seng 403 Alarm Clock\SENG403_G6_v2\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.pdb
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\bin\Debug\SENG403_AlarmClock_V2.exe.config
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.exe
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.pdb
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\bin\Debug\SENG403_AlarmClock_V2.exe
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\bin\Debug\SENG403_AlarmClock_V2.pdb
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.csprojResolveAssemblyReference.cache
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\AlarmUserControl.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\GlobalSettings.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\MainWindow.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\NewAlarmWindow.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\NotificationWindow.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\App.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2_Content.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2_MarkupCompile.cache
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2_MarkupCompile.lref
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\AlarmUserControl.baml
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\GlobalSettings.baml
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\MainWindow.baml
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\NewAlarmWindow.baml
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\NotificationWindow.baml
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.g.resources
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.Properties.Resources.resources
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Visual Studio 2015\Projects\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.csproj.GenerateResource.Cache
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\bin\Debug\SENG403_AlarmClock_V2.exe.config
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.exe
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.pdb
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\bin\Debug\SENG403_AlarmClock_V2.exe
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\bin\Debug\SENG403_AlarmClock_V2.pdb
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.csprojResolveAssemblyReference.cache
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\AlarmUserControl.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\GlobalSettings.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\MainWindow.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\NewAlarmWindow.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\NotificationWindow.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\App.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2_Content.g.cs
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2_MarkupCompile.cache
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2_MarkupCompile.lref
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\AlarmUserControl.baml
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\GlobalSettings.baml
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\MainWindow.baml
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\NewAlarmWindow.baml
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\NotificationWindow.baml
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.g.resources
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.Properties.Resources.resources
+\\samba.cs.ucalgary.ca\rajat.singh\Documents\Seng 403\SENG403_AlarmClock_V2\obj\Debug\SENG403_AlarmClock_V2.csproj.GenerateResource.Cache

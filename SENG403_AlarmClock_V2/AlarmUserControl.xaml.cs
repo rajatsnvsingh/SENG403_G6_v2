@@ -35,19 +35,29 @@ namespace SENG403_AlarmClock_V2
             InitializeComponent();
             _parent = parent;
             this.alarm = alarm;
-            AlarmTime_label.Content = alarm.GetNotificationTime().ToString("hh:mm tt");
+            AlarmTime_label.Content = alarm.notifyTime.ToString("hh:mm tt");
 
             formatter = new BinaryFormatter();
+        }
+
+        internal void snoozeAlarm()
+        {
+            alarm.snooze();
+        }
+
+        internal void dismissAlarm()
+        {
+            alarm.update();
+            if (alarm.repeatIntervalDays == -1)
+            {
+                EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Green);
+                EnableDisableAlarm_Button.Content = "Enable";
+            }
         }
 
         public void setTimeLabel(DateTime time)
         {
             AlarmTime_label.Content = time.ToString("hh:mm tt");
-        }
-
-        private void EnableDisableRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-           
         }
 
         private void EnableDisableAlarm_Button_Click(object sender, RoutedEventArgs e)
@@ -56,13 +66,13 @@ namespace SENG403_AlarmClock_V2
             {
                 EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Red);
                 EnableDisableAlarm_Button.Content = "Disable";
-                alarm.enable();
+                alarm.enabled = true;
             }
             else if (EnableDisableAlarm_Button.Content.Equals("Disable"))
             {
                 EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Green);
                 EnableDisableAlarm_Button.Content = "Enable";
-                alarm.disable();
+                alarm.enabled = false;
             }
         }
 
@@ -93,6 +103,17 @@ namespace SENG403_AlarmClock_V2
             //close stream to yield file access
             fileStream.Close();
                 
+        }
+
+        internal void requestAlarmWithCheck(DateTime currentTime)
+        {
+            DateTime clone = alarm.notifyTime.AddMinutes(5);
+            if (alarm.enabled && alarm.notifyTime.CompareTo(MainWindow.currentTime) <= 0 && currentTime.CompareTo(clone) < 0)
+               
+            {
+                if (alarm.enabled) Console.WriteLine("Test" + alarm.notifyTime);
+                new NotificationWindow(this).ShowDialog();
+            }
         }
 
         private void EditAlarm_Click(object sender, RoutedEventArgs e)
