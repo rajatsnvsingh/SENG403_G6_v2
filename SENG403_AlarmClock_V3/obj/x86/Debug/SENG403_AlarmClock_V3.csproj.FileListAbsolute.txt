@@ -197,7 +197,6 @@ C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\Al
 C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\AlarmUserControl.xbf
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\App.xbf
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\AlarmUserControl.xbf
-C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\EditAlarmPage.xbf
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\MainPage.xbf
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\SettingsPage.xbf
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\SENG403_AlarmClock_V3.xr.xml
@@ -315,8 +314,6 @@ C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmC
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\App.g.cs
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmUserControl.g.i.cs
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmUserControl.g.cs
-C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\EditAlarmPage.g.i.cs
-C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\EditAlarmPage.g.cs
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\MainPage.g.i.cs
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\MainPage.g.cs
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\SettingsPage.g.i.cs
@@ -324,12 +321,10 @@ C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmC
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\XamlTypeInfo.g.cs
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\App.xaml
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmUserControl.xaml
-C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\EditAlarmPage.xaml
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\MainPage.xaml
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\SettingsPage.xaml
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\App.xbf
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmUserControl.xbf
-C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\EditAlarmPage.xbf
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\MainPage.xbf
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\SettingsPage.xbf
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\XamlSaveStateFile.xml
@@ -402,11 +397,6 @@ C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmC
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\ProjectArchitectures.txt
 C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\SENG403_AlarmClock_V3.csprojResolveAssemblyReference.cache
-C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\AlarmNotificationPage.xbf
-C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmNotificationPage.g.i.cs
-C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmNotificationPage.g.cs
-C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmNotificationPage.xaml
-C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmNotificationPage.xbf
 C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\AlarmNotificationPage.xbf
 C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\EditAlarmPage.xbf
 C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\SettingsPage.xbf
@@ -422,3 +412,13 @@ C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\Ed
 C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\SettingsPage.xbf
 C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\AlarmNotificationPage.xbf
 C:\Users\Owner\Source\Repos\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\EditAlarmPage.xbf
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\System.Drawing.dll
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\System.Configuration.dll
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\System.Security.dll
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\System.Drawing.xml
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\System.Configuration.xml
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\bin\x86\Debug\System.Security.xml
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\System.Drawing\en-US\System.Drawing.Res.resw
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\System.Configuration\en-US\System.Configuration.resw
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\System.Security\en-US\system.security.resw
+C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\obj\x86\Debug\SENG403_AlarmClock_V3.csproj.GenerateResource.Cache

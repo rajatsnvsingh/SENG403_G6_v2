@@ -334,6 +334,15 @@
     <AppxPackagedFile Include="C:\Users\tcai\.nuget\packages\System.Xml.XmlSerializer\4.0.10\lib\netcore50\System.Xml.XmlSerializer.dll">
       <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Drawing.dll">
+      <PackagePath>System.Drawing.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Configuration.dll">
+      <PackagePath>System.Configuration.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Security.dll">
+      <PackagePath>System.Security.dll</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V3\Assets\missileAlert.wav">
       <PackagePath>Assets\missileAlert.wav</PackagePath>
     </AppxPackagedFile>

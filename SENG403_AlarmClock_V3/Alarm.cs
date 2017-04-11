@@ -1,18 +1,18 @@
 ﻿using SENG403_AlarmClock_V3;
 using System;
 using System.Runtime.Serialization;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
-namespace SENG403_AlarmClock_V2
+namespace SENG403_AlarmClock_V3
 {
+    public enum AlarmState { NONE, FIRST_TO_GO_OFF, SIDE_NOTIFICATION }
+
     [DataContract]
     public class Alarm
-    {
-        private const string DEFAULT_ALARM_SOUND = @"C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\Sounds\missileAlert.wav";
-
-        private MediaElement alarmSound;
-        //instance variables
+    { 
         [DataMember]
         public DateTime defaultAlarmTime { get; set; } //default time (for repeated alarms)
         [DataMember]
@@ -25,39 +25,41 @@ namespace SENG403_AlarmClock_V2
         public int repeatIntervalDays { get; set; } //how many days before alarm goes off
         [DataMember]
         public string label { get; set; }
+        [DataMember]
+        public bool initialized { get; set; }
+        [DataMember]
+        public AlarmState currentState { get; set;} //whether this is the first alarm that went off (needed to handle multiple alarm gracefully)
+
+        private const string DEFAULT_ALARM_SOUND = @"C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\Sounds\missileAlert.wav";
+        public MediaPlayer mediaPlayer { get; set; }
 
         internal void setWeeklyAlarm(DayOfWeek day, TimeSpan ts)
         {
-            enabled = true;
+            enabled = false;
+            initialized = true;
             repeatIntervalDays = 7;
             defaultAlarmTime = DateTime.Today.AddDays(day - DateTime.Now.DayOfWeek).Add(ts);
             if (defaultAlarmTime.CompareTo(DateTime.Now) <= 0)
-                defaultAlarmTime.AddDays(repeatIntervalDays);
+                defaultAlarmTime = defaultAlarmTime.AddDays(repeatIntervalDays);
             notifyTime = defaultAlarmTime;
         }
 
         internal void setDailyAlarm(TimeSpan ts)
         {
-            enabled = true;
+            enabled = false;
+            initialized = true;
             repeatIntervalDays = 1;
             defaultAlarmTime = DateTime.Today.Add(ts);
             if (defaultAlarmTime.CompareTo(DateTime.Now) <= 0)
-                defaultAlarmTime.AddDays(1);
+                defaultAlarmTime = defaultAlarmTime.AddDays(1);
             notifyTime = defaultAlarmTime;
         }
 
         internal void setOneTimeAlarm(DateTime dateTime)
         {
-            enabled = true;
+            initialized = true;
             repeatIntervalDays = -1;
             notifyTime = defaultAlarmTime = dateTime;
-        }
-
-        public Alarm(DateTime alarmTime, int repeatInterval, double snoozeTime)
-        {
-            defaultAlarmTime = notifyTime = alarmTime;
-            this.repeatIntervalDays = repeatInterval;
-            this.snoozeTime = snoozeTime;
         }
 
         /// <summary>
@@ -66,18 +68,18 @@ namespace SENG403_AlarmClock_V2
         /// <param name="alarmFile"></param>
         public Alarm(string alarmFile, double snoozeTime)
         {
-            enabled = false;
+            label = "An alarm";
+            currentState = AlarmState.NONE;
+            enabled = initialized = false;
             this.snoozeTime = snoozeTime;
-            setUpSound();
         }
 
-        public async void setUpSound()
+        public void playAlarmSound()
         {
-            alarmSound = new MediaElement();
-            StorageFolder folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            folder = await folder.GetFolderAsync("Assets");
-            StorageFile sf = await folder.GetFileAsync("missileAlert.wav");
-            //alarmSound.Source = new Uri("///Assets/missileAlert.wav");
+            mediaPlayer = new MediaPlayer();
+            Uri pathUri = new Uri("ms-appx:///Assets/missileAlert.wav");
+            mediaPlayer.Source = MediaSource.CreateFromUri(pathUri);
+            mediaPlayer.Play();
         }
 
         /// <summary>
@@ -91,21 +93,17 @@ namespace SENG403_AlarmClock_V2
 
         public void snooze()
         {
+            mediaPlayer.Pause();
+            currentState = AlarmState.NONE;
             notifyTime = MainPage.currentTime.AddMinutes(snoozeTime);
-            enabled = true;
         }
 
-        internal void play()
+        internal void updateAlarmTime()
         {
-            alarmSound.Volume = 10;
-        }
-
-        public void update()
-        {
-            alarmSound.Volume = 0;
+            mediaPlayer.Pause();
+            currentState = AlarmState.NONE;
             if (repeatIntervalDays != -1)
             {
-                enabled = true;
                 defaultAlarmTime = defaultAlarmTime.AddDays(repeatIntervalDays);
                 notifyTime = defaultAlarmTime;
             }
