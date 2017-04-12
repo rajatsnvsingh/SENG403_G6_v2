@@ -26,8 +26,10 @@ namespace SENG403_AlarmClock_V2
 
         private Stream fileStream;
         private BinaryFormatter formatter;
-        
 
+        /// <summary>
+        /// Initializes edit alarm window with alarm data
+        /// </summary>
         public NewAlarmWindow(AlarmUserControl alarmControl)
         {
             InitializeComponent();
@@ -46,6 +48,9 @@ namespace SENG403_AlarmClock_V2
 
         }
 
+        /// <summary>
+        /// Confirms settings and updates the user controls alarm when done button is clicked
+        /// </summary>
         private void Done_Click(object sender, RoutedEventArgs e)
         { 
             DateTime alarmTime;
@@ -136,6 +141,9 @@ namespace SENG403_AlarmClock_V2
             this.Close();
         }
 
+        /// <summary>
+        /// Ignores any changes and closes edit window when Cancel button is clicked
+        /// </summary>
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -151,18 +159,28 @@ namespace SENG403_AlarmClock_V2
             
         }
 
+        /// <summary>
+        /// Displays the days of week for repeat when repeat check box is checked
+        /// </summary>
         private void repeat_checkBox_Checked(object sender, RoutedEventArgs e)
         {
             RadioGrid.Visibility = Visibility.Visible;
             OtherProps.Margin = new Thickness(26, 230, 21, 34);
         }
 
+        /// <summary>
+        /// Hides the days of week for repeat when repeat check box is unchecked
+        /// </summary>
         private void Checkbox_Unchecked(object sender, RoutedEventArgs e)
         {
 
             RadioGrid.Visibility = Visibility.Collapsed;
             OtherProps.Margin = new Thickness(26, 149, 21, 34);
         }
+
+        /// <summary>
+        /// Moves window with mouse when dragged
+        /// </summary>
         private void Global_Mice(object sender, MouseButtonEventArgs e)
         {
 

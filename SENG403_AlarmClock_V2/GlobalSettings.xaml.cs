@@ -20,6 +20,10 @@ namespace SENG403_AlarmClock_V2
     public partial class GlobalSettings : Window
     {
         MainWindow mainWindow;
+
+        /// <summary>
+        /// Initializes the settings with the current values
+        /// </summary>
         public GlobalSettings(MainWindow parent)
         {
             InitializeComponent();
@@ -27,6 +31,9 @@ namespace SENG403_AlarmClock_V2
             Snooze_Selector.DefaultValue = (int)mainWindow.GetSnoozeTime();
         }
 
+        /// <summary>
+        /// Updates the global settings with selected values when done button is clicked
+        /// </summary>
         private void Done_Click(object sender, RoutedEventArgs e)
         {
             foreach (AlarmUserControl u in mainWindow.AlarmList_Panel.Children)
@@ -37,11 +44,17 @@ namespace SENG403_AlarmClock_V2
             this.Close();
         }
 
+        /// <summary>
+        /// Ignores changes and closes window when close button is clicked
+        /// </summary>
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Moves window with mouse when dragged
+        /// </summary>
         private void Global_Mice(object sender, MouseButtonEventArgs e)
         {
 

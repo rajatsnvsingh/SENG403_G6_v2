@@ -23,6 +23,9 @@ namespace SENG403_AlarmClock_V2
 
         private AlarmUserControl alarmControl;
 
+        /// <summary>
+        /// Initializes alarm notification with alarm data
+        /// </summary>
         public NotificationWindow(AlarmUserControl alarm)
         {
             InitializeComponent();
@@ -31,17 +34,27 @@ namespace SENG403_AlarmClock_V2
                 AlarmLabel.Content = alarmControl.alarm.label;
         }
 
+        /// <summary>
+        /// Dismisses alarm when dismiss button is clicked
+        /// </summary>
         private void dismissButton_Click(object sender, RoutedEventArgs e)
         {
             alarmControl.dismissAlarm();
             Close();
         }
 
+        /// <summary>
+        /// Snoozes the alarm which has gone off.
+        /// </summary>
         private void snoozeButton_Click(object sender, RoutedEventArgs e)
         {
             alarmControl.snoozeAlarm();
             Close();
         }
+
+        /// <summary>
+        /// Moves window with mouse when dragged
+        /// </summary>
         private void Global_Mice(object sender, MouseButtonEventArgs e)
         {
 

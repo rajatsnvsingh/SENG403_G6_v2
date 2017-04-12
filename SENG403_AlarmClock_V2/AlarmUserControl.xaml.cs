@@ -29,7 +29,9 @@ namespace SENG403_AlarmClock_V2
         private Stream fileStream;
         private BinaryFormatter formatter;
 
-
+        /// <summary>
+        /// Initializes user control with alarm information 
+        /// </summary>
         public AlarmUserControl(StackPanel parent, Alarm alarm)
         {
             InitializeComponent();
@@ -40,6 +42,9 @@ namespace SENG403_AlarmClock_V2
             formatter = new BinaryFormatter();
         }
 
+        /// <summary>
+        /// Snoozes this alarm controls alarm.
+        /// </summary>
         internal void snoozeAlarm()
         {
             alarm.snooze();
@@ -55,11 +60,18 @@ namespace SENG403_AlarmClock_V2
             }
         }
 
+        /// <summary>
+        /// sets the alarm user control time label to given DateTime
+        /// </summary>
+        /// <param name="time"></param>
         public void setTimeLabel(DateTime time)
         {
             AlarmTime_label.Content = time.ToString("hh:mm tt");
         }
 
+        /// <summary>
+        /// Toggles enable/disable alarm when user presses enable disable button
+        /// </summary>
         private void EnableDisableAlarm_Button_Click(object sender, RoutedEventArgs e)
         {
             if (EnableDisableAlarm_Button.Content.Equals("Enable"))
@@ -76,6 +88,9 @@ namespace SENG403_AlarmClock_V2
             }
         }
 
+        /// <summary>
+        /// Removes alarm when delete alarm button is clicked
+        /// </summary>
         private void DeleteAlarm_Click(object sender, RoutedEventArgs e)
         {
            
@@ -104,7 +119,10 @@ namespace SENG403_AlarmClock_V2
             fileStream.Close();
                 
         }
-
+        /// <summary>
+        /// Method to check if alarm should go off and activate notification if alarm is tripped. 
+        /// </summary>
+        /// <param name="currentTime"></param>
         internal void requestAlarmWithCheck(DateTime currentTime)
         {
             DateTime clone = alarm.notifyTime.AddMinutes(5);
@@ -116,6 +134,9 @@ namespace SENG403_AlarmClock_V2
             }
         }
 
+        /// <summary>
+        /// Opens edit alarm menu when edit button is clicked
+        /// </summary>
         private void EditAlarm_Click(object sender, RoutedEventArgs e)
         {
             new NewAlarmWindow(this).ShowDialog();

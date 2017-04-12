@@ -75,11 +75,17 @@ namespace SENG403_AlarmClock_V2
 
         }
 
+        /// <summary>
+        /// Opens settings window when settings button is clicked
+        /// </summary>
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             new GlobalSettings(this).ShowDialog();
         }
 
+        /// <summary>
+        /// Toggles the alarm side bar visibility when hamburger menu button is pressed
+        /// </summary>
         private void AlarmSideBarButton_Click(object sender, RoutedEventArgs e)
         {
             if (AlarmList_Panel.Visibility == Visibility.Visible) {
@@ -101,6 +107,9 @@ namespace SENG403_AlarmClock_V2
             }
         }
 
+        /// <summary>
+        /// For debug and demo purposes. Increases/Decreases time speed when clock speed slider is moved
+        /// </summary>
         private void ClockSpeedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             dispatcherTimer.Stop();
@@ -109,10 +118,14 @@ namespace SENG403_AlarmClock_V2
             dispatcherTimer.Start();
         }
 
+        /// <summary>
+        /// For debug and demo purposes. Increments the day when add day button is pressed in debug menu
+        /// </summary>
         private void addDayButton_Click(object sender, RoutedEventArgs e)
         {
             currentTime = currentTime.AddDays(1);
         }
+
 
         public double GetSnoozeTime()
         {
@@ -140,6 +153,9 @@ namespace SENG403_AlarmClock_V2
             fileStream.Close();
         }
 
+        /// <summary>
+        /// Displays debug options when debug button is clicked.
+        /// </summary>
         private void Debug_Click(object sender, RoutedEventArgs e)
         {
             if (Debug_Options.Visibility == Visibility.Visible)
