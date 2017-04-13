@@ -30,15 +30,13 @@ namespace SENG403_AlarmClock_V2
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             dispatcherTimer.Start();
-            
-            /*
+ 
             formatter = new BinaryFormatter();
             if(File.Exists("alarmFile.bin"))
             {
-                //AlarmList_Panel.Children.Clear();
+                AlarmList_Panel.Children.Clear();
                 loadAlarmFile();
             }
-            */
         }
 
         /// <summary>
@@ -154,6 +152,7 @@ namespace SENG403_AlarmClock_V2
             {
                 Alarm loadedAlarm = (Alarm) formatter.Deserialize(fileStream);
                 AlarmUserControl alarmControl = new AlarmUserControl(AlarmList_Panel, loadedAlarm);
+                alarmControl.updateDisplay();
                 AlarmList_Panel.Children.Add(alarmControl);
             }
 
@@ -198,7 +197,7 @@ namespace SENG403_AlarmClock_V2
             //write all alarms to file before closing
             foreach(Alarm alarm in AlarmList)
             {
-                //formatter.Serialize(fileStream, alarm);
+                formatter.Serialize(fileStream, alarm);
             }
 
             fileStream.Close();
