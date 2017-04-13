@@ -129,13 +129,15 @@ namespace SENG403_AlarmClock_V2
             //DateTime clone = alarm.notifyTime.AddMinutes(5);
             //Console.WriteLine(1 << (int)currentTime.DayOfWeek);
             //Console.WriteLine(alarm.alarmNotificationDaysMask);
-            if (alarm.enabled && alarm.notifyTime.CompareTo(MainWindow.currentTime) <= 0 
+            if (alarm.enabled && alarm.notifyTime.CompareTo(MainWindow.currentTime) <= 0 && 
+                alarm.notifyTime.AddMinutes(10).CompareTo(MainWindow.currentTime) >= 0
                 && ((1<<(int)currentTime.DayOfWeek) & alarm.alarmNotificationDaysMask) != 0)
             {
                 
                 new NotificationWindow(this).ShowDialog();
             }
-            else if(alarm.enabled && alarm.oneTimeAlarm &&
+            else if(alarm.enabled && alarm.oneTimeAlarm && 
+                alarm.notifyTime.AddMinutes(10).CompareTo(MainWindow.currentTime) >= 0 &&
                 alarm.notifyTime.CompareTo(MainWindow.currentTime) <= 0)
             {
                 new NotificationWindow(this).ShowDialog();

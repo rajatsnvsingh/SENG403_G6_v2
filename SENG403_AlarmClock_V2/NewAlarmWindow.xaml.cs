@@ -54,13 +54,23 @@ namespace SENG403_AlarmClock_V2
         /// </summary>
         private void Done_Click(object sender, RoutedEventArgs e)
         {
-           
-            if (Alarm_DatePicker.SelectedDate == null) return;
-            DateTime d = (DateTime)Alarm_DatePicker.SelectedDate;
+
+            DateTime singleAlarmTime;
+            if (Alarm_DatePicker.SelectedDate == null)
+            {
+                singleAlarmTime = DateTime.Now.Date;
+
+            }
+            else
+            {
+                singleAlarmTime = (DateTime)Alarm_DatePicker.SelectedDate;
+            }
+                
+
             DateTime alarmTime;
             DateTime.TryParse(Alarm_TimePicker.Text, out alarmTime);
-            d = d.Add(alarmTime.TimeOfDay);
-            Console.WriteLine(d);
+            singleAlarmTime = singleAlarmTime.Add(alarmTime.TimeOfDay);
+            Console.WriteLine(singleAlarmTime);
             int mask = 0;
             if(repeat_checkBox.IsChecked == true)
             {
@@ -76,7 +86,7 @@ namespace SENG403_AlarmClock_V2
             else
             {
                 alarmControl.alarm.oneTimeAlarm = true;
-                alarmControl.alarm.defaultAlarmTime = alarmControl.alarm.notifyTime = d;
+                alarmControl.alarm.defaultAlarmTime = alarmControl.alarm.notifyTime = singleAlarmTime;
             }
 
             alarmControl.alarm.firstcreation = true;
