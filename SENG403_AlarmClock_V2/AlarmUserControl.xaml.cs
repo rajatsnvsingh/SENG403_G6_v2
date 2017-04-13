@@ -50,6 +50,9 @@ namespace SENG403_AlarmClock_V2
             alarm.snooze();
         }
 
+        /// <summary>
+        /// turns off the alarm after it has rung
+        /// </summary>
         internal void dismissAlarm()
         {
             alarm.update();
@@ -104,21 +107,23 @@ namespace SENG403_AlarmClock_V2
                 }
             }
 
-            File.Delete("alarmFile.bin");
+            //File.Delete("alarmFile.bin");
 
-            //open file stream to rewrite alarm objects
-            fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+            ////open file stream to rewrite alarm objects
+            //fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
 
-            //rewrite alarm object file based on changes to alarm list
-            foreach (AlarmUserControl alarmControl in _parent.Children)
-            {
-                formatter.Serialize(fileStream, alarmControl.alarm);
-            }
+            ////rewrite alarm object file based on changes to alarm list
+            //foreach (AlarmUserControl alarmControl in _parent.Children)
+            //{
+            //    formatter.Serialize(fileStream, alarmControl.alarm);
+            //}
 
-            //close stream to yield file access
-            fileStream.Close();
+            ////close stream to yield file access
+            //fileStream.Close();
                 
         }
+
+
         /// <summary>
         /// Method to check if alarm should go off and activate notification if alarm is tripped. 
         /// </summary>

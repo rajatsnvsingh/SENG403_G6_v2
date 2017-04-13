@@ -2,6 +2,7 @@
 using System.Windows;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
 
 namespace SENG403_AlarmClock_V2
 {
@@ -16,6 +17,8 @@ namespace SENG403_AlarmClock_V2
 
         private Stream fileStream;
         private BinaryFormatter formatter;
+
+        
 
         
         public MainWindow()
@@ -38,8 +41,15 @@ namespace SENG403_AlarmClock_V2
                 //AlarmList_Panel.Children.Clear();
                 loadAlarmFile();
             }
+
+            
         }
 
+        /// <summary>
+        /// update the time display each second and check if any alarm should go off at that time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             currentTime = currentTime.AddSeconds(1);
@@ -64,7 +74,7 @@ namespace SENG403_AlarmClock_V2
         {
             Alarm newAlarm = new Alarm(@"..\..\Sounds\missileAlert.wav", snoozeTime);
             AlarmUserControl alarmControl = new AlarmUserControl(AlarmList_Panel, newAlarm);
-           // new NewAlarmWindow(alarmControl).ShowDialog();
+            new NewAlarmWindow(alarmControl).ShowDialog();
             AlarmList_Panel.Children.Add(alarmControl);
 
 
@@ -143,6 +153,7 @@ namespace SENG403_AlarmClock_V2
 
             //AlarmList_Panel.Children.Clear();
 
+            //read all alarm objects from file
             while (fileStream.Position != fileStream.Length)
             {
                 Alarm loadedAlarm = (Alarm) formatter.Deserialize(fileStream);
@@ -170,6 +181,31 @@ namespace SENG403_AlarmClock_V2
                 Debug.Content = "Hide Debug";
             }
                
+        }
+
+        /// <summary>
+        /// Before closing program, save the list of alarms into binary file for persistent storage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            List<Alarm> AlarmList = new List<Alarm>();
+            fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+
+            //load all instantiated alarms into a list
+            foreach (AlarmUserControl control in  AlarmList_Panel.Children)
+            {
+                AlarmList.Add(control.alarm);
+            }
+
+            //write all alarms to file before closing
+            foreach(Alarm alarm in AlarmList)
+            {
+                formatter.Serialize(fileStream, alarm);
+            }
+
+            fileStream.Close();
         }
     }
 }

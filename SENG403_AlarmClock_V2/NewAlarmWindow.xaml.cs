@@ -125,18 +125,18 @@ namespace SENG403_AlarmClock_V2
                 
 
             //writes new alarm to object file
-            if(File.Exists("alarmFile.bin"))
-            {
+            //if(File.Exists("alarmFile.bin"))
+            //{
                 
-                fileStream = new FileStream("alarmFile.bin", FileMode.Append, FileAccess.Write, FileShare.None);
-                formatter.Serialize(fileStream, alarmControl.alarm);
-                fileStream.Close();
+            //    fileStream = new FileStream("alarmFile.bin", FileMode.Append, FileAccess.Write, FileShare.None);
+            //    formatter.Serialize(fileStream, alarmControl.alarm);
+            //    fileStream.Close();
           
-            }
-            else
-            {
-                //fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-            }
+            //}
+            //else
+            //{
+            //    //fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+            //}
 
             this.Close();
         }

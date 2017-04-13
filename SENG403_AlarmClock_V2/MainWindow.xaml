@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SENG403_AlarmClock_V2"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
-        Title="TDP Alarm Clock" Height="720" Width="1210" Background="Black">
+        Title="TDP Alarm Clock" Height="720" Width="1210" Background="Black" Closing="MainWindow_Closing">
     <Grid>
         <Image x:Name="clockBackground"  Source="pack://application:,,,/Images/background.jpg" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-56,0" Width="1278" />
         <Grid x:Name="TimeDisplay" Margin="334,237,292,253">
