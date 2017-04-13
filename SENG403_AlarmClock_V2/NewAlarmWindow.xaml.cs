@@ -23,7 +23,6 @@ namespace SENG403_AlarmClock_V2
     {
         private List<String> alarmSounds = new List<string>();
         private AlarmUserControl alarmControl;
-        
         private BinaryFormatter formatter;
 
         /// <summary>
@@ -42,7 +41,10 @@ namespace SENG403_AlarmClock_V2
             Alarm_TimePicker.Value = alarmControl.alarm.notifyTime;
             AlarmMessage.Text = alarmControl.alarm.GetLabel();
 
+            
             formatter = new BinaryFormatter();
+
+            
             
 
         }
@@ -55,16 +57,33 @@ namespace SENG403_AlarmClock_V2
             DateTime alarmTime;
             DateTime.TryParse(Alarm_TimePicker.Text, out alarmTime);
             int mask = 0;
-            if (CheckBox_Sun.IsChecked == true) mask |= (1 << (int)DayOfWeek.Sunday);
-            if (CheckBox_Mon.IsChecked == true) mask |= (1 << (int)DayOfWeek.Monday);
-            if (CheckBox_Tue.IsChecked == true) mask |= (1 << (int)DayOfWeek.Tuesday);
-            if (CheckBox_Wed.IsChecked == true) mask |= (1 << (int)DayOfWeek.Wednesday);
-            if (CheckBox_Thu.IsChecked == true) mask |= (1 << (int)DayOfWeek.Thursday);
-            if (CheckBox_Fri.IsChecked == true) mask |= (1 << (int)DayOfWeek.Friday);
-            if (CheckBox_Sat.IsChecked == true) mask |= (1 << (int)DayOfWeek.Saturday);
-            alarmControl.alarm.setNotificationTime(mask, alarmTime);
-            alarmControl.alarm.label = AlarmMessage.Text;
+            if(repeat_checkBox.IsChecked == true)
+            {
+                if (CheckBox_Sun.IsChecked == true) mask |= (1 << (int)DayOfWeek.Sunday);
+                if (CheckBox_Mon.IsChecked == true) mask |= (1 << (int)DayOfWeek.Monday);
+                if (CheckBox_Tue.IsChecked == true) mask |= (1 << (int)DayOfWeek.Tuesday);
+                if (CheckBox_Wed.IsChecked == true) mask |= (1 << (int)DayOfWeek.Wednesday);
+                if (CheckBox_Thu.IsChecked == true) mask |= (1 << (int)DayOfWeek.Thursday);
+                if (CheckBox_Fri.IsChecked == true) mask |= (1 << (int)DayOfWeek.Friday);
+                if (CheckBox_Sat.IsChecked == true) mask |= (1 << (int)DayOfWeek.Saturday);
+                alarmControl.alarm.setNotificationTime(mask, alarmTime);
+            }
+            else
+            {
+                alarmControl.alarm.oneTimeAlarm = true;
+                alarmControl.alarm.defaultAlarmTime = alarmControl.alarm.notifyTime = alarmTime;
+            }
+
+            alarmControl.alarm.firstcreation = true;
+            
+            if (String.IsNullOrEmpty(AlarmMessage.Text) || String.IsNullOrWhiteSpace(AlarmMessage.Text))
+                alarmControl.alarm.label = "Alarm";
+            else
+                alarmControl.alarm.label = AlarmMessage.Text;
+           
             alarmControl.updateDisplay();
+            Console.WriteLine((string)AlarmTone_comboBox.SelectedItem);
+            alarmControl.alarm.SetSound((string)AlarmTone_comboBox.SelectedItem);
             Close();
         }
 

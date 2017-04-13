@@ -13,11 +13,12 @@ namespace SENG403_AlarmClock_V2
     {
         static public double snoozeTime = 5;
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        System.Windows.Threading.DispatcherTimer dispatcherTimer2 = new System.Windows.Threading.DispatcherTimer();
         public static DateTime currentTime;
 
         private Stream fileStream;
         private BinaryFormatter formatter;
-   
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,15 +31,26 @@ namespace SENG403_AlarmClock_V2
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             dispatcherTimer.Start();
- 
+            dispatcherTimer2.Tick += dispatcherTimer_check;
+            dispatcherTimer2.Interval = new TimeSpan(0, 0, 0, 0, 1000);
+            dispatcherTimer2.Start();
+
             formatter = new BinaryFormatter();
-            if(File.Exists("alarmFile.bin"))
+            if (File.Exists("alarmFile.bin"))
             {
                 AlarmList_Panel.Children.Clear();
                 loadAlarmFile();
             }
         }
+        private void dispatcherTimer_check(object sender, EventArgs e)
+        {
+            
+            foreach (AlarmUserControl u in AlarmList_Panel.Children)
+            {
+                u.requestAlarmWithCheck(currentTime);
+            }
 
+        }
         /// <summary>
         /// update the time display each second and check if any alarm should go off at that time
         /// </summary>
@@ -51,11 +63,7 @@ namespace SENG403_AlarmClock_V2
             minuteLabel.Content = currentTime.ToString(": ss");
             AMPM_thing.Content = currentTime.ToString("tt");
             DayDate.Content = currentTime.ToString("dddd, MMMM dd, yyyy");
-            //int windowsOpen = 0;
-            foreach (AlarmUserControl u in AlarmList_Panel.Children)
-            {
-                u.requestAlarmWithCheck(currentTime);
-            }
+
            
         }
 
@@ -69,6 +77,8 @@ namespace SENG403_AlarmClock_V2
             Alarm newAlarm = new Alarm(@"..\..\Sounds\missileAlert.wav", snoozeTime);
             AlarmUserControl alarmControl = new AlarmUserControl(AlarmList_Panel, newAlarm);
             new NewAlarmWindow(alarmControl).ShowDialog();
+
+            if (newAlarm.firstcreation)
             AlarmList_Panel.Children.Add(alarmControl);
 
 

@@ -7,19 +7,80 @@
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="235"
              Height="80">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="AnimatedSwitch" TargetType="{x:Type ToggleButton}">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="Background" Value="#FAFAFB" />
+                <Setter Property="BorderBrush" Value="#EAEAEB" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Viewbox Stretch="Uniform">
+                                <Canvas Name="Layer_1" Width="20" Height="20" Canvas.Left="10" Canvas.Top="0">
+                                    <Ellipse  Canvas.Left="0" Width="20" Height="20" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="0.5"/>
+                                    <Ellipse  Canvas.Left="15" Width="20" Height="20" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="0.5"/>
+                                    <Border Canvas.Left="10" Width="15" Height="20" Name="rect416927" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0.5,0,0.5"/>
+                                    <Ellipse x:Name="ellipse"  Canvas.Left="0" Width="20" Height="20" Fill="White" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="0.3">
+                                        <Ellipse.RenderTransform>
+                                            <TranslateTransform X="0" Y="0" />
+                                        </Ellipse.RenderTransform>
+                                        <Ellipse.BitmapEffect>
+                                            <DropShadowBitmapEffect Softness="0.1" ShadowDepth="0.7" Direction="270" Color="#BBBBBB"/>
+                                        </Ellipse.BitmapEffect>
+                                    </Ellipse>
+                                </Canvas>
+                            </Viewbox>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True" >
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#52D468" Duration="0:0:0.2" />
+                                                <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" To="#41C955" Duration="0:0:0.2" />
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Ellipse.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="ellipse">
+                                                    <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                                                    <SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="15" KeySpline="0, 1, 0.6, 1"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#8f8f91" Duration="0:0:0.2" />
+                                                <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" To="#c9c9cc" Duration="0:0:0.2" />
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Ellipse.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="ellipse">
+                                                    <SplineDoubleKeyFrame KeyTime="0" Value="15"/>
+                                                    <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="0" KeySpline="0, 0.5, 0.5, 1"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Border BorderBrush="Transparent" BorderThickness="2,2,2,10" >
+        
         <Grid Background="#efefef">
+            
 
             <Label x:Name="AlarmType_label" Foreground="Black" Content="Daily" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,41,0,-1" Height="28" FontWeight="Bold"/>
 
             <Label x:Name="AlarmTime_label" Foreground="Black" Content="4:20:00 am" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top" Height="28" FontWeight="Bold" Width="94" FontSize="16"/>
-            <Button x:Name="EnableDisableAlarm_Button" Background="#1b7731" Foreground="White" Content="Enable" HorizontalAlignment="Center" Margin="128,41,60,5" VerticalAlignment="Center" Width="43" Click="EnableDisableAlarm_Button_Click" Height="22" RenderTransformOrigin="-0.545,1.304" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Button x:Name="EditAlarm_Button" Background="#16a3ff" Foreground="White" Content="Edit" HorizontalAlignment="Left" Margin="180,41,0,0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.2,0.5" Height="22" BorderThickness="0" Click="EditAlarm_Click"/>
             <Button x:Name="DeleteAlarm_Button" Background="Black" HorizontalAlignment="Left" Margin="216,0,0,0" VerticalAlignment="Top" Width="15" Height="15" RenderTransformOrigin="0.333,0.2" Click="DeleteAlarm_Click">
                 <Image Source="pack://application:,,,/Images/x_button.png" RenderOptions.BitmapScalingMode="Fant"></Image>
             </Button>
             <Label x:Name="ReminderLabel" Content="Alarm" HorizontalAlignment="Left" VerticalAlignment="Top" Width="206" FontWeight="Bold" FontSize="18" Height="39" Margin="10,-1,0,0"/>
-
+            <ToggleButton x:Name="EnableAlarmToggleButton" Style="{StaticResource AnimatedSwitch}" Background="#c9c9cc" HorizontalAlignment="Left" Margin="109,41,0,0" VerticalAlignment="Top" Width="54" Height="17" Checked="EnableAlarmToggleButton_Checked" Unchecked="EnableAlarmToggleButton_Unchecked">
+                
+            </ToggleButton>
         </Grid>
     </Border>
 

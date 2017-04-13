@@ -18,10 +18,10 @@ namespace SENG403_AlarmClock_V2
 
         public DateTime notifyTime { get; set; } //when the alarm should go off after being snoozed
         public double snoozeTime { get; set; } //time for snooze period
-        SoundPlayer alarmSound = new SoundPlayer(defaultSoundFile); //sound for alarm notification
+        public SoundPlayer alarmSound = new SoundPlayer(defaultSoundFile); //sound for alarm notification
         public bool enabled { get; set; } //enables and disables alarm
         public bool oneTimeAlarm { get; set; }
-
+        public bool firstcreation = false;
         public string label { get; set; }
 
         public int alarmNotificationDaysMask { get; set; }
@@ -38,6 +38,7 @@ namespace SENG403_AlarmClock_V2
             this.snoozeTime = snoozeTime;
             alarmNotificationDaysMask = 0;
             oneTimeAlarm = false;
+            
         }
 
         /// <summary>
@@ -84,7 +85,11 @@ namespace SENG403_AlarmClock_V2
 
         internal void setNotificationTime(int mask, DateTime alarmTime)
         {
-            alarmNotificationDaysMask = mask;
+            if (mask == 0)
+                oneTimeAlarm = true;
+            else
+                alarmNotificationDaysMask = mask;
+
             defaultAlarmTime = alarmTime;
         }
 

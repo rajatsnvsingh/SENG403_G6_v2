@@ -25,6 +25,7 @@ namespace SENG403_AlarmClock_V2
 
         private Panel _parent;
         public Alarm alarm;
+        public DateTime boundaryTime;
         
         private BinaryFormatter formatter;
 
@@ -57,8 +58,8 @@ namespace SENG403_AlarmClock_V2
             alarm.update();
             if (alarm.oneTimeAlarm)
             {
-                EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Green);
-                EnableDisableAlarm_Button.Content = "Enable";
+                //EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Green);
+                //EnableDisableAlarm_Button.Content = "Enable";
             }
         }
 
@@ -71,24 +72,8 @@ namespace SENG403_AlarmClock_V2
             AlarmTime_label.Content = time.ToString("hh:mm tt");
         }
 
-        /// <summary>
-        /// Toggles enable/disable alarm when user presses enable disable button
-        /// </summary>
-        private void EnableDisableAlarm_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (EnableDisableAlarm_Button.Content.Equals("Enable"))
-            {
-                EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Red);
-                EnableDisableAlarm_Button.Content = "Disable";
-                alarm.enabled = true;
-            }
-            else if (EnableDisableAlarm_Button.Content.Equals("Disable"))
-            {
-                EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Green);
-                EnableDisableAlarm_Button.Content = "Enable";
-                alarm.enabled = false;
-            }
-        }
+        
+ 
 
         /// <summary>
         /// Removes alarm when delete alarm button is clicked
@@ -110,6 +95,8 @@ namespace SENG403_AlarmClock_V2
         internal void updateDisplay()
         {
             AlarmTime_label.Content = alarm.defaultAlarmTime.TimeOfDay.ToString();
+
+            //update type of alarm display
             string type = "";
             if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Sunday)) != 0) type += "Su ";
             if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Monday)) != 0) type += "M ";
@@ -118,6 +105,10 @@ namespace SENG403_AlarmClock_V2
             if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Thursday)) != 0) type += "Th ";
             if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Friday)) != 0) type += "F ";
             if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Saturday)) != 0) type += "Sa ";
+            if (alarm.alarmNotificationDaysMask == 0) type = "No Repeat";
+
+            //update the state of toggle button
+            if (alarm.enabled) EnableAlarmToggleButton.IsChecked = true;
             AlarmType_label.Content = type;
             ReminderLabel.Content = alarm.label;
         }
@@ -134,8 +125,14 @@ namespace SENG403_AlarmClock_V2
             if (alarm.enabled && alarm.notifyTime.CompareTo(MainWindow.currentTime) <= 0 
                 && ((1<<(int)currentTime.DayOfWeek) & alarm.alarmNotificationDaysMask) != 0)
             {
-                Console.WriteLine("Fuck");
+                
                 new NotificationWindow(this).ShowDialog();
+            }
+            else if(alarm.enabled && alarm.oneTimeAlarm &&
+                alarm.notifyTime.CompareTo(MainWindow.currentTime) <= 0)
+            {
+                new NotificationWindow(this).ShowDialog();
+                
             }
         }
 
@@ -145,6 +142,27 @@ namespace SENG403_AlarmClock_V2
         private void EditAlarm_Click(object sender, RoutedEventArgs e)
         {
             new NewAlarmWindow(this).ShowDialog();
+        }
+
+   
+        /// <summary>
+        /// Set alarm to enabled via toggle button state
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnableAlarmToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            alarm.enabled = true;
+        }
+
+        /// <summary>
+        /// Set alarm to disabled via toggle button state
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnableAlarmToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            alarm.enabled = false;
         }
     }
 }

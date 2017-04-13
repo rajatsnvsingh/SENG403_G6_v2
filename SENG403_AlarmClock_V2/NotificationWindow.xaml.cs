@@ -30,6 +30,7 @@ namespace SENG403_AlarmClock_V2
         {
             InitializeComponent();
             alarmControl = alarm;
+            alarm.alarm.alarmSound.Play();
             if (!alarmControl.alarm.label.Equals(""))
                 AlarmLabel.Content = alarmControl.alarm.label;
         }
@@ -40,6 +41,7 @@ namespace SENG403_AlarmClock_V2
         private void dismissButton_Click(object sender, RoutedEventArgs e)
         {
             alarmControl.dismissAlarm();
+            if (alarmControl.alarm.oneTimeAlarm) alarmControl.EnableAlarmToggleButton.IsChecked = false;
             Close();
         }
 
