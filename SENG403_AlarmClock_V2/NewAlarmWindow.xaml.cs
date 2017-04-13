@@ -53,9 +53,14 @@ namespace SENG403_AlarmClock_V2
         /// Confirms settings and updates the user controls alarm when done button is clicked
         /// </summary>
         private void Done_Click(object sender, RoutedEventArgs e)
-        { 
+        {
+           
+            if (Alarm_DatePicker.SelectedDate == null) return;
+            DateTime d = (DateTime)Alarm_DatePicker.SelectedDate;
             DateTime alarmTime;
             DateTime.TryParse(Alarm_TimePicker.Text, out alarmTime);
+            d = d.Add(alarmTime.TimeOfDay);
+            Console.WriteLine(d);
             int mask = 0;
             if(repeat_checkBox.IsChecked == true)
             {
@@ -71,7 +76,7 @@ namespace SENG403_AlarmClock_V2
             else
             {
                 alarmControl.alarm.oneTimeAlarm = true;
-                alarmControl.alarm.defaultAlarmTime = alarmControl.alarm.notifyTime = alarmTime;
+                alarmControl.alarm.defaultAlarmTime = alarmControl.alarm.notifyTime = d;
             }
 
             alarmControl.alarm.firstcreation = true;
@@ -101,6 +106,7 @@ namespace SENG403_AlarmClock_V2
         private void repeat_checkBox_Checked(object sender, RoutedEventArgs e)
         {
             RadioGrid.Visibility = Visibility.Visible;
+            Alarm_DatePicker.Visibility = Visibility.Collapsed;
             OtherProps.Margin = new Thickness(26, 230, 21, 34);
         }
 
@@ -111,6 +117,7 @@ namespace SENG403_AlarmClock_V2
         {
 
             RadioGrid.Visibility = Visibility.Collapsed;
+            Alarm_DatePicker.Visibility = Visibility.Visible;
             OtherProps.Margin = new Thickness(26, 149, 21, 34);
         }
 

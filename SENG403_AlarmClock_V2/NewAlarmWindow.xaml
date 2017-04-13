@@ -13,7 +13,7 @@
         <Rectangle Fill="Transparent" StrokeThickness="0"  HorizontalAlignment="Left" Height="332" Stroke="Black" VerticalAlignment="Top" Width="292"/>
 
         <Label x:Name="Title_Label" Foreground="Black" Content="Edit Alarm" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <Grid x:Name="RadioGrid" Margin="26,153,21,284">
+        <Grid x:Name="RadioGrid" Margin="26,153,10,284" >
             <CheckBox x:Name="CheckBox_Sun" Foreground="Black" Content="Sunday" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <CheckBox x:Name="CheckBox_Mon" Foreground="Black" Content="Monday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0"/>
             <CheckBox x:Name="CheckBox_Tue" Foreground="Black" Content="Tuesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,0,0"/>
@@ -36,6 +36,7 @@
 
         </Grid>
         <xctk:TimePicker x:Name="Alarm_TimePicker" HorizontalAlignment="Left" Margin="26,73,0,0" VerticalAlignment="Top" Width="245"/>
+        <DatePicker x:Name ="Alarm_DatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,150,0,0" Width="225"/>
 
     </Grid>
 </Window>

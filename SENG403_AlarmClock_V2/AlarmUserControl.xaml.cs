@@ -94,22 +94,29 @@ namespace SENG403_AlarmClock_V2
 
         internal void updateDisplay()
         {
-            AlarmTime_label.Content = alarm.defaultAlarmTime.TimeOfDay.ToString();
+            if (!alarm.oneTimeAlarm)
+            {
+                AlarmTime_label.Content = alarm.defaultAlarmTime.TimeOfDay.ToString();
 
-            //update type of alarm display
-            string type = "";
-            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Sunday)) != 0) type += "Su ";
-            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Monday)) != 0) type += "M ";
-            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Tuesday)) != 0) type += "Tu ";
-            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Wednesday)) != 0) type += "W ";
-            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Thursday)) != 0) type += "Th ";
-            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Friday)) != 0) type += "F ";
-            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Saturday)) != 0) type += "Sa ";
-            if (alarm.alarmNotificationDaysMask == 0) type = "No Repeat";
+                //update type of alarm display
+                string type = "";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Sunday)) != 0) type += "Su ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Monday)) != 0) type += "M ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Tuesday)) != 0) type += "Tu ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Wednesday)) != 0) type += "W ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Thursday)) != 0) type += "Th ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Friday)) != 0) type += "F ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Saturday)) != 0) type += "Sa ";
+                AlarmType_label.Content = type;
+            }
+            else
+            {
+                AlarmTime_label.Content = alarm.defaultAlarmTime.ToString();
+                AlarmType_label.Content = "No repeat";
+            }
 
             //update the state of toggle button
             if (alarm.enabled) EnableAlarmToggleButton.IsChecked = true;
-            AlarmType_label.Content = type;
             ReminderLabel.Content = alarm.label;
         }
 

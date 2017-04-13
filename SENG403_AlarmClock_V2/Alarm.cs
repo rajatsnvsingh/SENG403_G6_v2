@@ -21,6 +21,7 @@ namespace SENG403_AlarmClock_V2
         public SoundPlayer alarmSound = new SoundPlayer(defaultSoundFile); //sound for alarm notification
         public bool enabled { get; set; } //enables and disables alarm
         public bool oneTimeAlarm { get; set; }
+        
         public bool firstcreation = false;
         public string label { get; set; }
 

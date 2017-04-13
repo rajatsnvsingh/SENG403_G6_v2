@@ -66,20 +66,20 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Border BorderBrush="Transparent" BorderThickness="2,2,2,10" >
-        
+
         <Grid Background="#efefef">
-            
 
-            <Label x:Name="AlarmType_label" Foreground="Black" Content="Daily" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,41,0,-1" Height="28" FontWeight="Bold"/>
 
-            <Label x:Name="AlarmTime_label" Foreground="Black" Content="4:20:00 am" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top" Height="28" FontWeight="Bold" Width="94" FontSize="16"/>
+            <Label x:Name="AlarmType_label" Foreground="Black" Content="Daily" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0" Height="28" />
+
+            <Label x:Name="AlarmTime_label" Foreground="Black" Content="4:20:00 am" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Height="30"  Width="201" FontSize="14"/>
             <Button x:Name="EditAlarm_Button" Background="#16a3ff" Foreground="White" Content="Edit" HorizontalAlignment="Left" Margin="180,41,0,0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.2,0.5" Height="22" BorderThickness="0" Click="EditAlarm_Click"/>
             <Button x:Name="DeleteAlarm_Button" Background="Black" HorizontalAlignment="Left" Margin="216,0,0,0" VerticalAlignment="Top" Width="15" Height="15" RenderTransformOrigin="0.333,0.2" Click="DeleteAlarm_Click">
                 <Image Source="pack://application:,,,/Images/x_button.png" RenderOptions.BitmapScalingMode="Fant"></Image>
             </Button>
-            <Label x:Name="ReminderLabel" Content="Alarm" HorizontalAlignment="Left" VerticalAlignment="Top" Width="206" FontWeight="Bold" FontSize="18" Height="39" Margin="10,-1,0,0"/>
+            <Label x:Name="ReminderLabel" Content="Alarm" HorizontalAlignment="Left" VerticalAlignment="Top" Width="206" FontWeight="Bold" FontSize="15" Height="27" Margin="10,-4,0,0"/>
             <ToggleButton x:Name="EnableAlarmToggleButton" Style="{StaticResource AnimatedSwitch}" Background="#c9c9cc" HorizontalAlignment="Left" Margin="109,41,0,0" VerticalAlignment="Top" Width="54" Height="17" Checked="EnableAlarmToggleButton_Checked" Unchecked="EnableAlarmToggleButton_Unchecked">
-                
+
             </ToggleButton>
         </Grid>
     </Border>
