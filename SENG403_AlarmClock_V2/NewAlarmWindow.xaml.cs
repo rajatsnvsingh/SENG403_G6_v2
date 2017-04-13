@@ -22,9 +22,8 @@ namespace SENG403_AlarmClock_V2
     public partial class NewAlarmWindow : Window
     {
         private List<String> alarmSounds = new List<string>();
-        AlarmUserControl alarmControl;
-
-        private Stream fileStream;
+        private AlarmUserControl alarmControl;
+        
         private BinaryFormatter formatter;
 
         /// <summary>
@@ -55,90 +54,18 @@ namespace SENG403_AlarmClock_V2
         { 
             DateTime alarmTime;
             DateTime.TryParse(Alarm_TimePicker.Text, out alarmTime);
-            if ((bool)radioButton_Daily.IsChecked)
-            {
-                alarmControl.alarm.setDailyAlarm(alarmTime);
-            }
-            else if ((bool)radioButton_Sun.IsChecked)
-            {
-                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Sunday, alarmTime);
-                alarmControl.AlarmType_label.Content = "Sunday";
-            }
-
-            else if ((bool)radioButton_Sat.IsChecked)
-            {
-                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Saturday, alarmTime);
-                alarmControl.AlarmType_label.Content = "Saturday";
-            }
-
-            else if ((bool)radioButton_Mon.IsChecked)
-            {
-                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Monday, alarmTime);
-                alarmControl.AlarmType_label.Content = "Monday";
-            }
-
-            else if ((bool)radioButton_Tue.IsChecked)
-            {
-                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Tuesday, alarmTime);
-                alarmControl.AlarmType_label.Content = "Tuesday";
-            }
-
-            else if ((bool)radioButton_Wed.IsChecked)
-            {
-                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Wednesday, alarmTime);
-                alarmControl.AlarmType_label.Content = "Wednesday";
-            }
-
-            else if ((bool)radioButton_Thu.IsChecked)
-            {
-                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Thursday, alarmTime);
-                alarmControl.AlarmType_label.Content = "Thursday";
-            }
-
-            else if ((bool)radioButton_Fri.IsChecked)
-            {
-                alarmControl.alarm.setWeeklyAlarm(DayOfWeek.Friday, alarmTime);
-                alarmControl.AlarmType_label.Content = "Friday";
-            }
-            else
-            {
-                alarmControl.alarm.notifyTime = alarmTime;
-                alarmControl.alarm.repeatIntervalDays = -1;
-                alarmControl.AlarmType_label.Content = "No Repeat";
-            }
-            alarmControl.alarm.setSnooze(MainWindow.snoozeTime);
-
-
-            alarmControl.setTimeLabel(alarmTime);
-            alarmControl.alarm.SetSound((String)AlarmTone_comboBox.SelectedValue);
-            if (!AlarmMessage.Text.Equals("Set Alarm Label"))
-            {
-                alarmControl.ReminderLabel.Content = AlarmMessage.Text;
-                alarmControl.alarm.SetLabel(AlarmMessage.Text);
-                if (AlarmMessage.Text.Equals(""))
-                {
-                    alarmControl.ReminderLabel.Content = "Alarm";
-                    alarmControl.alarm.SetLabel("Alarm");
-                }
-                   
-            }
-                
-
-            //writes new alarm to object file
-            //if(File.Exists("alarmFile.bin"))
-            //{
-                
-            //    fileStream = new FileStream("alarmFile.bin", FileMode.Append, FileAccess.Write, FileShare.None);
-            //    formatter.Serialize(fileStream, alarmControl.alarm);
-            //    fileStream.Close();
-          
-            //}
-            //else
-            //{
-            //    //fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-            //}
-
-            this.Close();
+            int mask = 0;
+            if (CheckBox_Sun.IsChecked == true) mask |= (1 << (int)DayOfWeek.Sunday);
+            if (CheckBox_Mon.IsChecked == true) mask |= (1 << (int)DayOfWeek.Monday);
+            if (CheckBox_Tue.IsChecked == true) mask |= (1 << (int)DayOfWeek.Tuesday);
+            if (CheckBox_Wed.IsChecked == true) mask |= (1 << (int)DayOfWeek.Wednesday);
+            if (CheckBox_Thu.IsChecked == true) mask |= (1 << (int)DayOfWeek.Thursday);
+            if (CheckBox_Fri.IsChecked == true) mask |= (1 << (int)DayOfWeek.Friday);
+            if (CheckBox_Sat.IsChecked == true) mask |= (1 << (int)DayOfWeek.Saturday);
+            alarmControl.alarm.setNotificationTime(mask, alarmTime);
+            alarmControl.alarm.label = AlarmMessage.Text;
+            alarmControl.updateDisplay();
+            Close();
         }
 
         /// <summary>
@@ -147,16 +74,6 @@ namespace SENG403_AlarmClock_V2
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void radioButton_Thu_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
         }
 
         /// <summary>

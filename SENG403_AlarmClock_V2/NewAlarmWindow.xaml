@@ -14,21 +14,21 @@
 
         <Label x:Name="Title_Label" Foreground="Black" Content="Edit Alarm" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
         <Grid x:Name="RadioGrid" Margin="26,153,21,284">
-            <RadioButton x:Name="radioButton_Sun" Foreground="Black" Content="Sunday" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <RadioButton x:Name="radioButton_Mon" Foreground="Black" Content="Monday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0"/>
-            <RadioButton x:Name="radioButton_Tue" Foreground="Black" Content="Tuesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,0,0"/>
-            <RadioButton x:Name="radioButton_Wed" Foreground="Black" Content="Wednesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,0,0,0"/>
-            <RadioButton x:Name="radioButton_Thu" Foreground="Black" Content="Thursday" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="radioButton_Thu_Checked" Margin="80,20,0,0"/>
-            <RadioButton x:Name="radioButton_Fri" Foreground="Black" Content="Friday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,40,0,0"/>
-            <RadioButton x:Name="radioButton_Sat" Foreground="Black" Content="Saturday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,0,0,0"/>
-            <RadioButton x:Name="radioButton_Daily" Foreground="Black" Content="Daily" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,20,0,0"/>
+            <CheckBox x:Name="CheckBox_Sun" Foreground="Black" Content="Sunday" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <CheckBox x:Name="CheckBox_Mon" Foreground="Black" Content="Monday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0"/>
+            <CheckBox x:Name="CheckBox_Tue" Foreground="Black" Content="Tuesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,0,0"/>
+            <CheckBox x:Name="CheckBox_Wed" Foreground="Black" Content="Wednesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,0,0,0"/>
+            <CheckBox x:Name="CheckBox_Thu" Foreground="Black" Content="Thursday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,20,0,0"/>
+            <CheckBox x:Name="CheckBox_Fri" Foreground="Black" Content="Friday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,40,0,0"/>
+            <CheckBox x:Name="CheckBox_Sat" Foreground="Black" Content="Saturday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,0,0,0"/>
+            <CheckBox x:Name="CheckBox_Daily" Foreground="Black" Content="Daily" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,20,0,0"/>
         </Grid>
 
         <CheckBox x:Name="repeat_checkBox" Content="Repeat Alarm" Foreground="Black" HorizontalAlignment="Left" Margin="100,118,0,0" VerticalAlignment="Top" Checked="repeat_checkBox_Checked" Unchecked="Checkbox_Unchecked"/>
         <Grid x:Name="OtherProps" Margin="26,251,21,34">
             <Button x:Name="Done" Content="Done" HorizontalAlignment="Left" Margin="147,187,0,0" VerticalAlignment="Top" Width="75" Click="Done_Click" RenderTransformOrigin="0.038,0.393"/>
             <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="21,187,0,0" VerticalAlignment="Top" Width="75" Click="Cancel_Click"/>
-            <ComboBox x:Name="AlarmTone_comboBox" HorizontalAlignment="Left" Margin="61,126,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox_SelectionChanged"/>
+            <ComboBox x:Name="AlarmTone_comboBox" HorizontalAlignment="Left" Margin="61,126,0,0" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="AlarmMessage" HorizontalAlignment="Left" Height="39" Margin="10,34,0,0" TextWrapping="Wrap" Text="Set Alarm Label" VerticalAlignment="Top" Width="225"/>
 
             <Label x:Name="Title_Label_Copy" Foreground="Black" Content="Alarm Label" Margin="73,0,0,0" VerticalAlignment="Top" FontSize="14" Width="91" HorizontalAlignment="Left" FontWeight="Bold"/>

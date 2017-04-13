@@ -17,14 +17,10 @@ namespace SENG403_AlarmClock_V2
 
         private Stream fileStream;
         private BinaryFormatter formatter;
-
-        
-
-        
+   
         public MainWindow()
         {
             InitializeComponent();
-
             //time display elements
             hourLabel.Content = DateTime.Now.ToString("hh : mm");
             minuteLabel.Content = DateTime.Now.ToString(": ss");
@@ -34,15 +30,15 @@ namespace SENG403_AlarmClock_V2
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             dispatcherTimer.Start();
-
+            
+            /*
             formatter = new BinaryFormatter();
             if(File.Exists("alarmFile.bin"))
             {
                 //AlarmList_Panel.Children.Clear();
                 loadAlarmFile();
             }
-
-            
+            */
         }
 
         /// <summary>
@@ -202,7 +198,7 @@ namespace SENG403_AlarmClock_V2
             //write all alarms to file before closing
             foreach(Alarm alarm in AlarmList)
             {
-                formatter.Serialize(fileStream, alarm);
+                //formatter.Serialize(fileStream, alarm);
             }
 
             fileStream.Close();

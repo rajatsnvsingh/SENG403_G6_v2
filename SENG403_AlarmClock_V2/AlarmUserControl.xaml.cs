@@ -25,8 +25,7 @@ namespace SENG403_AlarmClock_V2
 
         private Panel _parent;
         public Alarm alarm;
-
-        private Stream fileStream;
+        
         private BinaryFormatter formatter;
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace SENG403_AlarmClock_V2
         internal void dismissAlarm()
         {
             alarm.update();
-            if (alarm.repeatIntervalDays == -1)
+            if (alarm.oneTimeAlarm)
             {
                 EnableDisableAlarm_Button.Background = new SolidColorBrush(Colors.Green);
                 EnableDisableAlarm_Button.Content = "Enable";
@@ -106,23 +105,22 @@ namespace SENG403_AlarmClock_V2
                     break;
                 }
             }
-
-            //File.Delete("alarmFile.bin");
-
-            ////open file stream to rewrite alarm objects
-            //fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-
-            ////rewrite alarm object file based on changes to alarm list
-            //foreach (AlarmUserControl alarmControl in _parent.Children)
-            //{
-            //    formatter.Serialize(fileStream, alarmControl.alarm);
-            //}
-
-            ////close stream to yield file access
-            //fileStream.Close();
-                
         }
 
+        internal void updateDisplay()
+        {
+            AlarmTime_label.Content = alarm.defaultAlarmTime.TimeOfDay.ToString();
+            string type = "";
+            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Sunday)) != 0) type += "Su ";
+            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Monday)) != 0) type += "M ";
+            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Tuesday)) != 0) type += "Tu ";
+            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Wednesday)) != 0) type += "W ";
+            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Thursday)) != 0) type += "Th ";
+            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Friday)) != 0) type += "F ";
+            if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Saturday)) != 0) type += "Sa ";
+            AlarmType_label.Content = type;
+            ReminderLabel.Content = alarm.label;
+        }
 
         /// <summary>
         /// Method to check if alarm should go off and activate notification if alarm is tripped. 
@@ -130,11 +128,13 @@ namespace SENG403_AlarmClock_V2
         /// <param name="currentTime"></param>
         internal void requestAlarmWithCheck(DateTime currentTime)
         {
-            DateTime clone = alarm.notifyTime.AddMinutes(5);
-            if (alarm.enabled && alarm.notifyTime.CompareTo(MainWindow.currentTime) <= 0 && currentTime.CompareTo(clone) < 0)
-               
+            //DateTime clone = alarm.notifyTime.AddMinutes(5);
+            //Console.WriteLine(1 << (int)currentTime.DayOfWeek);
+            //Console.WriteLine(alarm.alarmNotificationDaysMask);
+            if (alarm.enabled && alarm.notifyTime.CompareTo(MainWindow.currentTime) <= 0 
+                && ((1<<(int)currentTime.DayOfWeek) & alarm.alarmNotificationDaysMask) != 0)
             {
-                if (alarm.enabled) Console.WriteLine("Test" + alarm.notifyTime);
+                Console.WriteLine("Fuck");
                 new NotificationWindow(this).ShowDialog();
             }
         }
