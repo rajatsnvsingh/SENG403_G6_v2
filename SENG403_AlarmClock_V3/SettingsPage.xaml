@@ -8,14 +8,15 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="63,537,0,0" Click="CancelButton_Click"/>
-        <Button x:Name="DoneButton" Content="Done" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="219,537,0,0" Click="ClickDone"/>
-        <TextBox x:Name="SnoozeTimeTextBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Margin="132,81,0,0"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="32,81,0,0" Height="32" Width="95">
+        <Button x:Name="CancelButton" Foreground="White" Content="Cancel" HorizontalAlignment="Left" Background="#931100" VerticalAlignment="Top" Margin="30,482,0,0" Click="CancelButton_Click" Width="135" Height="80" FontSize="24"/>
+        <Button x:Name="DoneButton" Content="Done" Background="#2662c9" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="199,482,0,0" Click="ClickDone" Width="141" Height="80" FontSize="24"/>
+        <TextBox x:Name="SnoozeTimeTextBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Margin="101,160,0,0" FontSize="22"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="35,108,0,0" Height="32" Width="178" FontSize="22">
             <Run Text="Snooze "/>
             <Run Text="Time"/>
         </TextBlock>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="201,81,0,0" Height="32" Width="95" Text="Minute(s)"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="175,165,0,0" Height="32" Width="95" Text="Minute(s)" FontSize="18"/>
+        <TextBlock HorizontalAlignment="Left" TextAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Settings" VerticalAlignment="Top" SelectionChanged="TextBlock_SelectionChanged" FontSize="36" Width="360"/>
 
     </Grid>
 </Page>

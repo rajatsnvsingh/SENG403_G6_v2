@@ -8,28 +8,36 @@ using Windows.UI.Xaml.Media;
 
 namespace SENG403_AlarmClock_V3
 {
+    /// <summary>
+    /// State of the AlarmUserControl
+    /// TODO: get rid of these states
+    /// </summary>
     public enum State { IDLE, EDIT, NOTIFY };
 
+    /// <summary>
+    /// This class handles the logic associated with its alarm (such as checking whether that alarm should go off and
+    /// whether that alarm should display a notification) as well as event handling and data updating for its alarm.
+    /// </summary>
     public sealed partial class AlarmUserControl : UserControl
     {
+        /// <summary>
+        /// The page which is the parent page of AlarmUserControl. This is required so that the AlarmUserControl can
+        /// request UI change on the main page.
+        /// </summary>
         private MainPage mainPage;
+
         public Alarm alarm { get; set; }
+
         public State currentState = State.IDLE;
+        private Color WARNING_COLOR = Color.FromArgb(0xFF, 255, 81, 81);
+        private Color DEFAULT_COLOR = Color.FromArgb(0xFF, 0xc6, 0xc6, 0xc6);
+
 
         public AlarmUserControl(MainPage page, Alarm alarm)
         {
             this.InitializeComponent();
             mainPage = page;
             this.alarm = alarm;
-        }
-
-        private void EnableDisableAlarm_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (!alarm.initialized) return;
-            if (EnableDisableAlarm_Button.Content.Equals("Enable"))
-                enable();
-            else
-                disable();
         }
 
         private void EditAlarm_Click(object sender, RoutedEventArgs e)
@@ -51,6 +59,9 @@ namespace SENG403_AlarmClock_V3
             }
         }
 
+        /// <summary>
+        /// Update the display of the alarm label to match alarm info.
+        /// </summary>
         internal void updateDisplay()
         {
             if (!alarm.initialized)
@@ -59,70 +70,54 @@ namespace SENG403_AlarmClock_V3
                 AlarmTimeLabel.Text = "Alarm Not Set";
                 return;
             }
-            if (alarm.repeatIntervalDays == 7)
-            {
-                if (alarm.defaultAlarmTime.DayOfWeek == DayOfWeek.Monday) AlarmTypeLabel.Text = "Monday";
-                if (alarm.defaultAlarmTime.DayOfWeek == DayOfWeek.Tuesday) AlarmTypeLabel.Text = "Tuesday";
-                if (alarm.defaultAlarmTime.DayOfWeek == DayOfWeek.Wednesday) AlarmTypeLabel.Text = "Wednesday";
-                if (alarm.defaultAlarmTime.DayOfWeek == DayOfWeek.Thursday) AlarmTypeLabel.Text = "Thursday";
-                if (alarm.defaultAlarmTime.DayOfWeek == DayOfWeek.Friday) AlarmTypeLabel.Text = "Friday";
-                if (alarm.defaultAlarmTime.DayOfWeek == DayOfWeek.Saturday) AlarmTypeLabel.Text = "Saturday";
-                if (alarm.defaultAlarmTime.DayOfWeek == DayOfWeek.Sunday) AlarmTypeLabel.Text = "Sunday";
-                AlarmTimeLabel.Text = alarm.defaultAlarmTime.TimeOfDay.ToString();
-            }
-            else if (alarm.repeatIntervalDays == 1)
+            if (alarm.enabled)
+                AlarmEnabledToggle.IsOn = true;
+            if (alarm.alarmNotificationDaysMask == (1 << 7) - 1)
             {
                 AlarmTypeLabel.Text = "Daily";
-                AlarmTimeLabel.Text = alarm.defaultAlarmTime.TimeOfDay.ToString();
-            }
-            else if (alarm.repeatIntervalDays == -1)
+                AlarmTimeLabel.Text = alarm.defaultNotificationTime.TimeOfDay.ToString();
+            } else if (alarm.alarmNotificationDaysMask == 0)
             {
-                AlarmTypeLabel.Text = "No Repeat";
-                AlarmTimeLabel.Text = alarm.defaultAlarmTime.ToString();
+                AlarmTypeLabel.Text = "No repeat";
+                AlarmTimeLabel.Text = alarm.defaultNotificationTime.ToString();
+            } else {
+                string type = "";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Sunday)) != 0) type += "Su ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Monday)) != 0) type += "M ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Tuesday)) != 0) type += "Tu ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Wednesday)) != 0) type += "W ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Thursday)) != 0) type += "Th ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Friday)) != 0) type += "F ";
+                if ((alarm.alarmNotificationDaysMask & (1 << (int)DayOfWeek.Saturday)) != 0) type += "Sa ";
+                AlarmTypeLabel.Text = type;
+                AlarmTimeLabel.Text = alarm.defaultNotificationTime.TimeOfDay.ToString();
             }
-            AlarmLabel.Text = alarm.label;
+            if (!String.IsNullOrEmpty(alarm.label))
+                AlarmLabel.Text = alarm.label;
         }
 
-        internal void setOneTimeAlarm(DateTime dateTime, string label)
-        {
-            alarm.setOneTimeAlarm(dateTime);
-            if (label.Equals("")) alarm.label = "Unlabelled alarm";
-            else alarm.label = label;
-            updateDisplay();
-        }
-
-        internal void setWeeklyAlarm(DayOfWeek day, TimeSpan ts, string label)
-        {
-            alarm.setWeeklyAlarm(day, ts);
-            if (label.Equals("")) alarm.label = "Unlabelled alarm";
-            else alarm.label = label;
-            updateDisplay();
-        }
-
-        internal void setDailyAlarm(TimeSpan ts, string label)
-        {
-            alarm.setDailyAlarm(ts);
-            if (label.Equals("")) alarm.label = "Unlabelled alarm";
-            else alarm.label = label;
-            updateDisplay();
-        }
-
+        /// <summary>
+        /// This method handles checking whether an alarm should go off and updating the UI if the alarm should go off.
+        /// It listens to the timer belonging to the MainPage class.
+        /// </summary>
+        /// <param name="currentTime"></param>
         internal void requestAlarmWithCheck(DateTime currentTime)
         {
-            if (!alarm.enabled || alarm.currentState != AlarmState.NONE) return;
-            if (alarm.notifyTime.CompareTo(currentTime) <= 0)
+            if (!alarm.initialized || !alarm.enabled || alarm.currentState != AlarmState.IDLE) return;
+            if (alarm.currentNotificationTime.CompareTo(currentTime) <= 0)
             {
-                if (!MainPage.ALARM_NOTIFICATION_OPEN)
+                if (!AlarmsManager.IS_ALARM_NOTIFICATION_OPEN)
                 {
                     alarm.playAlarmSound();
-                    MainPage.ALARM_NOTIFICATION_OPEN = true;
+                    AlarmsManager.IS_ALARM_NOTIFICATION_OPEN = true;
                     mainPage.openAlarmNotificationWindow(alarm.label);
                     alarm.currentState = AlarmState.FIRST_TO_GO_OFF;
                 }
                 else
                 {
-                    EnableDisableAlarm_Button.Visibility = Visibility.Collapsed;
+                    bg.Background = new SolidColorBrush(WARNING_COLOR);
                     EditAlarm_Button.Visibility = Visibility.Collapsed;
+                    AlarmEnabledToggle.Visibility = Visibility.Collapsed;
                     DismissAlarmButton.Visibility = Visibility.Visible;
                     SnoozeAlarmButton.Visibility = Visibility.Visible;
                     alarm.currentState = AlarmState.SIDE_NOTIFICATION;
@@ -130,41 +125,60 @@ namespace SENG403_AlarmClock_V3
             }
         }
 
-        public void showWarningMessage()
-        {
-            WarningMessage.Visibility = Visibility.Visible;
-        }
-
         private void DismissAlarmButtonClick(object sender, RoutedEventArgs e)
         {
-            EnableDisableAlarm_Button.Visibility = Visibility.Visible;
-            EditAlarm_Button.Visibility = Visibility.Visible;
+            alarm.updateAlarmTime();
+            if (alarm.oneTimeAlarm) AlarmEnabledToggle.IsOn = false;
+            bg.Background = new SolidColorBrush(DEFAULT_COLOR);
             DismissAlarmButton.Visibility = Visibility.Collapsed;
             SnoozeAlarmButton.Visibility = Visibility.Collapsed;
-            WarningMessage.Visibility = Visibility.Collapsed;
-            alarm.updateAlarmTime();
+            EditAlarm_Button.Visibility = Visibility.Visible;
+            AlarmEnabledToggle.Visibility = Visibility.Visible;
         }
 
-        private void SnoozeButtonClick(object sender, RoutedEventArgs e)
+        private void SnoozeAlarmButtonClick(object sender, RoutedEventArgs e)
         {
-            EnableDisableAlarm_Button.Visibility = Visibility.Visible;
             EditAlarm_Button.Visibility = Visibility.Visible;
+            AlarmEnabledToggle.Visibility = Visibility.Visible;
+            bg.Background = new SolidColorBrush(DEFAULT_COLOR);
             DismissAlarmButton.Visibility = Visibility.Collapsed;
             SnoozeAlarmButton.Visibility = Visibility.Collapsed;
             WarningMessage.Visibility = Visibility.Collapsed;
             alarm.snooze();
         }
 
+        /// <summary>
+        /// Disable the alarm associated with this AlarmUserControl and updating the UI accordingly
+        /// </summary>
         internal void disable()
         {
             alarm.enabled = false;
-            EnableDisableAlarm_Button.Content = "Enable";
+            AlarmEnabledToggle.IsOn = false;
         }
 
+        /// <summary>
+        /// Enable the alarm associated with this AlarmUserControl and updating the UI accordingly
+        /// </summary>
         internal void enable()
         {
             alarm.enabled = true;
-            EnableDisableAlarm_Button.Content = "Disable";
+            AlarmEnabledToggle.IsOn = true;
+        }
+
+        internal void updateAlarmTime()
+        {
+            if (alarm.oneTimeAlarm)
+                AlarmEnabledToggle.IsOn = false;
+            else
+                alarm.updateAlarmTime();
+        }
+
+        private void AlarmEnableToggled(object sender, RoutedEventArgs e)
+        {
+            if (AlarmEnabledToggle.IsOn)
+                alarm.enabled = true;
+            else
+                alarm.enabled = false;
         }
     }
 }

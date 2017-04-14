@@ -1,5 +1,4 @@
-﻿using SENG403_AlarmClock_V2;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,35 +8,14 @@ namespace SENG403_AlarmClock_V3
 {
     class AlarmsManager
     {
-        private List<Alarm> alarms;
-        private static AlarmsManager alarmsManager = null;
+        /// <summary>
+        /// Global snooze time for all alarms
+        /// </summary>
+        public static double SNOOZE_TIME = 1.0;
 
-        private AlarmsManager()
-        {
-            alarms = new List<Alarm>();
-        }
-
-        public static AlarmsManager getAlarmsManager()
-        {
-            if (alarmsManager == null)
-                alarmsManager = new AlarmsManager();
-            return alarmsManager;
-        }
-
-        public void addAlarm(Alarm alarm)
-        {
-
-        }
-
-        public void removeAlarm(Alarm alarm)
-        {
-            foreach (Alarm a in alarms)
-                if (a.Equals(alarm))
-                {
-                    alarms.Remove(a);
-                    return;
-                }
-            throw new ArgumentException();
-        }
+        /// <summary>
+        /// Whether the alarm notification is opened or not (required for handling multiple alarms).
+        /// </summary>
+        public static bool IS_ALARM_NOTIFICATION_OPEN = false;
     }
 }

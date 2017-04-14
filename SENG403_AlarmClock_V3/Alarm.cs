@@ -8,76 +8,79 @@ using Windows.UI.Xaml.Controls;
 
 namespace SENG403_AlarmClock_V3
 {
-    public enum AlarmState { NONE, FIRST_TO_GO_OFF, SIDE_NOTIFICATION }
+    /// <summary>
+    /// State of the alarm
+    /// IDLE: Alarm has not rung (could be either enabled or disabled
+    /// FIRST_TO_GO_OFF: Alarm is the first alarm that rang (out of all the alarms which are currently ringing). 
+    /// If multiple alarms go off, the first alarm that rang will be the only alarm that displays a notification window.
+    /// SIDE_NOTIFICATION: Alarm rang after some other alarm, which has not been dismissed yet.
+    /// </summary>
+    public enum AlarmState { IDLE, FIRST_TO_GO_OFF, SIDE_NOTIFICATION }
 
+    /// <summary>
+    /// This class encapsulates the logic and data associated with an alarm. 
+    /// </summary>
     [DataContract]
     public class Alarm
-    { 
+    {
+        /// <summary>
+        /// defaultNotificationTime is the default time for which the alarm goes off. This is only used for repeating alarms.
+        /// This variable keeps track of when an alarm should go off again in the next cycle (which doesn't depend on
+        /// when the alarm is dismissed).
+        /// </summary>
         [DataMember]
-        public DateTime defaultAlarmTime { get; set; } //default time (for repeated alarms)
-        [DataMember]
-        public DateTime notifyTime { get; set; } //when the alarm should go off after being snoozed
-        [DataMember]
-        public double snoozeTime { get; set; }
-        [DataMember]
-        public bool enabled { get; set; }
-        [DataMember]
-        public int repeatIntervalDays { get; set; } //how many days before alarm goes off
-        [DataMember]
-        public string label { get; set; }
-        [DataMember]
-        public bool initialized { get; set; }
-        [DataMember]
-        public AlarmState currentState { get; set;} //whether this is the first alarm that went off (needed to handle multiple alarm gracefully)
-
-        private const string DEFAULT_ALARM_SOUND = @"C:\Users\tcai\Documents\Visual Studio 2015\Projects\SENG403_G6_v2\SENG403_AlarmClock_V2\Sounds\missileAlert.wav";
-        public MediaPlayer mediaPlayer { get; set; }
-
-        internal void setWeeklyAlarm(DayOfWeek day, TimeSpan ts)
-        {
-            enabled = false;
-            initialized = true;
-            repeatIntervalDays = 7;
-            defaultAlarmTime = DateTime.Today.AddDays(day - DateTime.Now.DayOfWeek).Add(ts);
-            if (defaultAlarmTime.CompareTo(DateTime.Now) <= 0)
-                defaultAlarmTime = defaultAlarmTime.AddDays(repeatIntervalDays);
-            notifyTime = defaultAlarmTime;
-        }
-
-        internal void setDailyAlarm(TimeSpan ts)
-        {
-            enabled = false;
-            initialized = true;
-            repeatIntervalDays = 1;
-            defaultAlarmTime = DateTime.Today.Add(ts);
-            if (defaultAlarmTime.CompareTo(DateTime.Now) <= 0)
-                defaultAlarmTime = defaultAlarmTime.AddDays(1);
-            notifyTime = defaultAlarmTime;
-        }
-
-        internal void setOneTimeAlarm(DateTime dateTime)
-        {
-            initialized = true;
-            repeatIntervalDays = -1;
-            notifyTime = defaultAlarmTime = dateTime;
-        }
+        public DateTime defaultNotificationTime { get; set; }
 
         /// <summary>
-        /// Alarm class constructor, takes in path filename for sound file
+        /// currentNotificationTime keeps track of the alarm should ring again. This is usually the same as defaultAlarmTime, except
+        /// when the user snooze the alarm, in which defaultAlarmTime doesn't change, but notifyAlarmTime := notifyAlarmTime + snoozeTime.
         /// </summary>
-        /// <param name="alarmFile"></param>
-        public Alarm(string alarmFile, double snoozeTime)
+        [DataMember]
+        public DateTime currentNotificationTime { get; set; } //when the alarm should go off after being snoozed
+
+        [DataMember]
+        public double snoozeTime { get; set; }
+
+        [DataMember]
+        public bool enabled { get; set; }
+
+        [DataMember]
+        public string label { get; set; }
+
+        [DataMember]
+        public bool initialized { get; set; }
+
+        [DataMember]
+        public AlarmState currentState { get; set;}
+
+        [DataMember]
+        public int alarmNotificationDaysMask { get; set; }
+
+        [DataMember]
+        public bool oneTimeAlarm { get; set; }
+
+        [DataMember]
+        public int alarmToneIndex { get; set; }
+
+        private const string DEFAULT_ALARM_SOUND = "missileAlert.wav";
+        
+        public MediaPlayer mediaPlayer { get; set; }
+
+        public Alarm(double snoozeTime)
         {
+            alarmToneIndex = 0;
             label = "An alarm";
-            currentState = AlarmState.NONE;
+            currentState = AlarmState.IDLE;
             enabled = initialized = false;
             this.snoozeTime = snoozeTime;
         }
 
+        private static string[] alarmSoundList = new string[] { "troll.wav", "missileAlert.wav", "fogHorn.wav" };
+
         public void playAlarmSound()
         {
             mediaPlayer = new MediaPlayer();
-            Uri pathUri = new Uri("ms-appx:///Assets/missileAlert.wav");
+            Uri pathUri = new Uri("ms-appx:///Assets/" + alarmSoundList[alarmToneIndex]);
             mediaPlayer.Source = MediaSource.CreateFromUri(pathUri);
             mediaPlayer.Play();
         }
@@ -93,24 +96,49 @@ namespace SENG403_AlarmClock_V3
 
         public void snooze()
         {
-            mediaPlayer.Pause();
-            currentState = AlarmState.NONE;
-            notifyTime = MainPage.currentTime.AddMinutes(snoozeTime);
+            currentState = AlarmState.IDLE;
+            currentNotificationTime = MainPage.currentTime.AddMinutes(AlarmsManager.SNOOZE_TIME);
         }
 
+        /// <summary>
+        /// Updates the defaultNotificationTime and currentNotificationTime when an alarm is dismissed.
+        /// </summary>
         internal void updateAlarmTime()
         {
-            mediaPlayer.Pause();
-            currentState = AlarmState.NONE;
-            if (repeatIntervalDays != -1)
-            {
-                defaultAlarmTime = defaultAlarmTime.AddDays(repeatIntervalDays);
-                notifyTime = defaultAlarmTime;
-            }
-            else
+            currentState = AlarmState.IDLE;
+            if (oneTimeAlarm)
             {
                 enabled = false;
             }
+            else
+            {
+                int cur = ((int)MainPage.currentTime.DayOfWeek + 1) % 7;
+                while (((1 << cur) & alarmNotificationDaysMask) == 0) cur = (cur + 1) % 7;
+                defaultNotificationTime = defaultNotificationTime.AddDays((cur + 7 - (int)MainPage.currentTime.DayOfWeek) % 7);
+                currentNotificationTime = defaultNotificationTime;
+            }
+        }
+
+        internal void setRepeatingNotificationTime(int mask, DateTime alarmTime)
+        {
+            initialized = true;
+            alarmNotificationDaysMask = mask;
+            defaultNotificationTime = alarmTime;
+            int cur = (int)alarmTime.Date.DayOfWeek;
+            while (((1<<cur) & alarmNotificationDaysMask) == 0)
+            {
+                cur = (cur + 1) % 7;
+                defaultNotificationTime = defaultNotificationTime.AddDays(1);
+            }
+            currentNotificationTime = defaultNotificationTime;
+        }
+
+        internal void setOnetimeAlarm(DateTime alarmTime)
+        {
+            oneTimeAlarm = true;
+            initialized = true;
+            alarmNotificationDaysMask = 0;
+            defaultNotificationTime = currentNotificationTime = alarmTime;
         }
     }
 }

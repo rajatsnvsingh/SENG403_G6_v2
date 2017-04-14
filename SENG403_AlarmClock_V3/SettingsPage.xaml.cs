@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Navigation;
 namespace SENG403_AlarmClock_V3
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// This page allows the user to edit the alarm settings.
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
@@ -29,13 +29,18 @@ namespace SENG403_AlarmClock_V3
 
         private void ClickDone(object sender, RoutedEventArgs e)
         {
-            MainPage.snoozeTime = Convert.ToDouble(SnoozeTimeTextBox.Text);
+            AlarmsManager.SNOOZE_TIME = Convert.ToDouble(SnoozeTimeTextBox.Text);
             Frame.Navigate(typeof(MainPage));
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
+        }
+
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

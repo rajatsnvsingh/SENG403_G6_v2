@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{DE2F5A38-025D-4A0D-A49C-115B9B5209E3}</ProjectGuid>
+    <ProjectGuid>{983AF099-FBF3-45FB-A593-24B4C8F9AA8C}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SENG403_AlarmClock_V3</RootNamespace>
@@ -12,7 +12,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alarm.cs" />
+    <Compile Include="AlarmsManager.cs" />
     <Compile Include="AlarmUserControl.xaml.cs">
       <DependentUpon>AlarmUserControl.xaml</DependentUpon>
     </Compile>
@@ -114,12 +115,20 @@
     <None Include="SENG403_AlarmClock_V3_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\fogHorn.wav" />
     <Content Include="Assets\missileAlert.wav" />
+    <Content Include="Assets\troll.wav" />
     <Content Include="Images\background.jpg" />
+    <Content Include="Images\Logo.jpg" />
     <Content Include="Images\menu-icon.png" />
     <Content Include="Images\plus-button-green.png" />
     <Content Include="Images\TurnMyWrenchBabay.png" />
     <Content Include="Images\x_button.png" />
+    <Content Include="PhoneImages\background.jpg" />
+    <Content Include="PhoneImages\menu-icon.png" />
+    <Content Include="PhoneImages\plus-button-green.png" />
+    <Content Include="PhoneImages\TurnMyWrenchBabay.png" />
+    <Content Include="PhoneImages\x_button.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -135,8 +144,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="AlarmUserControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -146,12 +155,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Drawing.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

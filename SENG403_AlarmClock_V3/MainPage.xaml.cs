@@ -12,23 +12,32 @@ using Windows.UI.Xaml.Controls;
 namespace SENG403_AlarmClock_V3
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The point of access to the mobile alarm app. Because we haven't figured out how to do page navigation well (in UWP),
+    /// this class contains the main page of the application (where the user can view the time, view the list of set alarms,
+    /// modify existing alarms, and create new alarms), the edit alarm page, and the alarm notification page (which is the
+    /// page that pops up when an alarm goes off). 
+    /// 
+    /// This class is also responsible for handling persistent storage (loading and saving alarms to local storage), and
+    /// handling alarm notification when the first alarm goes off (subsequent alarm notifications are handled by the 
+    /// AlarmUserControl class because those notifications would only change the AlarmUserControlUI).
     /// </summary>
     public sealed partial class MainPage : Page
     {
         public static DateTime currentTime;
-        public static double snoozeTime = 1.0;
-
+        public static String[] AlarmSoundsList= new String[] {"Careless Whisper", "Missile Alert", "Fog Horn"};
         public DispatcherTimer dispatcherTimer = new DispatcherTimer();
-
-        //constants
-        public static string DEFAULT_ALARM_SOUND = "";
+       
+        /// <summary>
+        /// The name of the file which stores alarm information.
+        /// </summary>
         public static string ALARMS_FILE = "alarms.txt";
-        public static bool ALARM_NOTIFICATION_OPEN = false;
 
         public MainPage()
         {
             InitializeComponent();
+            alarmtoneSelector.ItemsSource = AlarmSoundsList;
+            alarmtoneSelector.SelectedIndex = 0;
+            
             currentTime = DateTime.Now;
             updateTimeDisplay(currentTime);
             dispatcherTimer.Tick += DispatcherTimer_Tick;
@@ -36,6 +45,10 @@ namespace SENG403_AlarmClock_V3
             dispatcherTimer.Start();
         }
 
+        /// <summary>
+        /// A helper method for updating the current date and time displayed displayed in the main page GUI.
+        /// </summary>
+        /// <param name="time"> Current time </param>
         private void updateTimeDisplay(DateTime time)
         {
             HourText.Text = time.ToString("hh:mm");
@@ -47,6 +60,30 @@ namespace SENG403_AlarmClock_V3
             AlarmNotificationWindowDate.Text = time.ToString("dddd, MMMM dd, yyyy");
         }
 
+        /// <summary>
+        /// Updates the system every second.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DispatcherTimer_Tick(object sender, object e)
+        {
+            currentTime = DateTime.Now;
+            updateTimeDisplay(currentTime);
+
+            foreach (AlarmUserControl u in AlarmList_Panel.Children)
+            {
+                u.requestAlarmWithCheck(currentTime);
+            }
+        }
+
+        /// Persistent Storage
+
+        /// <summary>
+        /// This method is called whenever the user navigates to this page so that the most up-to-date
+        /// list of alarms will be loaded from persistent storage and displayed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public async void pageLoaded(Object sender, RoutedEventArgs e)
         {
             await loadAlarmsFromJSON();
@@ -56,11 +93,22 @@ namespace SENG403_AlarmClock_V3
                 if (u.alarm.currentState == AlarmState.FIRST_TO_GO_OFF)
                 {
                     openAlarmNotificationWindow(u.alarm.label);
-                    ALARM_NOTIFICATION_OPEN = true;
+                    u.alarm.playAlarmSound();
+                    AlarmsManager.IS_ALARM_NOTIFICATION_OPEN = true;
                 }
             }
         }
 
+        private async void pageUnloaded(object sender, RoutedEventArgs e)
+        {
+            await saveAlarmsToJSON(getAlarms());
+        }
+
+        /// <summary>
+        /// Save the current list of alarms into the ALARMS_FILE.
+        /// </summary>
+        /// <param name="alarms"> List of alarms to be saved to ALARMS_FILE. </param>
+        /// <returns></returns>
         public async Task saveAlarmsToJSON(List<Alarm> alarms)
         {
             var serializer = new DataContractJsonSerializer(typeof(List<Alarm>));
@@ -72,17 +120,10 @@ namespace SENG403_AlarmClock_V3
             }
         }
 
-        public List<Alarm> getAlarms()
-        {
-            List<Alarm> ret = new List<Alarm>();
-            foreach (AlarmUserControl u in AlarmList_Panel.Children)
-            {
-                if (u.alarm.initialized)
-                    ret.Add(u.alarm);
-            }
-            return ret;
-        }
-
+        /// <summary>
+        /// Load Alarm data from ALARM_FILE and uses that data to intialize the StackPanel that displays the alarms.
+        /// </summary>
+        /// <returns></returns>
         private async Task loadAlarmsFromJSON()
         {
             List<Alarm> alarms;
@@ -106,113 +147,78 @@ namespace SENG403_AlarmClock_V3
             }
         }
 
-        private void DispatcherTimer_Tick(object sender, object e)
+        /// <summary>
+        /// Gets the list of currently set alarms.
+        /// </summary>
+        /// <returns>The list of alarms currently in the StackPanel which displays the list of alarms set by the user. </returns>
+        public List<Alarm> getAlarms()
         {
-            currentTime = DateTime.Now;
-            updateTimeDisplay(currentTime);
-
+            List<Alarm> ret = new List<Alarm>();
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
-                u.requestAlarmWithCheck(currentTime);
+                if (u.alarm.initialized)
+                    ret.Add(u.alarm);
             }
+            return ret;
         }
 
-        private void PhoneAddAlarmButton_Click(object sender, RoutedEventArgs e)
+        /// General user input handling
+        private void AddAlarmButton_Click(object sender, RoutedEventArgs e)
         {
-            AlarmUserControl alarmControl = new AlarmUserControl(this, new Alarm(DEFAULT_ALARM_SOUND, snoozeTime));
+            AlarmUserControl alarmControl = new AlarmUserControl(this, new Alarm(AlarmsManager.SNOOZE_TIME));
             AlarmList_Panel.Children.Add(alarmControl);
         }
 
-        private async void Settings_Clicked(object sender, RoutedEventArgs e)
+        private async void AlarmsSettingsButton_Clicked(object sender, RoutedEventArgs e)
         {
             await saveAlarmsToJSON(getAlarms());
             dispatcherTimer.Tick -= DispatcherTimer_Tick;
             Frame.Navigate(typeof(SettingsPage));
         }
 
-        private void SideBarButtonClick(object sender, RoutedEventArgs e)
-        {
-            /*
-            if(AlarmList_Panel.Visibility ==  Visibility.Visible)
-            {
-                TimeDateGrid.Margin = new Thickness(40, 208, 58, 300);
-                AlarmList_Panel.Visibility = Visibility.Collapsed;
-            }
-            else if(AlarmList_Panel.Visibility == Visibility.Collapsed)
-            {
-                TimeDateGrid.Margin = new Thickness(40, 90, 58, 420);
-                AlarmList_Panel.Visibility = Visibility.Visible;
-            }
-            */
-        }
-
-        internal void destroy()
-        {
-            dispatcherTimer.Tick -= DispatcherTimer_Tick;
-        }
-
-        private async void pageUnloaded(object sender, RoutedEventArgs e)
-        {
-            await saveAlarmsToJSON(getAlarms());
-        }
-
-        //Edit Alarm Window
         internal void openEditPage()
         {
             EditAlarmPage.Visibility = Visibility.Visible;
+            AlarmLabelTextbox.Text = "";
         }
 
-        private void DoneButtonClicked(object sender, RoutedEventArgs e)
+        //Edit Alarm Window
+        private void DoneEditAlarmButtonClicked(object sender, RoutedEventArgs e)
         {
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
                 if (u.currentState == State.EDIT)
                 {
                     u.currentState = State.IDLE;
-                    TimeSpan ts = timePicker.Time;
-                    string label = AlarmLabelTextbox.Text;
-                    if (!repeatCheckbox.IsChecked == true)
+                    u.alarm.label = AlarmLabelTextbox.Text;
+                    int index = alarmtoneSelector.SelectedIndex;
+                    if (repeatCheckbox.IsChecked == true)
                     {
-                        u.setOneTimeAlarm(DateTime.Today.Add(ts), label);
+                        DateTime alarmTime = currentTime.Date.Date.Add(timePicker.Time);
+                        int mask = 0;
+                        if (CheckBox_Sun.IsChecked == true) mask |= (1 << (int)DayOfWeek.Sunday);
+                        if (CheckBox_Mon.IsChecked == true) mask |= (1 << (int)DayOfWeek.Monday);
+                        if (CheckBox_Tue.IsChecked == true) mask |= (1 << (int)DayOfWeek.Tuesday);
+                        if (CheckBox_Wed.IsChecked == true) mask |= (1 << (int)DayOfWeek.Wednesday);
+                        if (CheckBox_Thu.IsChecked == true) mask |= (1 << (int)DayOfWeek.Thursday);
+                        if (CheckBox_Fri.IsChecked == true) mask |= (1 << (int)DayOfWeek.Friday);
+                        if (CheckBox_Sat.IsChecked == true) mask |= (1 << (int)DayOfWeek.Saturday);
+                        u.alarm.setRepeatingNotificationTime(mask, alarmTime);
+                        u.updateDisplay();
                     }
-                    else if (Monday.IsChecked == true)
+                    else
                     {
-                        u.setWeeklyAlarm(DayOfWeek.Monday, ts, label);
+                        DateTime alarmTime = datePicker.Date.Date.Add(timePicker.Time);
+                        u.alarm.setOnetimeAlarm(alarmTime);
+                        u.updateDisplay();
                     }
-                    else if (Tuesday.IsChecked == true)
-                    {
-                        u.setWeeklyAlarm(DayOfWeek.Tuesday, ts, label);
-                    }
-                    else if (Wednesday.IsChecked == true)
-                    {
-                        u.setWeeklyAlarm(DayOfWeek.Wednesday, ts, label);
-                    }
-                    else if (Thursday.IsChecked == true)
-                    {
-                        u.setWeeklyAlarm(DayOfWeek.Thursday, ts, label);
-                    }
-                    else if (Friday.IsChecked == true)
-                    {
-                        u.setWeeklyAlarm(DayOfWeek.Friday, ts, label);
-                    }
-                    else if (Saturday.IsChecked == true)
-                    {
-                        u.setWeeklyAlarm(DayOfWeek.Saturday, ts, label);
-                    }
-                    else if (Sunday.IsChecked == true)
-                    {
-                        u.setWeeklyAlarm(DayOfWeek.Sunday, ts, label);
-                    }
-                    else if (Daily.IsChecked == true)
-                    {
-                        u.setDailyAlarm(ts, label);
-                    }
+                    u.alarm.alarmToneIndex = index;
                 }
             }
             EditAlarmPage.Visibility = Visibility.Collapsed;
         }
 
-        private void CancelButtonClicked(object sender, RoutedEventArgs e)
+        private void CancelEditAlarmButtonClicked(object sender, RoutedEventArgs e)
         {
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
@@ -221,13 +227,13 @@ namespace SENG403_AlarmClock_V3
             EditAlarmPage.Visibility = Visibility.Collapsed;
         }
 
-        private void repeatCheckboxChecked(object sender, RoutedEventArgs e)
+        private void RepeatingAlarmCheckboxChecked(object sender, RoutedEventArgs e)
         {
             datePicker.Visibility = Visibility.Collapsed;
             repeatedAlarms.Visibility = Visibility.Visible;
         }
 
-        private void repeatCheckboxUnchecked(object sender, RoutedEventArgs e)
+        private void RepeatingAlarmCheckboxUnchecked(object sender, RoutedEventArgs e)
         {
             datePicker.Visibility = Visibility.Visible;
             repeatedAlarms.Visibility = Visibility.Collapsed;
@@ -243,27 +249,42 @@ namespace SENG403_AlarmClock_V3
 
         private void DismissButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!ALARM_NOTIFICATION_OPEN)
-                throw new Exception("Alarm notification window was not open but dismiss button somehow got clicked on");
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
                 if (u.alarm.currentState.Equals(AlarmState.FIRST_TO_GO_OFF))
-                    u.alarm.updateAlarmTime();
+                {
+                    u.updateAlarmTime();
+                    try { u.alarm.mediaPlayer.Pause(); } catch (Exception exc) { }
+                }
             }
             AlarmNotification.Visibility = Visibility.Collapsed;
-            MainPage.ALARM_NOTIFICATION_OPEN = false;
+            AlarmsManager.IS_ALARM_NOTIFICATION_OPEN = false;
         }
 
         private void SnoozeButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!ALARM_NOTIFICATION_OPEN)
-                throw new Exception("Alarm notification window was not open but snooze button somehow got clicked on");
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
                 if (u.alarm.currentState == AlarmState.FIRST_TO_GO_OFF)
+                {
                     u.alarm.snooze();
+                    try { u.alarm.mediaPlayer.Pause(); } catch (Exception exc) { }
+                }
             AlarmNotification.Visibility = Visibility.Collapsed;
-            MainPage.ALARM_NOTIFICATION_OPEN = false;
+            AlarmsManager.IS_ALARM_NOTIFICATION_OPEN = false;
         }
 
+        private void DailyCheckboxChecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox_Sun.IsChecked = CheckBox_Mon.IsChecked = 
+                CheckBox_Tue.IsChecked = CheckBox_Wed.IsChecked = CheckBox_Thu.IsChecked =
+                CheckBox_Fri.IsChecked = CheckBox_Sat.IsChecked = true;
+        }
+
+        private void DailyCheckboxUnchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox_Sun.IsChecked = CheckBox_Mon.IsChecked =
+                CheckBox_Tue.IsChecked = CheckBox_Wed.IsChecked = CheckBox_Thu.IsChecked =
+                CheckBox_Fri.IsChecked = CheckBox_Sat.IsChecked = false;
+        }
     }
 }

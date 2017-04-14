@@ -6,62 +6,70 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="pageLoaded">
-    
-    <Grid Background="White">
 
 
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Image HorizontalAlignment="Left" Height="600" Margin="0,40,0,0" VerticalAlignment="Top" Width="360">
+            <Image.Source>
+                <BitmapImage  UriSource="../../images/background.jpg" />
+            </Image.Source>
+        </Image>
         <Rectangle Fill="Black" HorizontalAlignment="Left" Height="65" Stroke="Black" VerticalAlignment="Top" Width="360"/>
-
-
-        <Button x:Name="PhoneAddAlarmButton" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="44" Width="45" Click="PhoneAddAlarmButton_Click">
+        <Button x:Name="PhoneAddAlarmButton" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="44" Width="45" Click="AddAlarmButton_Click">
             <Image Source="/Images/plus-button-green.png" Margin="-22.667,-10,-22.333,-10" HorizontalAlignment="Left" Height="44" Width="45"/>
 
         </Button>
-        <Button x:Name="PhoneSettingsButton" HorizontalAlignment="Left" Margin="305,10,0,0" VerticalAlignment="Top" Height="44" Width="45" Click="Settings_Clicked">
+        <Button x:Name="PhoneSettingsButton" HorizontalAlignment="Left" Margin="305,10,0,0" VerticalAlignment="Top" Height="44" Width="45" Click="AlarmsSettingsButton_Clicked">
             <Image Source="/Images/TurnMyWrenchBabay.png" Margin="-10,-8"/>
 
         </Button>
-        <Grid Margin="80,97,67,455">
-            <TextBlock x:Name="HourText" Foreground="Black" FontSize="50" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" Text="04:20"/>
-            <TextBlock x:Name="MinuteText" Foreground="Black" FontSize="25" HorizontalAlignment="Left" TextWrapping="Wrap" Text=":20" VerticalAlignment="Top" Margin="124,27,0,0"/>
-            <TextBlock x:Name="AMPMText" Foreground="Black" FontSize="32" HorizontalAlignment="Left" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" Height="40" Width="63" Margin="165,19,0,0"/>
-        </Grid>
-        <TextBlock x:Name="DayDateText" Foreground="Black" FontSize="24" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Munday, March 66, 2917" VerticalAlignment="Top" Margin="60,190,0,0"/>
-        <Grid Margin="0,560,0,0" Background="Black">
-            <TextBlock x:Name="GroupNameText"  Foreground="White" TextAlignment="Center" FontSize="24" HorizontalAlignment="Center" TextWrapping="Wrap" Text="The Dining Philosophers" VerticalAlignment="Bottom" Width="360" FontFamily="Lucida Calligraphy" FontStyle="Italic" Height="33" Margin="0,0,0,15"/>
-        </Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,260,10,85" >
+        <TextBlock x:Name="HourText" Foreground="White" FontSize="50" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="137" Text="04:20" Margin="60,101,0,0" FontWeight="Bold" FontFamily="Segoe UI Light"/>
+        <TextBlock x:Name="MinuteText" Foreground="White" FontSize="25" HorizontalAlignment="Left" TextWrapping="Wrap" Text=":20" VerticalAlignment="Top" Margin="197,119,0,0"/>
+        <TextBlock x:Name="AMPMText" Foreground="White" FontSize="32" HorizontalAlignment="Left" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" Height="40" Width="63" Margin="238,112,0,0"/>
+        <TextBlock x:Name="DayDateText" Foreground="White" FontSize="24" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Munday, March 66, 2917" VerticalAlignment="Top" Margin="60,166,0,0"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,215,10,50" >
             <StackPanel x:Name="AlarmList_Panel" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="340" />
         </ScrollViewer>
+        <Image HorizontalAlignment="Left" Height="65" VerticalAlignment="Top" Width="233" Margin="60,0,0,0">
+            <Image.Source>
+                <BitmapImage  UriSource="../../images/logo.jpg" />
+            </Image.Source>
+        </Image>
         <Grid x:Name="EditAlarmPage" Visibility="Collapsed">
-            <Rectangle Fill="White" HorizontalAlignment="Left" Height="640" Stroke="Black" VerticalAlignment="Top" Width="360"/>
-            <Grid x:Name="repeatedAlarms">
-                <RadioButton x:Name="Monday" Foreground ="Black" Content="Monday" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,243,0,0"/>
-                <RadioButton x:Name="Tuesday" Foreground ="Black" Content="Tuesday" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="177,243,0,0"/>
-                <RadioButton x:Name="Wednesday" Foreground ="Black" Content="Wednesday" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,274,0,0"/>
-                <RadioButton x:Name="Thursday" Content="Thursday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="177,274,0,0"/>
-                <RadioButton x:Name="Friday" Content="Friday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,305,0,0"/>
-                <RadioButton x:Name="Saturday" Content="Saturday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="177,305,0,0"/>
-                <RadioButton x:Name="Sunday" Content="Sunday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="34,336,0,0"/>
-                <RadioButton x:Name="Daily" Content="Daily" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="177,336,0,0" IsChecked="True"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="640" Stroke="Black" VerticalAlignment="Top" Width="360"/>
+            <Grid x:Name="repeatedAlarms" Visibility="Collapsed">
+                <Grid Margin="69,201,28,281">
+                    <CheckBox x:Name="CheckBox_Mon" Foreground ="White" Content="Monday" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,0,0,0"/>
+                    <CheckBox x:Name="CheckBox_Tue" Foreground ="White" Content="Tuesday" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="143,0,0,0"/>
+                    <CheckBox x:Name="CheckBox_Wed" Foreground ="White" Content="Wednesday" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,31,0,0"/>
+                    <CheckBox x:Name="CheckBox_Thu" Foreground ="White" Content="Thursday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="143,31,0,0"/>
+                    <CheckBox x:Name="CheckBox_Fri" Content="Friday" Foreground ="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,62,0,0"/>
+                    <CheckBox x:Name="CheckBox_Sat" Content="Saturday" Foreground ="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="143,62,0,0"/>
+                    <CheckBox x:Name="CheckBox_Sun" Content="Sunday" Foreground ="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,93,0,0"/>
+                    <CheckBox x:Name="CheckBox_Daily" Content="Daily" Foreground ="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="143,93,0,0" Checked="DailyCheckboxChecked" Unchecked="DailyCheckboxUnchecked"/>
+                </Grid>
             </Grid>
-            <Button x:Name="CancelButton" FontSize="20" Background="#c40600" Foreground="White" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="34,540,0,0" Height="42" Width="140" Click="CancelButtonClicked"/>
-            <Button x:Name="DoneButton" FontSize="20" Background="Green" Foreground="White" Content="Done" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,540,0,0" Width="140" Height="42" Click="DoneButtonClicked"/>
+            <Button x:Name="CancelButton" FontSize="20" Background="#931100" Foreground="White" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="34,540,0,0" Height="42" Width="140" Click="CancelEditAlarmButtonClicked"/>
+            <Button x:Name="DoneButton" FontSize="20" Background="#2662c9" Foreground="White" Content="Done" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,540,0,0" Width="140" Height="42" Click="DoneEditAlarmButtonClicked"/>
             <TimePicker x:Name="timePicker" Time="13:00" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,110,0,0" Width="294"/>
             <DatePicker x:Name="datePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="34,63,0,0"/>
-            <CheckBox x:Name="repeatCheckbox" IsChecked="True" Foreground="White" Content="Repeat Alarm" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,167,0,0" Checked="repeatCheckboxChecked" Unchecked="repeatCheckboxUnchecked"/>
-            <TextBox x:Name="AlarmLabelTextbox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="36,419,0,0" Height="73" Width="294"/>
-            <TextBlock HorizontalAlignment="Left" Margin="120,10,0,0" TextWrapping="Wrap" Text="Edit Alarm" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+            <CheckBox x:Name="repeatCheckbox" IsChecked="False" Foreground="White" Content="Repeat Alarm" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="119,157,0,0" Checked="RepeatingAlarmCheckboxChecked" Unchecked="RepeatingAlarmCheckboxUnchecked"/>
+            <TextBox x:Name="AlarmLabelTextbox" Foreground="White" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="36,451,0,0" Height="41" Width="294"/>
+            <TextBlock HorizontalAlignment="Left" Foreground ="White" Margin="120,10,0,0" TextWrapping="Wrap" Text="Edit Alarm" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Left" Foreground="White" Margin="36,426,0,0" TextWrapping="Wrap" Text="Label" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Foreground="White"  Margin="34,362,0,0" TextWrapping="Wrap" Text="Alarm Tone" VerticalAlignment="Top"/>
+            <ComboBox x:Name="alarmtoneSelector" HorizontalAlignment="Left" Margin="34,387,0,0" VerticalAlignment="Top" Width="120"/>
         </Grid>
         <Grid x:Name="AlarmNotification" Visibility="Collapsed">
-            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="640" Stroke="Black" VerticalAlignment="Top" Width="360"/>
-            <TextBlock x:Name="AlarmNotificationWindowTime" HorizontalAlignment="Left" Margin="60,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="41" Width="245" FontSize="24" />
-            <TextBlock x:Name="AlarmNotificationWindowDate" HorizontalAlignment="Left" Margin="60,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="41" Width="245" FontSize="24" />
-            <TextBlock x:Name="AlarmNotifyMessage" HorizontalAlignment="Left" Margin="60,171,0,0" TextWrapping="Wrap" Text="An alarm has gone off at 4:20pm!" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="78" Width="245" FontSize="24"/>
-            <TextBlock x:Name="AlarmLabel" HorizontalAlignment="Left" Margin="60,294,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="80" Width="245" FontSize="24"/>
-            <Button x:Name="DismissButton" Content="Dismiss" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="208,426,0,0" Click="DismissButtonClick"/>
-            <Button x:Name="SnoozeButton" Content="Snooze" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,426,0,0" Click="SnoozeButtonClick"/>
-            <TextBlock HorizontalAlignment="Left" Margin="60,249,0,0" TextWrapping="Wrap" Text="Alarm Message:" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="40" Width="245" FontSize="24"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="640" Stroke="Black" VerticalAlignment="Top" Width="360"/>
+            <TextBlock x:Name="AlarmNotificationWindowTime" Foreground="White" HorizontalAlignment="Left" Margin="60,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="41" Width="245" FontSize="24" />
+            <TextBlock x:Name="AlarmNotificationWindowDate" Foreground="White" HorizontalAlignment="Left" Margin="60,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="41" Width="245" FontSize="24" />
+            <TextBlock x:Name="AlarmNotifyMessage" Foreground="White" HorizontalAlignment="Left" Margin="60,171,0,0" TextWrapping="Wrap" Text="An alarm has gone off at 4:20pm!" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="78" Width="245" FontSize="24"/>
+            <TextBlock x:Name="AlarmLabel" Foreground="White" HorizontalAlignment="Left" Margin="60,294,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="80" Width="245" FontSize="24"/>
+            <Button x:Name="DismissButton" Content="Dismiss" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="187,436,0,0" Click="DismissButtonClick" Width="142" Height="78" FontSize="24"/>
+            <Button x:Name="SnoozeButton" Content="Snooze" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="42,436,0,0" Click="SnoozeButtonClick" Height="78" Width="122" FontSize="24"/>
+            <TextBlock HorizontalAlignment="Left" Foreground="White" Margin="60,249,0,0" TextWrapping="Wrap" Text="Alarm Message:" VerticalAlignment="Top" RenderTransformOrigin="1.244,0.688" Height="40" Width="245" FontSize="24"/>
         </Grid>
+        <Image HorizontalAlignment="Left" Height="100" Margin="321,-90,-61,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Page>
