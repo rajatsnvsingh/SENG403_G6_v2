@@ -21,7 +21,7 @@ namespace SENG403_AlarmClock_V2
         public SoundPlayer alarmSound = new SoundPlayer(defaultSoundFile); //sound for alarm notification
         public bool enabled { get; set; } //enables and disables alarm
         public bool oneTimeAlarm { get; set; }
-        
+
         public bool firstcreation = false;
         public string label { get; set; }
 
@@ -39,7 +39,7 @@ namespace SENG403_AlarmClock_V2
             this.snoozeTime = snoozeTime;
             alarmNotificationDaysMask = 0;
             oneTimeAlarm = false;
-            
+
         }
 
         /// <summary>
@@ -87,11 +87,23 @@ namespace SENG403_AlarmClock_V2
         internal void setNotificationTime(int mask, DateTime alarmTime)
         {
             if (mask == 0)
+            {
                 oneTimeAlarm = true;
+                defaultAlarmTime = notifyTime = alarmTime;
+            }
             else
+            {
                 alarmNotificationDaysMask = mask;
-
-            defaultAlarmTime = alarmTime;
+                defaultAlarmTime = alarmTime;
+                int cur = (int)alarmTime.Date.DayOfWeek;
+                while (((1 << cur) & alarmNotificationDaysMask) == 0)
+                {
+                    cur = (cur + 1) % 7;
+                    defaultAlarmTime = defaultAlarmTime.AddDays(1);
+                }
+                notifyTime = defaultAlarmTime;
+                Console.WriteLine(notifyTime);
+            }
         }
 
         /// <summary>
@@ -152,7 +164,7 @@ namespace SENG403_AlarmClock_V2
         /// </summary>
         public void update()
         {
-            
+
             alarmSound.Stop();
             if (oneTimeAlarm)
             {
@@ -164,6 +176,7 @@ namespace SENG403_AlarmClock_V2
                 while (((1 << cur) & alarmNotificationDaysMask) == 0) cur = (cur + 1) % 7;
                 defaultAlarmTime = defaultAlarmTime.AddDays((cur + 7 - (int)MainWindow.currentTime.DayOfWeek) % 7);
                 notifyTime = defaultAlarmTime;
+                Console.WriteLine(notifyTime);
             }
         }
     }

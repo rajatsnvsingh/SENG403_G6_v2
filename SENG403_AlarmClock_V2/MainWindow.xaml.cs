@@ -44,7 +44,7 @@ namespace SENG403_AlarmClock_V2
         }
         private void dispatcherTimer_check(object sender, EventArgs e)
         {
-            
+
             foreach (AlarmUserControl u in AlarmList_Panel.Children)
             {
                 u.requestAlarmWithCheck(currentTime);
@@ -64,7 +64,7 @@ namespace SENG403_AlarmClock_V2
             AMPM_thing.Content = currentTime.ToString("tt");
             DayDate.Content = currentTime.ToString("dddd, MMMM dd, yyyy");
 
-           
+
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace SENG403_AlarmClock_V2
             new NewAlarmWindow(alarmControl).ShowDialog();
 
             if (newAlarm.firstcreation)
-            AlarmList_Panel.Children.Add(alarmControl);
+                AlarmList_Panel.Children.Add(alarmControl);
 
 
         }
@@ -102,7 +102,8 @@ namespace SENG403_AlarmClock_V2
         /// </summary>
         private void AlarmSideBarButton_Click(object sender, RoutedEventArgs e)
         {
-            if (AlarmList_Panel.Visibility == Visibility.Visible) {
+            if (AlarmList_Panel.Visibility == Visibility.Visible)
+            {
                 AlarmList_Panel.Visibility = Visibility.Collapsed;
                 AddAlarmButton.Visibility = Visibility.Collapsed;
                 SettingsButton.Visibility = Visibility.Collapsed;
@@ -160,7 +161,7 @@ namespace SENG403_AlarmClock_V2
             //read all alarm objects from file
             while (fileStream.Position != fileStream.Length)
             {
-                Alarm loadedAlarm = (Alarm) formatter.Deserialize(fileStream);
+                Alarm loadedAlarm = (Alarm)formatter.Deserialize(fileStream);
                 AlarmUserControl alarmControl = new AlarmUserControl(AlarmList_Panel, loadedAlarm);
                 alarmControl.updateDisplay();
                 AlarmList_Panel.Children.Add(alarmControl);
@@ -185,7 +186,7 @@ namespace SENG403_AlarmClock_V2
                 Debug_Options.Visibility = Visibility.Visible;
                 Debug.Content = "Hide Debug";
             }
-               
+
         }
 
         /// <summary>
@@ -199,13 +200,13 @@ namespace SENG403_AlarmClock_V2
             fileStream = new FileStream("alarmFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
 
             //load all instantiated alarms into a list
-            foreach (AlarmUserControl control in  AlarmList_Panel.Children)
+            foreach (AlarmUserControl control in AlarmList_Panel.Children)
             {
                 AlarmList.Add(control.alarm);
             }
 
             //write all alarms to file before closing
-            foreach(Alarm alarm in AlarmList)
+            foreach (Alarm alarm in AlarmList)
             {
                 formatter.Serialize(fileStream, alarm);
             }
