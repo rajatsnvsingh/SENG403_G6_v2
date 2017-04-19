@@ -21,7 +21,7 @@
             <CheckBox x:Name="CheckBox_Thu" Foreground="Black" Content="Thursday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,20,0,0"/>
             <CheckBox x:Name="CheckBox_Fri" Foreground="Black" Content="Friday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,40,0,0"/>
             <CheckBox x:Name="CheckBox_Sat" Foreground="Black" Content="Saturday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,0,0,0"/>
-            <CheckBox x:Name="CheckBox_Daily" Foreground="Black" Content="Daily" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,20,0,0"/>
+            <CheckBox x:Name="CheckBox_Daily" Foreground="Black" Content="Daily" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,20,0,0"/>
         </Grid>
 
         <CheckBox x:Name="repeat_checkBox" Content="Repeat Alarm" Foreground="Black" HorizontalAlignment="Left" Margin="100,118,0,0" VerticalAlignment="Top" Checked="repeat_checkBox_Checked" Unchecked="Checkbox_Unchecked"/>

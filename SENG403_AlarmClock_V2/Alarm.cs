@@ -173,8 +173,12 @@ namespace SENG403_AlarmClock_V2
             else
             {
                 int cur = ((int)MainWindow.currentTime.DayOfWeek + 1) % 7;
-                while (((1 << cur) & alarmNotificationDaysMask) == 0) cur = (cur + 1) % 7;
-                defaultAlarmTime = defaultAlarmTime.AddDays((cur + 7 - (int)MainWindow.currentTime.DayOfWeek) % 7);
+                defaultAlarmTime = defaultAlarmTime.AddDays(1);
+                while (((1 << cur) & alarmNotificationDaysMask) == 0)
+                {
+                    cur = (cur + 1) % 7;
+                    defaultAlarmTime = defaultAlarmTime.AddDays(1);
+                }
                 notifyTime = defaultAlarmTime;
                 Console.WriteLine(notifyTime);
             }
